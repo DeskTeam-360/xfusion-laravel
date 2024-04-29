@@ -10,14 +10,14 @@
 
     <!-- Favicon icon-->
     <link rel="shortcut icon" type="image/png"
-          href="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/favicon.png"/>
+          href="{{ asset('assets/images/logos/favicon.png') }}"/>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
           rel="stylesheet"/>
     <link rel="stylesheet" href="{{asset('assets/fonts/icons/tabler-icons/tabler-icons.css')}}">
     <!-- Core Css -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}">
-    <title>Modernize TailwindCSS HTML Admin Template</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="stylesheet" href="{{ asset('vendor/carousel/carousel.min.css') }}">
 </head>
 
@@ -26,14 +26,9 @@
 <main>
     <!--start the project-->
     <div id="main-wrapper" class="flex">
-
-
         @include('layouts.admin-component.sidebar-vertical')
 
-
         <!-- </aside> -->
-
-
         <div class="page-wrapper w-full" role="main">
             <!--  Header Start -->
             @include('layouts.admin-component.header')
@@ -45,9 +40,7 @@
 
             <!-- Main Content -->
             <div class=" max-w-full pt-6">
-
-                        {{ $slot }}
-
+                {{ $slot }}
             </div>
             <!-- Main Content End -->
         </div>

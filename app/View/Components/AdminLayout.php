@@ -15,26 +15,26 @@ class AdminLayout extends Component
     {
 
         $this->navbars = [
-            [
-                'title' => 'Apps',
-                'type' => 'dropdown',
-                'app_list_two_side' => true,
-                'quick_links' => [
-                    ['title' => 'title 1', 'route' => '#',],
-                    ['title' => 'title 2', 'route' => '#',],
-                ],
-                'app_lists_left' => [
-                    ['title' => 'title 11', 'sub-title' => 'sub title 1', 'icon_links' => '', 'route' => '#',],
-                    ['title' => 'title 12', 'sub-title' => 'sub title 1', 'icon_links' => '', 'route' => '#',],
-                    ['title' => 'title 13', 'sub-title' => 'sub title 1', 'icon_links' => '', 'route' => '#',],
-                ],
-                'app_lists_right' => [
-                    ['title' => 'title 21', 'sub-title' => 'sub title 2', 'icon_links' => '', 'route' => '#',],
-                    ['title' => 'title 22', 'sub-title' => 'sub title 2', 'icon_links' => '', 'route' => '#',],
-                    ['title' => 'title 23', 'sub-title' => 'sub title 2', 'route' => '#',],
-                ]
-            ],
-            ['title' => 'Chat', 'type' => 'link', 'route' => '#', 'icon' => 'ti ti-api-app'],
+//            [
+//                'title' => 'Apps',
+//                'type' => 'dropdown',
+//                'app_list_two_side' => true,
+//                'quick_links' => [
+//                    ['title' => 'title 1', 'route' => '#',],
+//                    ['title' => 'title 2', 'route' => '#',],
+//                ],
+//                'app_lists_left' => [
+//                    ['title' => 'title 11', 'sub-title' => 'sub title 1', 'icon_links' => '', 'route' => '#',],
+//                    ['title' => 'title 12', 'sub-title' => 'sub title 1', 'icon_links' => '', 'route' => '#',],
+//                    ['title' => 'title 13', 'sub-title' => 'sub title 1', 'icon_links' => '', 'route' => '#',],
+//                ],
+//                'app_lists_right' => [
+//                    ['title' => 'title 21', 'sub-title' => 'sub title 2', 'icon_links' => '', 'route' => '#',],
+//                    ['title' => 'title 22', 'sub-title' => 'sub title 2', 'icon_links' => '', 'route' => '#',],
+//                    ['title' => 'title 23', 'sub-title' => 'sub title 2', 'route' => '#',],
+//                ]
+//            ],
+//            ['title' => 'Chat', 'type' => 'link', 'route' => '#', 'icon' => 'ti ti-api-app'],
         ];
 
         $this->sidebar = [
@@ -42,6 +42,8 @@ class AdminLayout extends Component
                 'title' => 'Home',
                 'lists' => [
                     ['title' => 'Dashboard', 'type' => 'link', 'route' => '#', 'icon' => '<i class="ti ti-brand-chrome  text-xl flex-shrink-0"></i> '],
+                    ['title' => 'Companies', 'type' => 'link', 'route' => route('company.index'), 'icon' => '<i class="ti ti-apps  text-xl flex-shrink-0"></i> '],
+                    ['title' => 'Users', 'type' => 'link', 'route' => '#', 'icon' => '<i class="ti ti-users  text-xl flex-shrink-0"></i> '],
                     [
                         'title' => 'Form Elements', 'type' => 'accordion',
                         'icon' => '<i class="ti ti-brand-chrome  text-xl flex-shrink-0"></i>',
