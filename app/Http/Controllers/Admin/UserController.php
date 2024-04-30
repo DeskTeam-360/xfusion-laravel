@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class CompanyController extends Controller
     public function index()
     {
         return view(
-            'admin.company.index'
+            'admin.user.index'
         );
     }
 
@@ -22,7 +22,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('admin.company.create');
+        return view('admin.user.create');
     }
 
     /**
@@ -38,7 +38,7 @@ class CompanyController extends Controller
      */
     public function show(string $id)
     {
-        return view('admin.company.show',compact('id'));
+        return view('admin.user.reset-password',compact('id'));
     }
 
     /**
@@ -46,7 +46,7 @@ class CompanyController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admin.company.edit', compact('id'));
+        return view('admin.user.edit', compact('id'));
     }
 
     /**

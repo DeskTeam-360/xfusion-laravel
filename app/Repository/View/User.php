@@ -10,7 +10,9 @@ class User extends \App\Models\User implements View
     public static function tableSearch($params = null): Builder
     {
         $query = $params['query'];
-        return empty($query) ? static::query() : static::query();
+//        config('app.wp_prefix', 'wp_').'capabilities')
+        return empty($query) ? static::query()
+            : static::query();
     }
 
     public static function tableView(): array
@@ -25,7 +27,7 @@ class User extends \App\Models\User implements View
         return [
             ['label' => '#', 'sort' => 'id', 'width' => '7%'],
             ['label' => 'Name', 'sort' => 'name'],
-            ['label' => 'Email', 'sort' => 'email'],
+            ['label' => 'Company'],
             ['label' => 'Role', 'sort' => 'role'],
             ['label' => 'Aksi'],
         ];
@@ -33,24 +35,45 @@ class User extends \App\Models\User implements View
 
     public static function tableData($data = null): array
     {
-        if ($data->role == 1) {
-            $role = 'Super Admin';
-        } elseif ($data->role == 2) {
-            $role = 'Pegawai';
-        } else {
-            $role = 'Pengguna';
-        }
-        //        $action = [];
-        //        if ($data->role==3 or auth()->user()->role==1){
-        //            $action[]=['title' => 'Edit', 'icon' => 'fa fa-eye', 'bg'=>"blue", 'link' => route('admin.users.edit',$data->id)];
-        //            $action[]=['title' => 'Hapus', 'icon' => 'fa fa-trash', 'bg'=>"red", 'link' => route('admin.users.non-active',$data->id)];
-        //        }
 
+//        dd(config('app.wp_prefix', 'wp_'));
+        $roles = $data->meta->where('meta_key', '=', config('app.wp_prefix', 'wp_') . 'capabilities');
+        $role = '';
+        foreach ($roles as $r) {
+            $role = array_key_first(unserialize($r['meta_value']));
+        }
+        if ($role == "administrator") {
+            return [];
+        }
+        $companies = $data->meta->where('meta_key', '=', 'company');
+        $company = '-';
+        $link=route('user.edit',$data->ID);
+        $link2=route('user.show',$data->ID);
+        foreach ($companies as $r) {
+            $c = \App\Models\Company::find($r['meta_value']);
+            if ($c != null) {
+
+                $company = $c->title;
+            } else {
+                $company = 'Company has been delete';
+            }
+        }
         return [
-            ['type' => 'index'],
-            ['type' => 'string', 'data' => $data->name],
-            ['type' => 'string', 'data' => $data->email],
+            ['type' => 'string', 'data' => $data->ID],
+            ['type' => 'raw_html', 'data' =>
+                "<div>
+$data->user_nicename <br>
+<div style='font-size: 10px'>$data->email</div>
+</div>"
+            ],
+            ['type' => 'string', 'data' => $company],
             ['type' => 'string', 'data' => $role],
+            ['type' => 'raw_html', 'text-align' => 'center', 'data' => "
+<div class='flex gap-1'>
+<span><a href='$link' class='btn btn-primary'>Edit</a></span>
+<span><a href='#' class='btn btn-error'>delete</a></span>
+<span><a href='$link2' class='btn btn-secondary'>Reset Password</a></span>
+</div>"],
         ];
     }
 }

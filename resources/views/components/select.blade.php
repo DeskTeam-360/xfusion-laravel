@@ -2,7 +2,7 @@
 @php($id = "component-".rand(0,1000))
 <div class="{{ $class }}">
 
-    <label for="{{ $id }}" class="form-label mb-2 text-black">
+    <label for="{{ $id }}" class="form-label mb-2">
         {{ $title }} @if($required) <span class="text-red-600">*</span> @endif
     </label>
 

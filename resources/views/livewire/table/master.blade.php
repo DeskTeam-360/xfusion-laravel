@@ -4,7 +4,7 @@
             <span>
             Per Page: &nbsp;
             <select wire:model="perPage"
-                    class="bg-gray-200 appearance-none border-1 border border-gray-100 rounded w-full px-4 py-2 text-gray-700 leading-tight focus:outline-none dark:border-primary-light focus:bg-gray-100 dark:bg-dark dark:text-light focus:dark:border-white"
+                    class="bg-gray-200 appearance-none border-1 border border-gray-100 rounded w-full px-4 py-2  leading-tight focus:outline-none dark:border-primary-light focus:bg-gray-100 dark:bg-dark dark:text-light focus:dark:border-white"
                     style="">
                 <option>10</option>
                 <option>15</option>
@@ -19,7 +19,7 @@
                 <span class="w-full">
                     Pencarian
                     <input wire:model="search"
-                           class="text-dark bg-gray-200 appearance-none border-1 border border-gray-100 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none dark:border-primary-light focus:bg-gray-100 dark:bg-dark dark:text-light focus:dark:border-white"
+                           class=" bg-gray-200 appearance-none border-1 border rounded w-full py-2 px-4  leading-tight focus:outline-none dark:border-primary-light focus:bg-gray-100 dark:bg-dark dark:text-light focus:dark:border-white"
                            type="text" placeholder="Pencarian...">
                 </span>
             </div>
@@ -29,7 +29,7 @@
                 <span class="w-full">
                     Tanggal
                     <input wire:model="param1"
-                           class="text-dark bg-gray-200 appearance-none border-1 border border-gray-100 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none dark:border-primary-light focus:bg-gray-100 dark:bg-dark dark:text-light focus:dark:border-white"
+                           class="text-dark bg-gray-200 appearance-none border-1 border border-gray-100 rounded w-full py-2 px-4  leading-tight focus:outline-none dark:border-primary-light focus:bg-gray-100 dark:bg-dark dark:text-light focus:dark:border-white"
                            type="date" placeholder="Pencarian...">
                 </span>
             </div>
@@ -40,9 +40,9 @@
     <div class="grid grid-cols-1 gap-3 p-4 lg:grid-cols-1 xl:grid-cols-1">
         <div class="overflow-x-auto relative ">
             <table
-                class="border-collapse border-wishka-400 w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded table-auto">
-                <thead class=" text-md text-uppercase text-gray-700 uppercase dark:bg-dark dark:text-white text-bold">
-                <tr class="border-b-[3px] border-wishka-400 border-collapse">
+                class="border-collapse border-wishka-400 w-full text-sm text-left rounded table-auto">
+                <thead class=" text-md text-uppercase uppercase dark:bg-dark  text-bold">
+                <tr class="border-b-[3px] border-gray-200 border-collapse">
                     @foreach($model::tableField() as $field)
                         <th class="py-4 px-6" style="{{ isset($field['width'])?'width:'.$field['width']:'' }}
                         {{ isset($field['text-align'])?'text-align:'.$field['text-align']:'' }}
@@ -59,7 +59,7 @@
                 </thead>
                 <tbody>
                 @foreach ($datas as $index=>$data)
-                    <tr class=" dark:text-white text-black border-b border-gray-200 ">
+                    <tr class=" border-b border-gray-200 ">
                         @foreach ($model::tableData($data) as $data)
                             @switch($data['type'])
                                 @case('index')

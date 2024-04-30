@@ -12,6 +12,8 @@ class User extends Component
 {
 
     public $action;
+    public $dataId;
+
 
     #[Validate('required|max:255')]
     public $username;
@@ -68,10 +70,24 @@ class User extends Component
                 'meta_value' => $meta
             ]);
         }
+
+        $this->redirect(route('user.index'));
     }
 
     public function mount()
     {
+        if ($this->dataId!=null){
+            $data = \App\Models\User::find($this->dataId);
+            $this->username = $data->user_login;
+            $this->first_name = $data->user_login;
+            $this->email = $data->user_email;
+            $this->website = $data->user_url;
+            $roles = $data->meta->where('meta_key', '=', config('app.wp_prefix', 'wp_') . 'capabilities');
+            $this->role = '';
+            foreach ($roles as $r) {
+                $this->role = array_key_first(unserialize($r['meta_value']));
+            }
+        }
     }
 
     public function render()

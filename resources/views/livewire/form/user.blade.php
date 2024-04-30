@@ -2,19 +2,23 @@
     <x-input title="Username" model="username" required="true"/>
     <x-input title="Email" model="email" required="true"/>
     <x-input title="First Name" model="first_name"/>
+    @if($action=="create")
     <x-input title="Last Name" model="last_name"/>
+    @endif
     <x-input title="Website" model="website"/>
-    <x-input title="Password" model="password" type="password"/>
+    @if($action=="create")
+        <x-input title="Password" model="password" type="password"/>
+    @endif
 
     <div >
         <label for="role" class="form-label mb-2 text-black">
             Role <span class="text-red-600">*</span>
         </label>
         <select wire:model="role" class="form-control">
-            <option value="Subscriber">Employee</option>
-            <option value="Contributor">Contributor</option>
+            <option value="subscriber">Employee/Subscriber</option>
+            <option value="contributor">Contributor</option>
 {{--            <option value="">Employee</option>--}}
-            <option value="editor">Company</option>
+            <option value="editor">Company/Editor</option>
             <option value="administrator">Administrator</option>
         </select>
         <div> @error('role') <span class="error">{{ $message }}</span> @enderror </div>
