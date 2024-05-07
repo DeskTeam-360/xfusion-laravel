@@ -68,4 +68,9 @@ class User extends Corcel
             'password' => 'hashed',
         ];
     }
+
+    public function companyEmployee()
+    {
+        return $this->hasMany(CompanyEmployee::class,'user_id');
+    }
 }

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CompanyEmployee extends Model
 {
+    protected $table='company_employees';
     use HasFactory;
     protected $fillable=['user_id', 'company_id'];
 

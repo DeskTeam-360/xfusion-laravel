@@ -36,19 +36,25 @@ class Master extends Component
         }
 
         $this->sortField = $field;
+//        $this->dispatch('swal:alert', data:[
+//            'type' => 'success',
+//            'title' => 'Data berhasil masuk',
+//            'timeout' => 3000,
+//            'icon' => 'success'
+//        ]);
     }
 
     public function deleteItem($id)
     {
         $this->data = $this->model::find($id);
         if (!$this->data) {
-            $this->emit("deleteResult", ["status" => false, "message" => "Gagal menghapus data " . $this->name]);
+            $this->dispatch("deleteResult", ["status" => false, "message" => "Gagal menghapus data " . $this->name]);
             return;
         }
-        $this->emit('swal:confirm', [
+        $this->dispatch('swal:confirm', data:[
             'icon' => 'warning',
-            'title' => 'apakah anda yakin ingin menghapus data ini',
-            'confirmText' => 'Hapus',
+            'title' => 'Are you sure delete this data',
+            'confirmText' => 'Delete',
             'method' => 'delete',
         ]);
 
@@ -56,11 +62,20 @@ class Master extends Component
 
     public function delete()
     {
-        $this->data->delete();
-        $this->emit('swal:alert', [
-            'icon' => 'success',
-            'title' => 'Berhasil menghapus data',
-        ]);
+        try {
+            $this->data->delete();
+            $this->dispatch('swal:alert', data:[
+                'icon' => 'success',
+                'title' => 'Successfully deleted data',
+            ]);
+        }catch (\Exception $e){
+            $this->dispatch('swal:alert', data:[
+                'icon' => 'error',
+                'title' => 'Failed deleted data',
+            ]);
+        }
+
+
     }
 
     public function render()

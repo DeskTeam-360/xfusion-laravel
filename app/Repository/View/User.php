@@ -10,9 +10,19 @@ class User extends \App\Models\User implements View
     public static function tableSearch($params = null): Builder
     {
         $query = $params['query'];
-//        config('app.wp_prefix', 'wp_').'capabilities')
-        return empty($query) ? static::query()
-            : static::query();
+        $params = $params['param1'];
+        if ($params==null){
+            return empty($query) ? static::query()
+                : static::query();
+        }else{
+            return empty($query) ? static::query()->whereHas('companyEmployee',function ($q) use ($params) {
+                $q->where('company_id','=',$params);
+            })
+                : static::query()->whereHas('companyEmployee',function ($q) use ($params) {
+                    $q->where('company_id','=',$params);
+                });
+        }
+
     }
 
     public static function tableView(): array
@@ -26,7 +36,7 @@ class User extends \App\Models\User implements View
     {
         return [
             ['label' => '#', 'sort' => 'id', 'width' => '7%'],
-            ['label' => 'Name', 'sort' => 'name'],
+            ['label' => 'Name', 'sort' => 'user_nicename'],
             ['label' => 'Company'],
             ['label' => 'Role', 'sort' => 'role'],
             ['label' => 'Aksi'],
@@ -35,8 +45,6 @@ class User extends \App\Models\User implements View
 
     public static function tableData($data = null): array
     {
-
-//        dd(config('app.wp_prefix', 'wp_'));
         $roles = $data->meta->where('meta_key', '=', config('app.wp_prefix', 'wp_') . 'capabilities');
         $role = '';
         foreach ($roles as $r) {
@@ -47,8 +55,8 @@ class User extends \App\Models\User implements View
         }
         $companies = $data->meta->where('meta_key', '=', 'company');
         $company = '-';
-        $link=route('user.edit',$data->ID);
-        $link2=route('user.show',$data->ID);
+        $link = route('user.edit', $data->ID);
+        $link2 = route('user.show', $data->ID);
         foreach ($companies as $r) {
             $c = \App\Models\Company::find($r['meta_value']);
             if ($c != null) {
@@ -71,7 +79,7 @@ $data->user_nicename <br>
             ['type' => 'raw_html', 'text-align' => 'center', 'data' => "
 <div class='flex gap-1'>
 <span><a href='$link' class='btn btn-primary'>Edit</a></span>
-<span><a href='#' class='btn btn-error'>delete</a></span>
+<span><a href='#' wire:click='deleteItem($data->ID)' class='btn btn-error'>delete</a></span>
 <span><a href='$link2' class='btn btn-secondary'>Reset Password</a></span>
 </div>"],
         ];

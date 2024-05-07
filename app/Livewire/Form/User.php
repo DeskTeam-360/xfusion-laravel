@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Form;
 
+use App\Models\CompanyEmployee;
 use App\Models\WpUserMeta;
 use Carbon\Carbon;
 use Livewire\Attributes\Validate;
@@ -12,9 +13,8 @@ class User extends Component
 {
 
     public $action;
+    public $companyId;
     public $dataId;
-
-
     #[Validate('required|max:255')]
     public $username;
     #[Validate('required|max:255|email')]
@@ -60,23 +60,40 @@ class User extends Component
         $this->userMeta['use_ssl'] = 0;
         $this->userMeta['show_admin_bar_front'] = true;
         $this->userMeta['locale'] = '';
-        $this->userMeta['wp_capabilities'] = serialize($this->role);
+        $this->userMeta['wp_capabilities'] = serialize([$this->role=>true]);
         $this->userMeta['wp_user_level'] = 0;
         $this->userMeta['dismissed_wp_pointers'] = '';
+        if ($this->companyId!=null){
+            $this->userMeta['company'] = $this->companyId;
+            CompanyEmployee::create([
+                'user_id' => $user->ID,
+                'company_id' => $this->companyId
+            ]);
+        }
+
         foreach ($this->userMeta as $key => $meta) {
             WpUserMeta::create([
                 'meta_key' => $key,
-                'user_id' => $user->id,
+                'user_id' => $user->ID,
                 'meta_value' => $meta
             ]);
         }
 
-        $this->redirect(route('user.index'));
+        if ($this->companyId != null) {
+            $this->redirect(route('company.show', $this->companyId));
+        } else {
+            $this->redirect(route('user.index'));
+        }
     }
 
     public function mount()
     {
-        if ($this->dataId!=null){
+        if ($this->companyId != null) {
+            $this->role = 'subscriber';
+        } else {
+            $this->role = 'contributor';
+        }
+        if ($this->dataId != null) {
             $data = \App\Models\User::find($this->dataId);
             $this->username = $data->user_login;
             $this->first_name = $data->user_login;

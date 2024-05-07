@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
@@ -38,7 +39,29 @@ class CompanyController extends Controller
      */
     public function show(string $id)
     {
-        return view('admin.company.show',compact('id'));
+
+        $user = Auth::user();
+        $ru = $user->meta->where('meta_key', '=', config('app.wp_prefix', 'wp_') . 'capabilities');
+        $role = '';
+        foreach ($ru as $r) {
+            $role = array_key_first(unserialize($r['meta_value']));
+        }
+        if ($role == "administrator" || $role == "editor") {
+            if ($role == "editor") {
+                $user = Auth::user();
+                $companies = $user->meta->where('meta_key', '=', 'company');
+                foreach ($companies as $r) {
+                    if ($r['meta_value'] != $id) {
+                        return redirect(route('company.show', $r['meta_value']));
+                    }
+                }
+            }
+            return view('admin.company.show', compact('id'));
+        } else {
+            return redirect('dashboard');
+        }
+
+
     }
 
     /**
@@ -64,4 +87,103 @@ class CompanyController extends Controller
     {
         //
     }
+
+    public function addEmployee(string $id)
+    {
+        $user = Auth::user();
+        $ru = $user->meta->where('meta_key', '=', config('app.wp_prefix', 'wp_') . 'capabilities');
+        $role = '';
+        foreach ($ru as $r) {
+            $role = array_key_first(unserialize($r['meta_value']));
+        }
+        if ($role == "administrator" || $role == "editor") {
+            if ($role == "editor") {
+                $user = Auth::user();
+                $companies = $user->meta->where('meta_key', '=', 'company');
+                foreach ($companies as $r) {
+                    if ($r['meta_value'] != $id) {
+                        return redirect(route('company.add-employee', $r['meta_value']));
+                    }
+                }
+            }
+            return view('admin.company.add-employee', compact('id'));
+        } else {
+            return redirect('dashboard');
+        }
+
+    }
+
+    public function progress(string $id)
+    {
+        $user = Auth::user();
+        $ru = $user->meta->where('meta_key', '=', config('app.wp_prefix', 'wp_') . 'capabilities');
+        $role = '';
+        foreach ($ru as $r) {
+            $role = array_key_first(unserialize($r['meta_value']));
+        }
+        if ($role == "administrator" || $role == "editor") {
+            if ($role == "editor") {
+                $user = Auth::user();
+                $companies = $user->meta->where('meta_key', '=', 'company');
+                foreach ($companies as $r) {
+                    if ($r['meta_value'] != $id) {
+                        return redirect(route('company.progress', $r['meta_value']));
+                    }
+                }
+            }
+            return view('admin.company.progress', compact('id'));
+        } else {
+            return redirect('dashboard');
+        }
+    }
+
+    public function schedule(string $id)
+    {
+        $user = Auth::user();
+        $ru = $user->meta->where('meta_key', '=', config('app.wp_prefix', 'wp_') . 'capabilities');
+        $role = '';
+        foreach ($ru as $r) {
+            $role = array_key_first(unserialize($r['meta_value']));
+        }
+        if ($role == "administrator" || $role == "editor") {
+            if ($role == "editor") {
+                $user = Auth::user();
+                $companies = $user->meta->where('meta_key', '=', 'company');
+                foreach ($companies as $r) {
+                    if ($r['meta_value'] != $id) {
+                        return redirect(route('company.schedule', $r['meta_value']));
+                    }
+                }
+            }
+            return view('admin.company.schedule', compact('id'));
+        } else {
+            return redirect('dashboard');
+        }
+    }
+
+    public function scheduleCreate(string $id)
+    {
+        $user = Auth::user();
+        $ru = $user->meta->where('meta_key', '=', config('app.wp_prefix', 'wp_') . 'capabilities');
+        $role = '';
+        foreach ($ru as $r) {
+            $role = array_key_first(unserialize($r['meta_value']));
+        }
+        if ($role == "administrator" || $role == "editor") {
+            if ($role == "editor") {
+                $user = Auth::user();
+                $companies = $user->meta->where('meta_key', '=', 'company');
+                foreach ($companies as $r) {
+                    if ($r['meta_value'] != $id) {
+                        return redirect(route('company.schedule-create', $r['meta_value']));
+                    }
+                }
+            }
+            return view('admin.company.create-schedule', compact('id'));
+        } else {
+            return redirect('dashboard');
+        }
+    }
+
+
 }

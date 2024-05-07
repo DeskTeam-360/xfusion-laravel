@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Form;
 
+use App\Repository\View\CompanyEmployee;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -36,12 +37,6 @@ class Company extends Component
             $data = \App\Models\Company::find($this->dataId);
             $this->user_id = $data->user_id;
             $this->title = $data->title;
-//            $this->data = [
-//                'user_id' => $data->user_id,
-//                'title' => $data->title,
-//                'logo_url' => $data->logoUrl,
-//                'qrcode_url' => $data->qrcodeUrl
-//            ];
         }
     }
 
@@ -65,6 +60,10 @@ class Company extends Component
         \App\Models\User::find($this->user_id)
         ->saveMeta([
             'company'=>$company->id
+        ]);
+        CompanyEmployee::create([
+           'user_id' => $this->user_id,
+           'company_id' => $company->id
         ]);
 
         $this->redirect(route('company.index'));

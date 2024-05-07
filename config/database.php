@@ -46,7 +46,7 @@ return [
             'password'  => '',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
-            'prefix'    => 'wp_corcel_testing',
+            'prefix'    => 'wp_',
             'strict'    => false,
             'engine'    => null,
         ],

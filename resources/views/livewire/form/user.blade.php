@@ -11,15 +11,19 @@
     @endif
 
     <div >
-        <label for="role" class="form-label mb-2 text-black">
+        <label for="role" class="form-label mb-2">
             Role <span class="text-red-600">*</span>
         </label>
         <select wire:model="role" class="form-control">
-            <option value="subscriber">Employee/Subscriber</option>
-            <option value="contributor">Contributor</option>
-{{--            <option value="">Employee</option>--}}
-            <option value="editor">Company/Editor</option>
-            <option value="administrator">Administrator</option>
+            @if($companyId==null)
+                <option value="contributor">Contributor</option>
+                <option value="editor">Company/Editor</option>
+                <option value="administrator">Administrator</option>
+            @else
+                <option value="subscriber">Employee/Subscriber</option>
+            @endif
+
+
         </select>
         <div> @error('role') <span class="error">{{ $message }}</span> @enderror </div>
         <br>

@@ -13,12 +13,15 @@
           href="{{ asset('assets/images/logos/favicon.png') }}"/>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
           rel="stylesheet"/>
-    <link rel="stylesheet" href="{{asset('assets/fonts/icons/tabler-icons/tabler-icons.css')}}">
+{{--    <link rel="stylesheet" href="{{asset('assets/fonts/icons/tabler-icons/tabler-icons.css')}}">--}}
+    <link rel="stylesheet" href="{{asset('assets/icons-webfont/tabler-icons.min.css')}}">
     <!-- Core Css -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="stylesheet" href="{{ asset('vendor/carousel/carousel.min.css') }}">
+    @livewireStyles
+
 </head>
 
 <body class="DEFAULT_THEME bg-white dark:bg-dark">
@@ -92,6 +95,116 @@
 <script src="{{ asset('assets/libs/preline/dist/components/hs-scrollspy/hs-scrollspy.js') }}"></script>
 <script src="{{ asset('assets/libs/preline/dist/components/hs-tabs/hs-tabs.js') }}"></script>
 <script src="{{ asset('assets/libs/preline/dist/components/hs-tooltip/hs-tooltip.js') }}"></script>
+{{--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>--}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/gh/fcmam5/nightly.js@v1.0/dist/nightly.min.js"></script>
+
+@livewireScripts
+<script>
+
+
+    const SwalModal = (icon, title, html) => {
+        Swal.fire({
+            icon,
+            title,
+            html
+        })
+    }
+
+    const SwalConfirm = (icon, title, html, confirmButtonText, method, params, callback) => {
+        Swal.fire({
+            icon,
+            title,
+            html,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText,
+            reverseButtons: true,
+        }).then(result => {
+            if (result.value) {
+                // $wire.dispatch('post-created', { refreshPosts: true });
+                return Livewire.dispatch(method, params)
+            }
+
+            if (callback) {
+                return Livewire.dispatch(callback)
+            }
+        })
+    }
+
+    const SwalAlert = (icon, title, timeout = 2000) => {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: timeout,
+            onOpen: toast => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon,
+            title
+        })
+    }
+
+    document.querySelectorAll("#dark-layout").forEach((element) => {
+        element.addEventListener("click", () => {
+            var ss = document.createElement('link');
+            ss.rel = "stylesheet";
+            ss.href = "//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css";
+            ss.id="dark-alert"
+            document.head.appendChild(ss);
+            document.getElementById("light-alert").remove();
+
+            }
+        );
+    });
+
+    document.querySelectorAll("#light-layout").forEach((element) => {
+        element.addEventListener("click", () => {
+            // var ss = document.createElement('link');
+            // ss.rel = "stylesheet";
+            // ss.href = "//cdn.jsdelivr.net/npm/@sweetalert2/theme-minimal/minimal.css";
+            // ss.id="light-alert"
+            // document.head.appendChild(ss);
+            document.getElementById("dark-alert").remove();
+            }
+        );
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        var ss = document.createElement('link');
+        ss.rel = "stylesheet";
+        if (localStorage.getItem("Theme")=="dark") {
+            ss.id="dark-alert"
+            ss.href = "//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css";
+        } else {
+            ss.id="light-alert"
+            // ss.href = "//cdn.jsdelivr.net/npm/@sweetalert2/theme-minimal/minimal.css";
+        }
+        document.head.appendChild(ss);
+
+
+        window.addEventListener('swal:modal', function (d){
+            const data = d.__livewire.params.data;
+            SwalModal(data.icon, data.title, data.text)
+        })
+
+        window.addEventListener('swal:confirm', function (d) {
+            const data = d.__livewire.params.data;
+            SwalConfirm(data.icon, data.title, data.text, data.confirmText, data.method, data.params, data.callback)
+        })
+
+        window.addEventListener('swal:alert', function (d) {
+            const data = d.__livewire.params.data;
+            SwalAlert(data.icon, data.title, data.timeout)
+        })
+    })
+</script>
 </body>
 
 

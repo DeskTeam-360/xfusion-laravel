@@ -2,6 +2,8 @@
 
 namespace App\View\Components;
 
+use App\Models\Company;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
@@ -42,21 +44,31 @@ class AdminLayout extends Component
                 'title' => 'Home',
                 'lists' => [
                     ['title' => 'Dashboard', 'type' => 'link', 'route' => route('dashboard'), 'icon' => '<i class="ti ti-brand-chrome  text-xl flex-shrink-0"></i> '],
-                    ['title' => 'Companies', 'type' => 'link', 'route' => route('company.index'), 'icon' => '<i class="ti ti-apps  text-xl flex-shrink-0"></i> '],
-                    ['title' => 'Users', 'type' => 'link', 'route' => route('user.index'), 'icon' => '<i class="ti ti-users  text-xl flex-shrink-0"></i> '],
-//                    [
-//                        'title' => 'Form Elements', 'type' => 'accordion',
-//                        'icon' => '<i class="ti ti-brand-chrome  text-xl flex-shrink-0"></i>',
-//                        'lists' => [
-//                            ['title' => 'Form input1', 'route' => '#', 'icon' => '<i class="ti ti-circle flex-shrink-0 text-xs me-3 "></i>',],
-//                            ['title' => 'Form input2', 'route' => '#', 'icon' => '<i class="ti ti-circle flex-shrink-0 text-xs me-3 "></i>',],
-//                            ['title' => 'Form input3', 'route' => '#', 'icon' => '<i class="ti ti-circle flex-shrink-0 text-xs me-3 "></i>',],
-//
-//                        ]
-//                    ]
                 ]
             ],
         ];
+
+        $user = Auth::user();
+        $ru = $user->meta->where('meta_key', '=', config('app.wp_prefix', 'wp_') . 'capabilities');
+        $role = '';
+        foreach ($ru as $r) {
+            $role = array_key_first(unserialize($r['meta_value']));
+        }
+        if ($role == 'administrator') {
+            $this->sidebar[0]['lists'][] = ['title' => 'Companies', 'type' => 'link', 'route' => route('company.index'), 'icon' => '<i class="ti ti-apps  text-xl flex-shrink-0"></i> '];
+            $this->sidebar[0]['lists'][] = ['title' => 'Users', 'type' => 'link', 'route' => route('user.index'), 'icon' => '<i class="ti ti-users  text-xl flex-shrink-0"></i> '];
+        }
+        if ($role == 'editor') {
+            $companies = $user->meta->where('meta_key', '=', 'company');
+            foreach ($companies as $r) {
+                $c = Company::find($r['meta_value']);
+                if ($c != null) {
+                    $this->sidebar[0]['lists'][] = ['title' => 'Employee List', 'type' => 'link', 'route' => route('company.show', $c->id), 'icon' => '<i class="ti ti-users  text-xl flex-shrink-0"></i> '];
+                    $this->sidebar[0]['lists'][] = ['title' => 'Employee Progress', 'type' => 'link', 'route' => route('company.progress', $c->id), 'icon' => '<i class="ti ti-progress  text-xl flex-shrink-0"></i> '];
+                    $this->sidebar[0]['lists'][] = ['title' => 'Employee Schedule', 'type' => 'link', 'route' => route('company.schedule', $c->id), 'icon' => '<i class="ti ti-clock  text-xl flex-shrink-0"></i> '];
+                }
+            }
+        }
     }
 
     /**

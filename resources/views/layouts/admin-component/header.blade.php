@@ -200,7 +200,7 @@
 
                                                         </h5>
                                                         <p class="text-xs font-normal text-link dark:text-darklink ">
-                                                            {{ array_keys(unserialize(auth()->user()->getMeta('wp_corcel_testingcapabilities')))[0] }}</p>
+                                                            {{ array_keys(unserialize(auth()->user()->getMeta('wp_capabilities')))[0] }}</p>
                                                         <span
                                                             class="text-sm font-normal flex items-center text-link dark:text-darklink">
                                 <i class="ti ti-mail mr-1"></i>
@@ -625,7 +625,7 @@
                                                                     {{ auth()->user()->user_nicename }}
                                                                 </h5>
                                                                 <p class="text-xs font-normal text-link dark:text-darklink ">
-                                                                    {{ array_keys(unserialize(auth()->user()->getMeta('wp_corcel_testingcapabilities')))[0] }}</p>
+                                                                    {{ array_keys(unserialize(auth()->user()->getMeta('wp_capabilities')))[0] }}</p>
                                                                 <span
                                                                     class="text-sm font-normal flex items-center text-link dark:text-darklink">
                                 <i class="ti ti-mail mr-1"></i>

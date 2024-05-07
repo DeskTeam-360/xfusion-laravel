@@ -27,17 +27,10 @@
 {{--    </div>--}}
 
 
-
-
 {{--    --}}{{--    <input type="file" wire:model="logo_url">--}}
 
 
 {{--    <x-input title="Username" model="username" />--}}
-
-
-
-
-
 
 
 {{--    <input type="file" wire:model="qrcode_url">--}}
@@ -47,10 +40,10 @@
 {{--    <button type="submit">Save photo</button>--}}
 {{--</form>--}}
 
-    <form wire:submit="{{ $action }}">
-        <x-input title="Name company" model="title" required="true" />
-        <x-input title="Company logo" model="logo_url" type="file" accept="image/png" ignore="{{true}}" />
-        <x-input title="Company qrcode" model="qrcode_url" type="file" accept="image/png" ignore="{{true}}" />
-            <x-select title="Company leader" model="user_id" :options="$usersOption" required="true"/>
-        <input type="submit" class="btn" value="Save Company">
-    </form>
+<form wire:submit="{{ $action }}">
+    <x-input title="Name company" model="title" required="true"/>
+    <x-input title="Company logo" model="logo_url" type="file" accept="image/png" ignore="{{true}}"/>
+    <x-input title="Company qrcode" model="qrcode_url" type="file" accept="image/png" ignore="{{true}}"/>
+    <x-select title="Company leader" model="user_id" :options="$usersOption" required="true"/>
+    <input type="submit" class="btn" value="Save Company">
+</form>
