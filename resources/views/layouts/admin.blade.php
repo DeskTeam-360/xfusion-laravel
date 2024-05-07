@@ -16,7 +16,7 @@
 {{--    <link rel="stylesheet" href="{{asset('assets/fonts/icons/tabler-icons/tabler-icons.css')}}">--}}
     <link rel="stylesheet" href="{{asset('assets/icons-webfont/tabler-icons.min.css')}}">
     <!-- Core Css -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+{{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
     <link rel="stylesheet" href="{{ asset('build/assets/app-DrKqg2nF.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
