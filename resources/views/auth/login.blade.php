@@ -91,6 +91,8 @@
     {{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
     <link rel="stylesheet" href="{{ asset('build/assets/app-DrKqg2nF.css') }}">
     <script src="{{ asset('build/assets/app-Dh7MYzNA.js') }}"></script>
+
+{{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
     <title>{{ config('app.name', 'Laravel') }}</title>
 </head>
 
