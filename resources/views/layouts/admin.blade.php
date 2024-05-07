@@ -18,10 +18,10 @@
     <!-- Core Css -->
 {{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
     <link rel="stylesheet" href="{{ asset('build/assets/app-DrKqg2nF.css') }}">
+    <script src="{{ asset('build/assets/app-Dh7MYzNA.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link rel="stylesheet" href="{{ asset('vendor/carousel/carousel.min.css') }}">
-    <script src="{{ asset('build/assets/app-Dh7MYzNA.js') }}"></script>
     @livewireStyles
 
 </head>
