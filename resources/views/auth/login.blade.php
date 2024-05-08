@@ -97,12 +97,13 @@
 </head>
 
 <body class="DEFAULT_THEME bg-white">
-<main>
+<main class="grid grid-cols-12 mt-5">
     <!-- Main Content -->
+    <div class="col-span-3"></div>
     <div
-        class="flex flex-col w-full  overflow-hidden relative min-h-screen radial-gradient items-center justify-center g-0 px-4">
+        class="col-span-6 flex flex-col w-12/12 border border-b-blue-300 overflow-hidden relative min-h-screen radial-gradient items-center justify-center g-0 px-4">
 
-        <div class="justify-center items-center w-full card lg:flex max-w-md ">
+        <div class="justify-center items-center w-8/12 card lg:flex max-w-md  ">
             <div class=" w-full card-body">
                 <a href="../" class="py-4 block"><img src="{{ asset('assets/images/logos/dark-logo.svg') }}" alt=""
                                                       class="mx-auto"/></a>
