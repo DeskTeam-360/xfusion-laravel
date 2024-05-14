@@ -57,6 +57,8 @@ class AdminLayout extends Component
         if ($role == 'administrator') {
             $this->sidebar[0]['lists'][] = ['title' => 'Companies', 'type' => 'link', 'route' => route('company.index'), 'icon' => '<i class="ti ti-apps  text-xl flex-shrink-0"></i> '];
             $this->sidebar[0]['lists'][] = ['title' => 'Users', 'type' => 'link', 'route' => route('user.index'), 'icon' => '<i class="ti ti-users  text-xl flex-shrink-0"></i> '];
+            $this->sidebar[0]['lists'][] = ['title' => 'Limit Link', 'type' => 'link', 'route' => route('limit-link.index'), 'icon' => '<i class="ti ti-webhook  text-xl flex-shrink-0"></i> '];
+            $this->sidebar[0]['lists'][] = ['title' => 'All Schedule', 'type' => 'link', 'route' => route('schedule-all'), 'icon' => '<i class="ti ti-clock  text-xl flex-shrink-0"></i> '];
         }
         if ($role == 'editor') {
             $companies = $user->meta->where('meta_key', '=', 'company');

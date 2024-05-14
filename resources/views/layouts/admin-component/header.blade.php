@@ -11,24 +11,25 @@
                                 <div class="brand-logo flex  items-center ">
                                     <a href="#"
                                        class="text-nowrap logo-img">
+
                                         <img
-                                            src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/dark-logo.svg"
+                                            src="{{ asset('assets/images/logos/dark-logo.webp') }}"
                                             class="dark:hidden block rtl:hidden"
                                             alt="Logo-Dark"
                                         />
                                         <img
-                                            src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/light-logo.svg"
+                                            src="{{ asset('assets/images/logos/light-logo.webp') }}"
                                             class="dark:block hidden rtl:hidden rtl:dark:hidden"
                                             alt="Logo-light"
                                         />
 
                                         <img
-                                            src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/dark-logo-rtl.svg"
+                                            src="{{ asset('assets/images/logos/dark-logo.webp') }}"
                                             class="dark:hidden hidden rtl:block rtl:dark:hidden"
                                             alt="Logo-Dark"
                                         />
                                         <img
-                                            src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/light-logo-rtl.svg"
+                                            src="{{ asset('assets/images/logos/light-logo.webp') }}"
                                             class="dark:hidden hidden rtl:hidden rtl:dark:block"
                                             alt="Logo-light"
                                         />
@@ -59,7 +60,7 @@
 
                             <a class="hidden lg:flex relative hs-dropdown-toggle cursor-pointer text-xl hover:text-primary text-link dark:text-darklink h-10 w-10 light-dark-hoverbg  justify-center items-center rounded-full"
                                data-hs-overlay="#hs-focus-management-modal">
-                                <i class="ti ti-search relative"></i>
+{{--                                <i class="ti ti-search relative"></i>--}}
                             </a>
 
                             <div class="lg:hidden">
@@ -82,23 +83,23 @@
                                             <a href="#"
                                                class="text-nowrap logo-img">
                                                 <img
-                                                    src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/dark-logo.svg"
+                                                    src="{{ asset('assets/images/logos/dark-logo.webp') }}"
                                                     class="dark:hidden block rtl:hidden"
                                                     alt="Logo-Dark"
                                                 />
                                                 <img
-                                                    src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/light-logo.svg"
+                                                    src="{{ asset('assets/images/logos/light-logo.webp') }}"
                                                     class="dark:block hidden rtl:hidden rtl:dark:hidden"
                                                     alt="Logo-light"
                                                 />
 
                                                 <img
-                                                    src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/dark-logo-rtl.svg"
+                                                    src="{{ asset('assets/images/logos/dark-logo.webp') }}"
                                                     class="dark:hidden hidden rtl:block rtl:dark:hidden"
                                                     alt="Logo-Dark"
                                                 />
                                                 <img
-                                                    src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/light-logo-rtl.svg"
+                                                    src="{{ asset('assets/images/logos/light-logo.webp') }}"
                                                     class="dark:hidden hidden rtl:hidden rtl:dark:block"
                                                     alt="Logo-light"
                                                 />
@@ -146,20 +147,20 @@
                 new</span>
                                     </div>
                                     <div class="message-body max-h-[350px]" data-simplebar="">
-                                        <a href="javascript:void(0)"
-                                           class="px-7 py-3 flex items-center light-dark-hoverbg">
-                <span
-                    class="flex-shrink-0 h-12 w-12 rounded-full bg-lightprimary dark:bg-darkprimary flex justify-center items-center">
-                <i class="ti ti-dashboard text-primary text-xl"></i>
-                </span>
-                                            <div class="ps-4">
-                                                <h5 class="text-sm">
-                                                    Launch Admin
-                                                </h5>
-                                                <span>Just see the my new
-                        admin!</span>
-                                            </div>
-                                        </a>
+{{--                                        <a href="javascript:void(0)"--}}
+{{--                                           class="px-7 py-3 flex items-center light-dark-hoverbg">--}}
+{{--                <span--}}
+{{--                    class="flex-shrink-0 h-12 w-12 rounded-full bg-lightprimary dark:bg-darkprimary flex justify-center items-center">--}}
+{{--                <i class="ti ti-dashboard text-primary text-xl"></i>--}}
+{{--                </span>--}}
+{{--                                            <div class="ps-4">--}}
+{{--                                                <h5 class="text-sm">--}}
+{{--                                                    Launch Admin--}}
+{{--                                                </h5>--}}
+{{--                                                <span>Just see the my new--}}
+{{--                        admin!</span>--}}
+{{--                                            </div>--}}
+{{--                                        </a>--}}
 
                                     </div>
                                     <div class="pt-3 pb-6 px-7">
@@ -209,65 +210,65 @@
                                                     </div>
                                                 </div>
 
-                                                <ul class="mt-10">
-                                                    <li class="mb-5">
-                                                        <a href="#"
-                                                           class="flex gap-3 items-center group">
-                                <span
-                                    class="bg-lightgray dark:bg-darkgray    h-12 w-12 flex justify-center items-center rounded-md">
-                                    <img
-                                        src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/svgs/icon-account.svg"
-                                        class="h-6 w-6">
-                                </span>
+{{--                                                <ul class="mt-10">--}}
+{{--                                                    <li class="mb-5">--}}
+{{--                                                        <a href="#"--}}
+{{--                                                           class="flex gap-3 items-center group">--}}
+{{--                                <span--}}
+{{--                                    class="bg-lightgray dark:bg-darkgray    h-12 w-12 flex justify-center items-center rounded-md">--}}
+{{--                                    <img--}}
+{{--                                        src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/svgs/icon-account.svg"--}}
+{{--                                        class="h-6 w-6">--}}
+{{--                                </span>--}}
 
-                                                            <div class="">
-                                                                <h6 class="text-sm mb-1  group-hover:text-primary">
-                                                                    My Profile
-                                                                </h6>
-                                                                <p class="text-xs text-link dark:text-darklink font-normal">
-                                                                    Account settings</p>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li class="mb-5">
-                                                        <a href="#"
-                                                           class="flex gap-3 items-center  group">
-                                <span
-                                    class="bg-lightgray dark:bg-darkgray    h-12 w-12 flex justify-center items-center rounded-md">
-                                    <img
-                                        src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/svgs/icon-inbox.svg"
-                                        class="h-6 w-6">
-                                </span>
-                                                            <div class="">
-                                                                <h6 class="fext-sm mb-1  group-hover:text-primary ">
-                                                                    My Inbox
-                                                                </h6>
-                                                                <p class="text-xs text-link dark:text-darklink font-normal">
-                                                                    Messages &amp;
-                                                                    Emails</p>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li class="mb-5">
-                                                        <a href="#"
-                                                           class="flex gap-3 items-center group ">
-                                <span
-                                    class="bg-lightgray dark:bg-darkgray    h-12 w-12 flex justify-center items-center rounded-md">
-                                    <img
-                                        src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/svgs/icon-tasks.svg"
-                                        class="h-6 w-6">
-                                </span>
-                                                            <div class="">
-                                                                <h6 class="fext-sm mb-1  group-hover:text-primary ">
-                                                                    My Tasks
-                                                                </h6>
-                                                                <p class="text-xs text-link dark:text-darklink font-normal">
-                                                                    To-do and Daily
-                                                                    tasks</p>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
+{{--                                                            <div class="">--}}
+{{--                                                                <h6 class="text-sm mb-1  group-hover:text-primary">--}}
+{{--                                                                    My Profile--}}
+{{--                                                                </h6>--}}
+{{--                                                                <p class="text-xs text-link dark:text-darklink font-normal">--}}
+{{--                                                                    Account settings</p>--}}
+{{--                                                            </div>--}}
+{{--                                                        </a>--}}
+{{--                                                    </li>--}}
+{{--                                                    <li class="mb-5">--}}
+{{--                                                        <a href="#"--}}
+{{--                                                           class="flex gap-3 items-center  group">--}}
+{{--                                <span--}}
+{{--                                    class="bg-lightgray dark:bg-darkgray    h-12 w-12 flex justify-center items-center rounded-md">--}}
+{{--                                    <img--}}
+{{--                                        src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/svgs/icon-inbox.svg"--}}
+{{--                                        class="h-6 w-6">--}}
+{{--                                </span>--}}
+{{--                                                            <div class="">--}}
+{{--                                                                <h6 class="fext-sm mb-1  group-hover:text-primary ">--}}
+{{--                                                                    My Inbox--}}
+{{--                                                                </h6>--}}
+{{--                                                                <p class="text-xs text-link dark:text-darklink font-normal">--}}
+{{--                                                                    Messages &amp;--}}
+{{--                                                                    Emails</p>--}}
+{{--                                                            </div>--}}
+{{--                                                        </a>--}}
+{{--                                                    </li>--}}
+{{--                                                    <li class="mb-5">--}}
+{{--                                                        <a href="#"--}}
+{{--                                                           class="flex gap-3 items-center group ">--}}
+{{--                                <span--}}
+{{--                                    class="bg-lightgray dark:bg-darkgray    h-12 w-12 flex justify-center items-center rounded-md">--}}
+{{--                                    <img--}}
+{{--                                        src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/svgs/icon-tasks.svg"--}}
+{{--                                        class="h-6 w-6">--}}
+{{--                                </span>--}}
+{{--                                                            <div class="">--}}
+{{--                                                                <h6 class="fext-sm mb-1  group-hover:text-primary ">--}}
+{{--                                                                    My Tasks--}}
+{{--                                                                </h6>--}}
+{{--                                                                <p class="text-xs text-link dark:text-darklink font-normal">--}}
+{{--                                                                    To-do and Daily--}}
+{{--                                                                    tasks</p>--}}
+{{--                                                            </div>--}}
+{{--                                                        </a>--}}
+{{--                                                    </li>--}}
+{{--                                                </ul>--}}
                                             </div>
                                         </div>
                                         <div class="mt-5">
@@ -306,23 +307,23 @@
                                             <a href="#"
                                                class="text-nowrap logo-img">
                                                 <img
-                                                    src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/dark-logo.svg"
+                                                    src="{{ asset('assets/images/logos/dark-logo.webp') }}"
                                                     class="dark:hidden block rtl:hidden"
                                                     alt="Logo-Dark"
                                                 />
                                                 <img
-                                                    src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/light-logo.svg"
+                                                    src="{{ asset('assets/images/logos/light-logo.webp') }}"
                                                     class="dark:block hidden rtl:hidden rtl:dark:hidden"
                                                     alt="Logo-light"
                                                 />
 
                                                 <img
-                                                    src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/dark-logo-rtl.svg"
+                                                    src="{{ asset('assets/images/logos/dark-logo.webp') }}"
                                                     class="dark:hidden hidden rtl:block rtl:dark:hidden"
                                                     alt="Logo-Dark"
                                                 />
                                                 <img
-                                                    src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/light-logo-rtl.svg"
+                                                    src="{{ asset('assets/images/logos/light-logo.webp') }}"
                                                     class="dark:hidden hidden rtl:hidden rtl:dark:block"
                                                     alt="Logo-light"
                                                 />
@@ -349,7 +350,7 @@
                                     <div>
                                         <a class="hidden lg:flex relative hs-dropdown-toggle cursor-pointer text-xl hover:text-primary text-link dark:text-darklink h-10 w-10 light-dark-hoverbg  justify-center items-center rounded-full"
                                            data-hs-overlay="#hs-focus-management-modal">
-                                            <i class="ti ti-search relative"></i>
+{{--                                            <i class="ti ti-search relative"></i>--}}
                                         </a>
                                     </div>
                                     <div class="lg:hidden">
@@ -373,23 +374,23 @@
                                                     <a href="#"
                                                        class="text-nowrap logo-img">
                                                         <img
-                                                            src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/dark-logo.svg"
+                                                            src="{{ asset('assets/images/logos/dark-logo.webp') }}"
                                                             class="dark:hidden block rtl:hidden"
                                                             alt="Logo-Dark"
                                                         />
                                                         <img
-                                                            src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/light-logo.svg"
+                                                            src="{{ asset('assets/images/logos/light-logo.webp') }}"
                                                             class="dark:block hidden rtl:hidden rtl:dark:hidden"
                                                             alt="Logo-light"
                                                         />
 
                                                         <img
-                                                            src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/dark-logo-rtl.svg"
+                                                            src="{{ asset('assets/images/logos/dark-logo.webp') }}"
                                                             class="dark:hidden hidden rtl:block rtl:dark:hidden"
                                                             alt="Logo-Dark"
                                                         />
                                                         <img
-                                                            src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/light-logo-rtl.svg"
+                                                            src="{{ asset('assets/images/logos/light-logo.webp') }}"
                                                             class="dark:hidden hidden rtl:hidden rtl:dark:block"
                                                             alt="Logo-light"
                                                         />
@@ -634,65 +635,65 @@
                                                             </div>
                                                         </div>
 
-                                                        <ul class="mt-10">
-                                                            <li class="mb-5">
-                                                                <a href="#"
-                                                                   class="flex gap-3 items-center group">
-                                <span
-                                    class="bg-lightgray dark:bg-darkgray    h-12 w-12 flex justify-center items-center rounded-md">
-                                    <img
-                                        src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/svgs/icon-account.svg"
-                                        class="h-6 w-6">
-                                </span>
+{{--                                                        <ul class="mt-10">--}}
+{{--                                                            <li class="mb-5">--}}
+{{--                                                                <a href="#"--}}
+{{--                                                                   class="flex gap-3 items-center group">--}}
+{{--                                <span--}}
+{{--                                    class="bg-lightgray dark:bg-darkgray    h-12 w-12 flex justify-center items-center rounded-md">--}}
+{{--                                    <img--}}
+{{--                                        src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/svgs/icon-account.svg"--}}
+{{--                                        class="h-6 w-6">--}}
+{{--                                </span>--}}
 
-                                                                    <div class="">
-                                                                        <h6 class="text-sm mb-1  group-hover:text-primary">
-                                                                            My Profile
-                                                                        </h6>
-                                                                        <p class="text-xs text-link dark:text-darklink font-normal">
-                                                                            Account settings</p>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li class="mb-5">
-                                                                <a href="#"
-                                                                   class="flex gap-3 items-center  group">
-                                <span
-                                    class="bg-lightgray dark:bg-darkgray    h-12 w-12 flex justify-center items-center rounded-md">
-                                    <img
-                                        src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/svgs/icon-inbox.svg"
-                                        class="h-6 w-6">
-                                </span>
-                                                                    <div class="">
-                                                                        <h6 class="fext-sm mb-1  group-hover:text-primary ">
-                                                                            My Inbox
-                                                                        </h6>
-                                                                        <p class="text-xs text-link dark:text-darklink font-normal">
-                                                                            Messages &amp;
-                                                                            Emails</p>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            <li class="mb-5">
-                                                                <a href="#"
-                                                                   class="flex gap-3 items-center group ">
-                                <span
-                                    class="bg-lightgray dark:bg-darkgray    h-12 w-12 flex justify-center items-center rounded-md">
-                                    <img
-                                        src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/svgs/icon-tasks.svg"
-                                        class="h-6 w-6">
-                                </span>
-                                                                    <div class="">
-                                                                        <h6 class="fext-sm mb-1  group-hover:text-primary ">
-                                                                            My Tasks
-                                                                        </h6>
-                                                                        <p class="text-xs text-link dark:text-darklink font-normal">
-                                                                            To-do and Daily
-                                                                            tasks</p>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
+{{--                                                                    <div class="">--}}
+{{--                                                                        <h6 class="text-sm mb-1  group-hover:text-primary">--}}
+{{--                                                                            My Profile--}}
+{{--                                                                        </h6>--}}
+{{--                                                                        <p class="text-xs text-link dark:text-darklink font-normal">--}}
+{{--                                                                            Account settings</p>--}}
+{{--                                                                    </div>--}}
+{{--                                                                </a>--}}
+{{--                                                            </li>--}}
+{{--                                                            <li class="mb-5">--}}
+{{--                                                                <a href="#"--}}
+{{--                                                                   class="flex gap-3 items-center  group">--}}
+{{--                                <span--}}
+{{--                                    class="bg-lightgray dark:bg-darkgray    h-12 w-12 flex justify-center items-center rounded-md">--}}
+{{--                                    <img--}}
+{{--                                        src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/svgs/icon-inbox.svg"--}}
+{{--                                        class="h-6 w-6">--}}
+{{--                                </span>--}}
+{{--                                                                    <div class="">--}}
+{{--                                                                        <h6 class="fext-sm mb-1  group-hover:text-primary ">--}}
+{{--                                                                            My Inbox--}}
+{{--                                                                        </h6>--}}
+{{--                                                                        <p class="text-xs text-link dark:text-darklink font-normal">--}}
+{{--                                                                            Messages &amp;--}}
+{{--                                                                            Emails</p>--}}
+{{--                                                                    </div>--}}
+{{--                                                                </a>--}}
+{{--                                                            </li>--}}
+{{--                                                            <li class="mb-5">--}}
+{{--                                                                <a href="#"--}}
+{{--                                                                   class="flex gap-3 items-center group ">--}}
+{{--                                <span--}}
+{{--                                    class="bg-lightgray dark:bg-darkgray    h-12 w-12 flex justify-center items-center rounded-md">--}}
+{{--                                    <img--}}
+{{--                                        src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/svgs/icon-tasks.svg"--}}
+{{--                                        class="h-6 w-6">--}}
+{{--                                </span>--}}
+{{--                                                                    <div class="">--}}
+{{--                                                                        <h6 class="fext-sm mb-1  group-hover:text-primary ">--}}
+{{--                                                                            My Tasks--}}
+{{--                                                                        </h6>--}}
+{{--                                                                        <p class="text-xs text-link dark:text-darklink font-normal">--}}
+{{--                                                                            To-do and Daily--}}
+{{--                                                                            tasks</p>--}}
+{{--                                                                    </div>--}}
+{{--                                                                </a>--}}
+{{--                                                            </li>--}}
+{{--                                                        </ul>--}}
                                                     </div>
                                                 </div>
                                                 <div class="mt-5">

@@ -14,7 +14,7 @@ class ScheduleEmployee extends \App\Models\CompanyEmployee implements View
     {
         $query = $params['query'];
         $param = $params['param1'];
-//        dd(static::query()->where('company_id','=',$param));
+
         return empty($query) ?
             static::query()->where('company_id', '=', $param) :
             static::query()->where('company_id', '=', $param);

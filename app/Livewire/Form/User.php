@@ -27,6 +27,8 @@ class User extends Component
     public $website;
     #[Validate('required|max:255')]
     public $password;
+    #[Validate('required|max:255|same:password')]
+    public $rePassword;
     #[Validate('required|max:255')]
     public $role;
 

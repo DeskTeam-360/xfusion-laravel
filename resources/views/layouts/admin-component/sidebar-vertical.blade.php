@@ -8,23 +8,23 @@
             <a href="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/main/index.html"
                class="text-nowrap logo-img">
                 <img
-                    src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/dark-logo.svg"
+                    src="{{ asset('assets/images/logos/dark-logo.webp') }}"
                     class="dark:hidden block rtl:hidden"
                     alt="Logo-Dark"
                 />
                 <img
-                    src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/light-logo.svg"
+                    src="{{ asset('assets/images/logos/light-logo.webp') }}"
                     class="dark:block hidden rtl:hidden rtl:dark:hidden"
                     alt="Logo-light"
                 />
 
                 <img
-                    src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/dark-logo-rtl.svg"
+                    src="{{ asset('assets/images/logos/dark-logo.webp') }}"
                     class="dark:hidden hidden rtl:block rtl:dark:hidden"
                     alt="Logo-Dark"
                 />
                 <img
-                    src="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/assets/images/logos/light-logo-rtl.svg"
+                    src="{{ asset('assets/images/logos/light-logo.webp') }}"
                     class="dark:hidden hidden rtl:hidden rtl:dark:block"
                     alt="Logo-light"
                 />

@@ -87,27 +87,30 @@
           rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
     <!-- Core Css -->
+    {{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
     <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}"/>
-{{--        @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
-    <link rel="stylesheet" href="{{ asset('build/assets/app-DrKqg2nF.css') }}">
-    <script src="{{ asset('build/assets/app-Dh7MYzNA.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('build/assets/app-DdqVIPGz.css') }}">
+    <script src="{{ asset('build/assets/app-CI1Bgkaz.js') }}"></script>
 
-{{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
+    {{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
     <title>{{ config('app.name', 'Laravel') }}</title>
 </head>
 
 <body class="DEFAULT_THEME bg-white">
-<main class="grid grid-cols-12 mt-5">
+<main class=" mt-5 ">
     <!-- Main Content -->
-    <div class="col-span-3"></div>
+{{--        <div class="col-span-3"></div>--}}
     <div
-        class="col-span-6 flex flex-col w-12/12 border border-b-blue-300 overflow-hidden relative min-h-screen radial-gradient items-center justify-center g-0 px-4">
+        class="flex flex-col w-12/12  overflow-hidden relative min-h-screen radial-gradient items-center justify-center g-0 px-4">
 
         <div class="justify-center items-center w-8/12 card lg:flex max-w-md  ">
-            <div class=" w-full card-body">
-                <a href="../" class="py-4 block"><img src="{{ asset('assets/images/logos/dark-logo.svg') }}" alt=""
-                                                      class="mx-auto"/></a>
-                <p class="mb-4 text-gray-500 text-sm text-center">Your Social Campaigns</p>
+            <div class=" w-full card-body shadow-xl rounded-2xl border-2">
+                <a href="../" class="py-4 block">
+                    <img src="{{ asset('assets/images/logos/dark-logo.webp') }}" alt=""
+                         class="mx-auto"/></a>
+                <p class="mb-4 text-gray-500 text-sm text-center"><b><i>Level-Up</i> Employee</b>
+                    Performance to Drive
+                    <b>company <i>Growth</i></b></p>
                 <!-- form -->
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
@@ -160,8 +163,10 @@
                     <!-- button -->
                     <div class="grid my-6">
                         <button type="submit"
-                           class="text-center rounded-lg py-[10px] text-base bg-blue-600 hover:bg-blue-700 text-white font-medium ">Sign
-                            In</button>
+                                class="text-center rounded-lg py-[10px] text-base bg-blue-600 hover:bg-blue-700 text-white font-medium ">
+                            Sign
+                            In
+                        </button>
                     </div>
 
                     {{--                    <div class="flex justify-center gap-2 items-center">--}}

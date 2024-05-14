@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CompanyController;
+use App\Http\Controllers\Admin\LimitLinkController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,12 +31,21 @@ Route::middleware([
     ])->group(function () {
         Route::resource('company', CompanyController::class)->only('index', 'create', 'edit');
         Route::resource('user', UserController::class)->only('index', 'create', 'edit', 'show');
+
+        Route::resource('limit-link', LimitLinkController::class)->only('index','create');
+
+        Route::get('schedule',function (){
+            return view('admin.schedule.index');
+        })->name('schedule-all');
+
     });
     Route::get('company/{id}', [CompanyController::class, 'show'])->name('company.show');
     Route::get('/company/{id}/add-employee', [CompanyController::class, 'addEmployee'])->name('company.add-employee');
     Route::get('/company/{id}/progress', [CompanyController::class, 'progress'])->name('company.progress');
     Route::get('/company/{id}/schedule', [CompanyController::class, 'schedule'])->name('company.schedule');
     Route::get('/company/{id}/schedule/create', [CompanyController::class, 'scheduleCreate'])->name('company.schedule-create');
+
+
 });
 
 
