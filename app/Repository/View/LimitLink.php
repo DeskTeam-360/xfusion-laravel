@@ -38,7 +38,7 @@ class LimitLink extends \App\Models\LimitLinkWithTime implements View
         return [
             ['type' => 'string','data'=>$data->id],
             ['type' => 'string', 'data' => $data->url],
-            ['type' => 'string', 'data' => $data->redirec_url],
+            ['type' => 'string', 'data' => $data->redirect_url],
             ['type' => 'raw_html','text-align'=>'center', 'data' => "
 <div class='flex gap-1'>
 
