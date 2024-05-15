@@ -1,5 +1,5 @@
 <div>
     @foreach($entries as $entry)
-        {{ \App\Models\User::find($entry->created_by)->user_nicename }}
+        {{ \App\Models\User::find($entry->created_by)->user_nicename??'No User' }}
     @endforeach
 </div>
