@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class WpGfFormMeta extends Model
 {
+    protected $table='wp_gf_form_meta';
     use HasFactory;
     protected $fillable=['form_id', 'display_meta', 'entries_grid_meta', 'confirmations', 'notifications'];
 

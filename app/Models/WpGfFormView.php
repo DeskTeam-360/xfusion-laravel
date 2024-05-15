@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class WpGfFormView extends Model
 {
+    protected $table='wp_gf_form_view';
     use HasFactory;
     protected $fillable=['form_id', 'date_created', 'ip', 'count'];
     public function wpGfForm()

@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class WpGfEntry extends Model
 {
+    protected $table='wp_gf_entry';
     use HasFactory;
 
     protected $fillable = [
