@@ -37,6 +37,9 @@ Route::middleware([
         Route::get('schedule',function (){
             return view('admin.schedule.index');
         })->name('schedule-all');
+        Route::get('revitalize',function (){
+            return view('admin.revitalize.index');
+        })->name('revitalize-all');
 
     });
     Route::get('company/{id}', [CompanyController::class, 'show'])->name('company.show');
