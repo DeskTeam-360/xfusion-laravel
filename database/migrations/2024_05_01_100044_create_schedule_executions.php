@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('title');
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('user_id');
-            $table->dateTime('schedule_access');
-            $table->dateTime('schedule_deadline');
+            $table->dateTime('schedule_access')->nullable();
+            $table->dateTime('schedule_deadline')->nullable();
             $table->integer('status');
 //            'link', 'company_id', 'user_id', 'status', 'title'
             $table->timestamps();

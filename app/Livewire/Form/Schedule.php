@@ -57,8 +57,8 @@ class Schedule extends Component
             'user_id' => $this->user_id,
             'title' => $this->title,
             'status' => 0,
-            'schedule_access' => "$this->schedule_access_date $this->schedule_access_time",
-            'schedule_deadline' => "$this->schedule_deadline_date $this->schedule_deadline_time",
+            'schedule_access' =>null,
+            'schedule_deadline' => null,
         ]);
     }
 

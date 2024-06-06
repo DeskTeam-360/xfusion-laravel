@@ -11,7 +11,7 @@ class Company extends \App\Models\Company implements View
     public static function tableSearch($params = null): Builder
     {
         $query = $params['query'];
-        return empty($query) ? static::query() : static::query();
+        return empty($query) ? static::query() : static::query()->where('title', 'like', "%$query%");
     }
 
     public static function tableView(): array

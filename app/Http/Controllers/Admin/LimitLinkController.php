@@ -16,4 +16,9 @@ class LimitLinkController extends Controller
     {
         return view('admin.limitlink.create');
     }
+    public function edit($id)
+    {
+        return view('admin.limitlink.edit',compact('id'));
+    }
+
 }

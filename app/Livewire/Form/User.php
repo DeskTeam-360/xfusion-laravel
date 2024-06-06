@@ -3,11 +3,13 @@
 namespace App\Livewire\Form;
 
 use App\Models\CompanyEmployee;
+use App\Models\ScheduleExecution;
 use App\Models\WpUserMeta;
 use Carbon\Carbon;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use MikeMcLin\WpPassword\Facades\WpPassword;
+use function Livewire\of;
 
 class User extends Component
 {
@@ -50,6 +52,18 @@ class User extends Component
             'user_status' => 0,
             'display_name' => $this->first_name . ' ' . $this->last_name,
         ]);
+        if ($this->role=='subscriber'){
+            ScheduleExecution::create([
+                'link' => 'https://teamsetup-2.deskteam360.com/revitalize/lms-page-1/',
+                'company_id' => $this->companyId,
+                'user_id' => $user->id,
+                'title' => 'LMS Page 1',
+                'status' => 0,
+                'schedule_access' =>null,
+                'schedule_deadline' => null,
+            ]);
+        }
+
 
         $this->userMeta['nickname'] = $this->first_name;
         $this->userMeta['first_name'] = $this->first_name;

@@ -3,7 +3,7 @@
         <div class="col-span-12 lg:col-span-2 items-stretch">
             <span>
             Per Page: &nbsp;
-            <select wire:model="perPage"
+            <select wire:model.live="perPage"
                     class="bg-gray-200 appearance-none border-1 border border-gray-100 rounded w-full px-4 py-2  leading-tight focus:outline-none dark:border-primary-light focus:bg-gray-100 dark:bg-dark dark:text-light focus:dark:border-white"
                     style="">
                 <option>10</option>
@@ -17,10 +17,10 @@
         @if($searchable)
             <div class="col-span-12 lg:col-span-4 items-stretch">
                 <span class="w-full">
-                    Pencarian
-                    <input wire:model="search"
+                    Search
+                    <input wire:model.live="search"
                            class=" bg-gray-200 appearance-none border-1 border rounded w-full py-2 px-4  leading-tight focus:outline-none dark:border-primary-light focus:bg-gray-100 dark:bg-dark dark:text-light focus:dark:border-white"
-                           type="text" placeholder="Pencarian...">
+                           type="text" placeholder="Search...">
                 </span>
             </div>
         @endif
@@ -30,7 +30,7 @@
                     Tanggal
                     <input wire:model="param1"
                            class="text-dark bg-gray-200 appearance-none border-1 border border-gray-100 rounded w-full py-2 px-4  leading-tight focus:outline-none dark:border-primary-light focus:bg-gray-100 dark:bg-dark dark:text-light focus:dark:border-white"
-                           type="date" placeholder="Pencarian...">
+                           type="date" placeholder="Search...">
                 </span>
             </div>
         @endif

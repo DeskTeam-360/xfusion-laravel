@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LimitLinkWithTime extends Model
+class CourseList extends Model
 {
     use HasFactory;
-    protected $fillable=['url','redirect_url'];
+    protected $fillable=['url','course_title','page_title'];
 }

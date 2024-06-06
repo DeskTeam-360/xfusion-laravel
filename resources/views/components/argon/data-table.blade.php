@@ -17,10 +17,10 @@
         @if($searchable)
             <div class="flex items-center">
                 <span class="w-full">
-                    Pencarian
+                    Search
                     <input wire:model="search"
                            class="text-dark bg-gray-200 appearance-none border-1 border border-gray-100 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none dark:border-primary-light focus:bg-gray-100 dark:bg-dark dark:text-light focus:dark:border-white"
-                           type="text" placeholder="Pencarian...">
+                           type="text" placeholder="Search...">
                 </span>
 
             </div>
@@ -28,10 +28,10 @@
         @if($dateSearch)
             <div class="flex items-center">
                 <span class="w-full">
-                    Tanggal
+                    Date
                     <input wire:model="param1"
                            class="text-dark bg-gray-200 appearance-none border-1 border border-gray-100 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none dark:border-primary-light focus:bg-gray-100 dark:bg-dark dark:text-light focus:dark:border-white"
-                           type="date" placeholder="Pencarian...">
+                           type="date" placeholder="Search...">
                 </span>
             </div>
         @endif

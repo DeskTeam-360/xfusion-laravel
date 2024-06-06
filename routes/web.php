@@ -6,6 +6,11 @@ use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+//    $start_date =date('Y-m-d H:i:s');
+//    $date = strtotime($start_date);
+//    $date = strtotime("+0 week", $date);
+//    echo date('Y-m-d H:i:s', $date);
+
 //    $validCharacters = 'abcdefghijklmnopqrstuvwxyz0123456789';
 //    $myKeeper = '';
 //    $length = 32;
@@ -32,7 +37,7 @@ Route::middleware([
         Route::resource('company', CompanyController::class)->only('index', 'create', 'edit');
         Route::resource('user', UserController::class)->only('index', 'create', 'edit', 'show');
 
-        Route::resource('limit-link', LimitLinkController::class)->only('index','create');
+        Route::resource('course-title', LimitLinkController::class)->only('index','create','edit');
 
         Route::get('schedule',function (){
             return view('admin.schedule.index');

@@ -12,8 +12,12 @@ class CompanyEmployee extends \App\Models\CompanyEmployee implements View
         $query = $params['query'];
         $param = $params['param1'];
 //        dd(static::query()->where('company_id','=',$param));
-        return empty($query) ? static::query()->where('company_id', '=', $param) :
-            static::query()->where('company_id', '=', $param);
+        return empty($query) ?
+            static::query()->where('company_id', '=', $param) :
+            static::query()->where('company_id', '=', $param)
+                ->whereHas('user', function ($q) use ($query) {
+                $q->where('user_nicename', 'like', "%$query%");
+            });
     }
 
     public static function tableView(): array

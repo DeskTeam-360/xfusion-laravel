@@ -1,7 +1,5 @@
 <?php
 
-use function PHPUnit\Framework\isEmpty;
-
 /**
  * Plugin Name: xfusion logo changer
  * Description: Plugin untuk menginjek fungsi updateIssue pada Wordfence.
@@ -29,17 +27,22 @@ function company_detect()
                     url: window.location.href.split('?')[0],
                 },
                 success: function (response) {
-                    console.log(response);
-                    if (response.data.status=="redirect"){
-                        window.setTimeout(alert(response.data.message), 1000);
+                    if (response.data.status === "redirect") {
+                        window.setTimeout(
+                            function () {
+                                alert(response.data.message)
+                            },
+                            1000);
                         window.location.replace(response.data.url)
                     }
-                    var company = response;
-                    const company_logo = document.getElementsByClassName("wp-image-5940");
-                    company_logo[0].src = company.data.logo_url.replace("public/", "https://admin.teamsetup-2.deskteam360.com/storage/");
-                    const qrcode = document.getElementsByClassName("wp-image-1124");
-                    qrcode[0].src = company.data.qrcode_url.replace("public/", "https://admin.teamsetup-2.deskteam360.com/storage/");
-                    qrcode[0].srcset = "";
+                    if (response.data.logo_url!==null){
+                        const company_logo = document.getElementsByClassName("wp-image-5940");
+                        company_logo[0].src = response.data.logo_url.replace("public/", "https://admin.teamsetup-2.deskteam360.com/storage/");
+                        const qrcode = document.getElementsByClassName("wp-image-1124");
+                        qrcode[0].src = response.data.qrcode_url.replace("public/", "https://admin.teamsetup-2.deskteam360.com/storage/");
+                        qrcode[0].srcset = "";
+                    }
+
                 },
                 error: function (xhr, status, error) {
                     console.error(xhr);
@@ -59,51 +62,116 @@ function get_company_info()
     global $wpdb;
 
     $url = $_POST['url'];
-    $userID = get_current_user_id();
-    $companyID = get_usermeta($userID, 'company');
-
-    $query = "select * from companies where id=$companyID";
-    $click_logs = $wpdb->get_results($query);
-    $result = [];
-    foreach ($click_logs as $log) {
-        $result['logo_url'] = $log->logo_url;
-        $result['qrcode_url'] = $log->qrcode_url;
-    }
-
     $query = "select * from limit_link_with_times where url='$url'";
     $limitLinks = $wpdb->get_results($query);
 
     foreach ($limitLinks as $limit) {
-        $query = "select * from schedule_executions where link='$url' and company_id =$companyID and user_id ='$userID'";
-        $schedules = $wpdb->get_results($query);
-        foreach ($schedules as $schedule) {
-            $now = date("Y-m-d h:i:s");
-            if ($now >= $schedule->schedule_access) {
-                if ($now <= $schedule->schedule_deadline) {
+        $userID = get_current_user_id();
+
+        if ($userID!=null){
+
+            $companyID = get_usermeta($userID, 'company');
+            $query = "select * from companies where id=$companyID";
+            $click_logs = $wpdb->get_results($query);
+            $result = [];
+            foreach ($click_logs as $log) {
+                $result['logo_url'] = $log->logo_url;
+                $result['qrcode_url'] = $log->qrcode_url;
+            }
+
+            $userID = get_current_user_id();
+            $companyID = get_usermeta($userID, 'company');
+
+            $query = "select * from companies where id=$companyID";
+            $click_logs = $wpdb->get_results($query);
+            $result = [];
+            foreach ($click_logs as $log) {
+                $result['logo_url'] = $log->logo_url;
+                $result['qrcode_url'] = $log->qrcode_url;
+            }
+
+
+            wp_send_json_success(['logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
+            wp_die();
+
+
+            $query = "select * from schedule_executions where link='$url' and company_id =$companyID and user_id ='$userID'";
+            $schedules = $wpdb->get_results($query);
+            foreach ($schedules as $schedule) {
+                $now = date("Y-m-d h:i:s");
+
+                if ($schedule->schedule_access == null) {
+
+                    $query = "SELECT * FROM course_schedule_generate_templates where parent_url = '$url'";
+
+                    $wpdb->insert(
+                        'log',
+                        [
+                            'log' => "query if schedule access null " . $query
+                        ]
+                    );
+
+//                saat ini akses maka deadline week 1 adalah minggu depan
+//                access = now+(week-1) deadline now+ week
+//                week = [1,2,3,4,5,6,7,8]
+
+                    $generateTemplates = $wpdb->get_results($query);
+                    foreach ($generateTemplates as $template) {
+
+                        $start_date = date('Y-m-d H:i:s');
+                        $date = strtotime($start_date);
+                        $dateStart = $template->week - 1;
+                        $dateEnd = $template->week;
+
+                        $wpdb->insert(
+                            'schedule_executions',
+                            array(
+                                'link' => $template->url,
+                                'company_id' => $companyID,
+                                'user_id' => $userID,
+                                'status' => 0,
+                                'title' => $template->title,
+                                'schedule_access' => date('Y-m-d H:i:s',strtotime("+$dateStart week", $date)),
+                                'schedule_deadline' => date('Y-m-d H:i:s',strtotime("+$dateEnd week", $date)),
+                            )
+                        );
+                    }
+//                query if schedule access null SELECT * FROM course_schedule_generate_templates where parent_url = 'https://teamsetup-2.deskteam360.com/revitalize/lms-page-1/'
+
                     wp_send_json_success(['logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
                     wp_die();
+                }
+
+                // schedule cukup buat 1 tanpa waktu generate dari create user
+
+                if ($now >= $schedule->schedule_access) {
+                    if ($now <= $schedule->schedule_deadline) {
+                        wp_send_json_success(['logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
+                        wp_die();
+                    } else {
+                        $url = $limit->redirect_url;
+                        $status = 'redirect';
+                        $message = "Has passed the limit " . $schedule->schedule_deadline;
+                        wp_send_json_success(['url' => $url, 'status' => $status, 'message' => $message, 'logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
+                        wp_die();
+                    }
                 } else {
                     $url = $limit->redirect_url;
                     $status = 'redirect';
-                    $message = "Has passed the limit ". $schedule->schedule_deadline;
-                    wp_send_json_success(['url' => $url, 'status' => $status, 'message' => $message,'logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
+                    $message = "Can access on " . $schedule->schedule_access;
+                    wp_send_json_success(['url' => $url, 'status' => $status, 'message' => $message, 'logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
                     wp_die();
                 }
-            } else {
-                $url = $limit->redirect_url;
-                $status = 'redirect';
-                $message = "Can access on ". $schedule->schedule_access;
-                wp_send_json_success(['url' => $url, 'status' => $status, 'message' => $message, 'logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
-                wp_die();
             }
+            $url = $limit->redirect_url;
+            $status = 'redirect';
+            $message = "You don't have access";
+            wp_send_json_success(['url' => $url, 'status' => $status, 'message' => $message]);
+            wp_die();
         }
-        $url = $limit->redirect_url;
-        $status = 'redirect';
-        $message = "You don't have access";
-        wp_send_json_success(['url' => $url, 'status' => $status, 'message' => $message]);
-        wp_die();
     }
-    wp_send_json_success(['logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
+
+    wp_send_json_success(['logo_url' => null, 'qrcode_url' => null]);
     wp_die();
 }
 

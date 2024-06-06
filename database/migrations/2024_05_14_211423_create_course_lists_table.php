@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('limit_link_with_times', function (Blueprint $table) {
+        Schema::create('course_lists', function (Blueprint $table) {
             $table->id();
             $table->string('url');
-            $table->string('redirect_url');
+            $table->string('course_title');
+            $table->string('page_title');
             $table->timestamps();
         });
     }

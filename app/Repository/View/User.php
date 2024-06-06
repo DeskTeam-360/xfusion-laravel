@@ -11,16 +11,16 @@ class User extends \App\Models\User implements View
     {
         $query = $params['query'];
         $params = $params['param1'];
-        if ($params==null){
+        if ($params == null) {
             return empty($query) ? static::query()
-                : static::query();
-        }else{
-            return empty($query) ? static::query()->whereHas('companyEmployee',function ($q) use ($params) {
-                $q->where('company_id','=',$params);
-            })
-                : static::query()->whereHas('companyEmployee',function ($q) use ($params) {
-                    $q->where('company_id','=',$params);
-                });
+                : static::query()->where('user_nicename', 'like', "%$query%");
+        } else {
+            return empty($query) ? static::query()->whereHas('companyEmployee', function ($q) use ($params) {
+                $q->where('company_id', '=', $params);
+            })->where('user_nicename', 'like', "%$query%")
+                : static::query()->whereHas('companyEmployee', function ($q) use ($params) {
+                    $q->where('company_id', '=', $params);
+                })->where('user_nicename', 'like', "%$query%");
         }
 
     }
