@@ -11,25 +11,26 @@
         <x-input title="Re-type password" model="rePassword" type="password"/>
     @endif
 
-    <div>
-        <label for="role" class="form-label mb-2">
-            Role <span class="text-red-600">*</span>
-        </label>
-        <select wire:model="role" class="form-control">
-            @if($companyId==null)
-                <option value="contributor">Contributor</option>
-                <option value="editor">Company/Editor</option>
-                {{--                <option value="administrator">Administrator</option>--}}
-            @else
-                <option value="subscriber">Employee/Subscriber</option>
-            @endif
+    @if($action=="create")
+        <div>
+            <label for="role" class="form-label mb-2">
+                Role <span class="text-red-600">*</span>
+            </label>
+            <select wire:model="role" class="form-control">
+                @if($companyId==null)
+                    <option value="contributor">Contributor</option>
+                    <option value="editor">Company/Editor</option>
+                    {{--                <option value="administrator">Administrator</option>--}}
+                @else
+                    <option value="subscriber">Employee/Subscriber</option>
+                @endif
 
 
-        </select>
-        <div> @error('role') <span class="error">{{ $message }}</span> @enderror </div>
-        <br>
-    </div>
-
+            </select>
+            <div> @error('role') <span class="error">{{ $message }}</span> @enderror </div>
+            <br>
+        </div>
+    @endif
 
     <button type="submit"
             class="text-center rounded-lg py-[10px] px-[20px] text-base bg-blue-600 hover:bg-blue-700 text-white font-medium ">

@@ -35,7 +35,7 @@ function company_detect()
                             1000);
                         window.location.replace(response.data.url)
                     }
-                    if (response.data.logo_url!==null){
+                    if (response.data.logo_url !== null) {
                         const company_logo = document.getElementsByClassName("wp-image-5940");
                         company_logo[0].src = response.data.logo_url.replace("public/", "https://admin.teamsetup-2.deskteam360.com/storage/");
                         const qrcode = document.getElementsByClassName("wp-image-1124");
@@ -62,59 +62,33 @@ function get_company_info()
     global $wpdb;
 
     $url = $_POST['url'];
-    $query = "select * from limit_link_with_times where url='$url'";
+    $query = "select * from course_lists where url='$url'";
     $limitLinks = $wpdb->get_results($query);
 
     foreach ($limitLinks as $limit) {
         $userID = get_current_user_id();
-
-        if ($userID!=null){
-
+        if ($userID != null) {
             $companyID = get_usermeta($userID, 'company');
+
             $query = "select * from companies where id=$companyID";
+
             $click_logs = $wpdb->get_results($query);
+
             $result = [];
+
             foreach ($click_logs as $log) {
                 $result['logo_url'] = $log->logo_url;
                 $result['qrcode_url'] = $log->qrcode_url;
             }
-
-            $userID = get_current_user_id();
-            $companyID = get_usermeta($userID, 'company');
-
-            $query = "select * from companies where id=$companyID";
-            $click_logs = $wpdb->get_results($query);
-            $result = [];
-            foreach ($click_logs as $log) {
-                $result['logo_url'] = $log->logo_url;
-                $result['qrcode_url'] = $log->qrcode_url;
-            }
-
-
-            wp_send_json_success(['logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
-            wp_die();
-
 
             $query = "select * from schedule_executions where link='$url' and company_id =$companyID and user_id ='$userID'";
             $schedules = $wpdb->get_results($query);
+
             foreach ($schedules as $schedule) {
                 $now = date("Y-m-d h:i:s");
 
                 if ($schedule->schedule_access == null) {
-
-                    $query = "SELECT * FROM course_schedule_generate_templates where parent_url = '$url'";
-
-                    $wpdb->insert(
-                        'log',
-                        [
-                            'log' => "query if schedule access null " . $query
-                        ]
-                    );
-
-//                saat ini akses maka deadline week 1 adalah minggu depan
-//                access = now+(week-1) deadline now+ week
-//                week = [1,2,3,4,5,6,7,8]
-
+                    $query = "SELECT * FROM course_schedule_generates where course_list_parent_id = '$url'";
                     $generateTemplates = $wpdb->get_results($query);
                     foreach ($generateTemplates as $template) {
 
@@ -123,21 +97,22 @@ function get_company_info()
                         $dateStart = $template->week - 1;
                         $dateEnd = $template->week;
 
+                        $query2 = "SELECT * FROM course_lists where id = '$template->id'";
+                        $courseList = $wpdb->get_results($query2);
+
                         $wpdb->insert(
                             'schedule_executions',
                             array(
-                                'link' => $template->url,
+                                'link' => $courseList[0]->url,
                                 'company_id' => $companyID,
                                 'user_id' => $userID,
                                 'status' => 0,
-                                'title' => $template->title,
-                                'schedule_access' => date('Y-m-d H:i:s',strtotime("+$dateStart week", $date)),
-                                'schedule_deadline' => date('Y-m-d H:i:s',strtotime("+$dateEnd week", $date)),
+                                'title' => $courseList[0]->page_title . ' - ' . $courseList[0]->course_title,
+                                'schedule_access' => date('Y-m-d H:i:s', strtotime("+$dateStart week", $date)),
+                                'schedule_deadline' => date('Y-m-d H:i:s', strtotime("+$dateEnd week", $date)),
                             )
                         );
                     }
-//                query if schedule access null SELECT * FROM course_schedule_generate_templates where parent_url = 'https://teamsetup-2.deskteam360.com/revitalize/lms-page-1/'
-
                     wp_send_json_success(['logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
                     wp_die();
                 }

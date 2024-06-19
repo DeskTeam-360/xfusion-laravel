@@ -48,11 +48,8 @@ class Company extends \App\Models\Company implements View
             ['type' => 'raw_html','text-align'=>'center', 'data' => "
 <div class='flex gap-1'>
 <span><a href='$link' class='btn btn-primary'>Edit</a></span>
-<span><a href='#' class='btn btn-error'>delete</a></span>
+<span><a href='#' class='btn btn-error'>Delete</a></span>
 <span><a href='$link2' class='btn btn-secondary' style='overflow: hidden;white-space: nowrap;'>Show Employee</a></span>
-
-
-
 </div>"],
 
         ];

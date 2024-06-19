@@ -21,7 +21,7 @@ class CourseList extends \App\Models\CourseList implements View
     public static function tableView(): array
     {
         return [
-            'searchable' => false,
+            'searchable' => true,
         ];
     }
 

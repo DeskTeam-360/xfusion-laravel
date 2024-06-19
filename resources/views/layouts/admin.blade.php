@@ -16,9 +16,9 @@
 {{--    <link rel="stylesheet" href="{{asset('assets/fonts/icons/tabler-icons/tabler-icons.css')}}">--}}
     <link rel="stylesheet" href="{{asset('assets/icons-webfont/tabler-icons.min.css')}}">
     <!-- Core Css -->
-{{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
-    <link rel="stylesheet" href="{{ asset('build/assets/app-DdqVIPGz.css') }}">
-    <script src="{{ asset('build/assets/app-CI1Bgkaz.js') }}"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+{{--    <link rel="stylesheet" href="{{ asset('build/assets/app-DdqVIPGz.css') }}">--}}
+{{--    <script src="{{ asset('build/assets/app-CI1Bgkaz.js') }}"></script>--}}
 
     <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}">
 
@@ -100,6 +100,7 @@
 <script src="{{ asset('assets/libs/preline/dist/components/hs-scrollspy/hs-scrollspy.js') }}"></script>
 <script src="{{ asset('assets/libs/preline/dist/components/hs-tabs/hs-tabs.js') }}"></script>
 <script src="{{ asset('assets/libs/preline/dist/components/hs-tooltip/hs-tooltip.js') }}"></script>
+<script src="{{ asset('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
 {{--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>--}}
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/gh/fcmam5/nightly.js@v1.0/dist/nightly.min.js"></script>

@@ -9,7 +9,6 @@ use Carbon\Carbon;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use MikeMcLin\WpPassword\Facades\WpPassword;
-use function Livewire\of;
 
 class User extends Component
 {
@@ -31,6 +30,7 @@ class User extends Component
     public $password;
     #[Validate('required|max:255|same:password')]
     public $rePassword;
+
     #[Validate('required|max:255')]
     public $role;
 
@@ -52,14 +52,14 @@ class User extends Component
             'user_status' => 0,
             'display_name' => $this->first_name . ' ' . $this->last_name,
         ]);
-        if ($this->role=='subscriber'){
+        if ($this->role == 'subscriber') {
             ScheduleExecution::create([
                 'link' => 'https://teamsetup-2.deskteam360.com/revitalize/lms-page-1/',
                 'company_id' => $this->companyId,
                 'user_id' => $user->id,
                 'title' => 'LMS Page 1',
                 'status' => 0,
-                'schedule_access' =>null,
+                'schedule_access' => null,
                 'schedule_deadline' => null,
             ]);
         }
@@ -76,10 +76,10 @@ class User extends Component
         $this->userMeta['use_ssl'] = 0;
         $this->userMeta['show_admin_bar_front'] = true;
         $this->userMeta['locale'] = '';
-        $this->userMeta['wp_capabilities'] = serialize([$this->role=>true]);
+        $this->userMeta['wp_capabilities'] = serialize([$this->role => true]);
         $this->userMeta['wp_user_level'] = 0;
         $this->userMeta['dismissed_wp_pointers'] = '';
-        if ($this->companyId!=null){
+        if ($this->companyId != null) {
             $this->userMeta['company'] = $this->companyId;
             CompanyEmployee::create([
                 'user_id' => $user->ID,
@@ -102,6 +102,35 @@ class User extends Component
         }
     }
 
+    public function update()
+    {
+
+//        $this->validate();
+
+        $user = \App\Models\User::find($this->dataId)->update([
+            'user_login' => $this->username,
+            'user_nicename' => $this->first_name,
+            'user_email' => $this->email,
+            'user_url' => $this->website ?? 'http://' . $this->first_name,
+            'user_registered' => Carbon::now()->toDateTimeString(),
+            'user_status' => 0,
+            'display_name' => $this->first_name . ' ' . $this->last_name,
+        ]);
+
+//        $roles = $data->meta->where('meta_key', '=', config('app.wp_prefix', 'wp_') . 'capabilities');
+//        $role = '';
+//
+//        foreach ($roles as $r) {
+//            $role = array_key_first(unserialize($r['meta_value']));
+//        }
+
+        if ($this->companyId != null) {
+            $this->redirect(route('company.show', $this->companyId));
+        } else {
+            $this->redirect(route('user.index'));
+        }
+    }
+
     public function mount()
     {
         if ($this->companyId != null) {
@@ -112,7 +141,12 @@ class User extends Component
         if ($this->dataId != null) {
             $data = \App\Models\User::find($this->dataId);
             $this->username = $data->user_login;
-            $this->first_name = $data->user_login;
+            $this->first_name = $data->user_nicename;
+            $this->last_name = $data->last_name;
+            $this->password = $data->password;
+
+            $this->rePassword = $data->password;
+
             $this->email = $data->user_email;
             $this->website = $data->user_url;
             $roles = $data->meta->where('meta_key', '=', config('app.wp_prefix', 'wp_') . 'capabilities');

@@ -13,6 +13,7 @@ class CourseList extends Component
     public $url;
     public $pageTitle;
     public $courseTitle;
+    public $optionPageTitle;
 
     public function getRules()
     {
@@ -24,6 +25,11 @@ class CourseList extends Component
     }
     public function mount()
     {
+        $this->optionPageTitle = [
+            ['value' => 'Revitalize','title'=>'Revitalize'],
+            ['value' => 'Sustain','title'=>'Sustain'],
+            ['value' => 'Transform','title'=>'Transform'],
+        ];
         if ($this->dataId!=null){
             $data = \App\Models\CourseList::find($this->dataId);
             $this->url=$data->url;

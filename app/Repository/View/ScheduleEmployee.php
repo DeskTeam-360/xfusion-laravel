@@ -15,16 +15,29 @@ class ScheduleEmployee extends ScheduleExecution implements View
     {
         $query = $params['query'];
         $param = $params['param1'];
+        $param2 = $params['param2'];
 
-        return empty($query) ?
-            static::query()->where('company_id', '=', $param) :
-            static::query()->where('company_id', '=', $param)->where(function ($q) use ($query) {
-                $q->whereHas('user', function ($q) use ($query) {
-                    $q->where('user_nicename', 'like', "%$query%");
-                })
-                    ->orWhere('schedule_access', 'like', "%$query%")
-                    ->orWhere('schedule_deadline', 'like', "%$query%");
-            });
+        if ($param!=null){
+            return empty($query) ?
+                static::query()->where('company_id', '=', $param)->where('user_id','=',$param2) :
+                static::query()->where('company_id', '=', $param)->where('user_id','=',$param2)->where(function ($q) use ($query) {
+                    $q->whereHas('user', function ($q) use ($query) {
+                        $q->where('user_nicename', 'like', "%$query%");
+                    })
+                        ->orWhere('schedule_access', 'like', "%$query%")
+                        ->orWhere('schedule_deadline', 'like', "%$query%");
+                });
+        }else{
+            return empty($query) ?
+                static::query()->where('user_id','=',$param2):
+                static::query()->where('user_id','=',$param2)->where(function ($q) use ($query) {
+                    $q->whereHas('user', function ($q) use ($query) {
+                        $q->where('user_nicename', 'like', "%$query%");
+                    })
+                        ->orWhere('schedule_access', 'like', "%$query%")
+                        ->orWhere('schedule_deadline', 'like', "%$query%");
+                });
+        }
     }
 
     public static function tableView(): array
@@ -60,8 +73,8 @@ function myFunction() {
 }
 </script>
 <button onclick='myFunction()'   class='btn btn-primary text-nowrap'>Copy Link</button>"],
-            ['type' => 'raw_html', 'text-align' => 'center', 'data' => $data->schedule_access],
-            ['type' => 'raw_html', 'text-align' => 'center', 'data' => $data->schedule_deadline],
+            ['type' => 'raw_html', 'text-align' => 'center', 'data' => $data->schedule_access??'Not schedule'],
+            ['type' => 'raw_html', 'text-align' => 'center', 'data' => $data->schedule_deadline??'Not schedule'],
         ];
     }
 }

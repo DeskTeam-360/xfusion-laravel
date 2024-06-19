@@ -68,8 +68,8 @@ function myFunction() {
 }
 </script>
 <button onclick='myFunction()'   class='btn btn-primary text-nowrap'>Copy Link</button>"],
-            ['type' => 'string', 'text-align' => 'center', 'data' => "$data->schedule_access"],
-            ['type' => 'string', 'text-align' => 'center', 'data' => "$data->schedule_deadline"],
+            ['type' => 'string', 'text-align' => 'center', 'data' => $data->schedule_access??'Not schedule'],
+            ['type' => 'string', 'text-align' => 'center', 'data' => $data->schedule_deadline??'Not schedule'],
         ];
     }
 }

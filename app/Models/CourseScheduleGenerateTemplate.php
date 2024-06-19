@@ -25,6 +25,6 @@ class CourseScheduleGenerateTemplate extends Model
     use HasFactory;
 
     protected $fillable = ['header', 'title', 'week', 'url', 'sub_title', 'parent_url'];
-
+//'link', '', 'status', 'title','schedule_access','schedule_deadline'
 
 }
