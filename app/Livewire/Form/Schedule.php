@@ -73,8 +73,8 @@ class Schedule extends Component
             'schedule_access' => $this->schedule_access_date != '' ? $this->schedule_access_date . ' ' . $this->schedule_access_time : null,
             'schedule_deadline' => $this->schedule_deadline_date != '' ? $this->schedule_deadline_date . ' ' . $this->schedule_deadline_time : null,
         ]);
-        dd($se);
-//        $this->redirect(route('company.schedule', $this->companyId));
+
+        $this->redirect(route('company.schedule', $this->companyId));
     }
 
 

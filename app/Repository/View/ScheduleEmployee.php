@@ -17,16 +17,31 @@ class ScheduleEmployee extends ScheduleExecution implements View
         $param = $params['param1'];
         $param2 = $params['param2'];
 
+
+
         if ($param!=null){
-            return empty($query) ?
-                static::query()->where('company_id', '=', $param)->where('user_id','=',$param2) :
-                static::query()->where('company_id', '=', $param)->where('user_id','=',$param2)->where(function ($q) use ($query) {
-                    $q->whereHas('user', function ($q) use ($query) {
-                        $q->where('user_nicename', 'like', "%$query%");
-                    })
-                        ->orWhere('schedule_access', 'like', "%$query%")
-                        ->orWhere('schedule_deadline', 'like', "%$query%");
-                });
+            if ($param2!=null){
+                return empty($query) ?
+                    static::query()->where('company_id', '=', $param)->where('user_id','=',$param2) :
+                    static::query()->where('company_id', '=', $param)->where('user_id','=',$param2)->where(function ($q) use ($query) {
+                        $q->whereHas('user', function ($q) use ($query) {
+                            $q->where('user_nicename', 'like', "%$query%");
+                        })
+                            ->orWhere('schedule_access', 'like', "%$query%")
+                            ->orWhere('schedule_deadline', 'like', "%$query%");
+                    });
+            }else{
+                return empty($query) ?
+                    static::query()->where('company_id', '=', $param) :
+                    static::query()->where('company_id', '=', $param)->where(function ($q) use ($query) {
+                        $q->whereHas('user', function ($q) use ($query) {
+                            $q->where('user_nicename', 'like', "%$query%");
+                        })
+                            ->orWhere('schedule_access', 'like', "%$query%")
+                            ->orWhere('schedule_deadline', 'like', "%$query%");
+                    });
+            }
+
         }else{
             return empty($query) ?
                 static::query()->where('user_id','=',$param2):
