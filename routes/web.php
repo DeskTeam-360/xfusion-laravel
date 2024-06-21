@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-
 //    $start_date =date('Y-m-d H:i:s');
 //    $date = strtotime($start_date);
 //    $date = strtotime("+0 week", $date);

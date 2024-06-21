@@ -31,8 +31,8 @@ class CourseScheduleGenerate extends \App\Models\CourseScheduleGenerate implemen
     {
         return [
             ['label' => '#', 'sort' => 'id', 'width' => '7%'],
-            ['label' => 'Course title', ],
             ['label' => 'Parent title', ],
+            ['label' => 'Course title', ],
             ['label' => 'Link', 'sort' => 'link'],
             ['label' => 'week','text-align'=>'center', ],
             ['label' => 'Action'],
@@ -42,11 +42,12 @@ class CourseScheduleGenerate extends \App\Models\CourseScheduleGenerate implemen
     public static function tableData($data = null): array
     {
         $link = route('course-schedule-generate-edit',$data->id);
+        $url = $data->courseList->url;
         return [
             ['type' => 'string','data'=>$data->id],
-            ['type' => 'string', 'data' => $data->courseList->page_title." - ".$data->courseList->course_title],
-            ['type' => 'string', 'data' => $data->courseListParent->page_title." - ".$data->courseListParent->course_title],
-            ['type' => 'string', 'data' => $data->courseList->url],
+            ['type' => 'string', 'data' => $data->courseListParent->course_title." - ".$data->courseListParent->page_title],
+            ['type' => 'string', 'data' => $data->courseList->course_title." - ".$data->courseList->page_title],
+            ['type' => 'raw_html', 'data' => "<a href='$url' class='px-2 py-1 rounded-md bg-primary text-white' target='_blank'>LINK</a>"],
             ['type' => 'string','text-align'=>'center', 'data' => $data->week],
             ['type' => 'raw_html','text-align'=>'center', 'data' => "
 <div class='flex gap-1'>

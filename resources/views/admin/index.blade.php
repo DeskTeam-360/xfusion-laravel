@@ -273,7 +273,7 @@ $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('me
                             {{--                            </div>--}}
                             <div class="">
                                 <h5 class="text-3xl leading-normal">
-                                    {{ CourseList::where('page_title',$pt)->count() }}
+                                    {{ CourseList::where('course_title',$pt)->count() }}
                                 </h5>
                                 <span class="text-lg flex items-center gap-1">
                                 {{ $pt }}

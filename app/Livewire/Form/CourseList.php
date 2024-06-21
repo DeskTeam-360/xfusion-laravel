@@ -13,7 +13,7 @@ class CourseList extends Component
     public $url;
     public $pageTitle;
     public $courseTitle;
-    public $optionPageTitle;
+    public $optionCourseTitle;
 
     public function getRules()
     {
@@ -25,7 +25,7 @@ class CourseList extends Component
     }
     public function mount()
     {
-        $this->optionPageTitle = [
+        $this->optionCourseTitle = [
             ['value' => 'Revitalize','title'=>'Revitalize'],
             ['value' => 'Sustain','title'=>'Sustain'],
             ['value' => 'Transform','title'=>'Transform'],
