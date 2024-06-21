@@ -45,15 +45,8 @@ class ScheduleEmployeeAll extends \App\Models\CompanyEmployee implements View
 
     public static function tableData($data = null): array
     {
-        $query = [
-            'user_id' => $data->user_id,
-            'schedule_access' => $data->schedule_access,
-            'company_id' => $data->company_id,
-            'logo_url' => \App\Models\Company::find($data->company_id)->logo_url ?? '',
-            'qrcode_url' => \App\Models\Company::find($data->company_id)->qrcode_url ?? '',
-        ];
 
-        $link = $data->link . "/?query=" . base64_encode(json_encode($query));
+        $link = $data->link;
         $now = Carbon::now();
 //        $link2 = route('company.show',$data->id);
         return [
@@ -63,11 +56,11 @@ class ScheduleEmployeeAll extends \App\Models\CompanyEmployee implements View
             ['type' => 'string', 'text-align' => 'center', 'data' => $data->title],
             ['type' => 'raw_html', 'text-align' => 'center', 'data' => "
                 <script >
-function myFunction() {
-    navigator.clipboard.writeText('$link');
+function myFunction(link) {
+    navigator.clipboard.writeText(link);
 }
 </script>
-<button onclick='myFunction()'   class='btn btn-primary text-nowrap'>Copy Link</button>"],
+<button onclick='myFunction(`$link`)' wire:click='toastAlert(`success`,`Link has been copied`)'  class='btn btn-primary text-nowrap'>Copy Link</button>"],
             ['type' => 'string', 'text-align' => 'center', 'data' => $data->schedule_access??'Not schedule'],
             ['type' => 'string', 'text-align' => 'center', 'data' => $data->schedule_deadline??'Not schedule'],
         ];

@@ -228,7 +228,6 @@ class CompanyController extends Controller
                     }
                 }
             }
-            dd("asdasd");
             return view('admin.company.schedule-employee', compact('id', 'userID'));
         } else {
             return redirect('dashboard');
