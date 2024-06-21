@@ -60,7 +60,7 @@ Route::middleware([
             return view('admin.revitalize.index');
         })->name('revitalize-all');
 
-        Route::get('/schedule/detail/{user}', [CompanyController::class, 'scheduleUserAdministrator'])->name('schedule-user-administrator');
+        Route::get('/schedule/user/detail/{user}', [CompanyController::class, 'scheduleUserAdministrator'])->name('schedule-user-administrator');
 
         Route::get('/course/schedule/generate/', [CompanyController::class, 'courseScheduleGenerate'])->name('course-schedule-generate');
         Route::get('/course/schedule/generate/create', [CompanyController::class, 'courseScheduleGenerateCreate'])->name('course-schedule-generate-create');
@@ -75,7 +75,7 @@ Route::middleware([
     Route::get('/company/{id}/schedule', [CompanyController::class, 'schedule'])->name('company.schedule');
     Route::get('/company/{id}/schedule/create', [CompanyController::class, 'scheduleCreate'])->name('company.schedule-create');
 
-    Route::get('/company/{id}/schedule/{user}', [CompanyController::class, 'scheduleUser'])->name('company.schedule-user');
+    Route::get('/company/{id}/schedule/user/{user}', [CompanyController::class, 'scheduleUser'])->name('company.schedule-user');
 
 });
 

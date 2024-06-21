@@ -60,6 +60,14 @@ class Master extends Component
 
     }
 
+    public function toastAlert($icon,$text)
+    {
+        $this->dispatch('swal:alert', data:[
+            'icon' => $icon,
+            'title' => $text,
+        ]);
+    }
+
     public function delete()
     {
         try {

@@ -228,6 +228,7 @@ class CompanyController extends Controller
                     }
                 }
             }
+            dd("asdasd");
             return view('admin.company.schedule-employee', compact('id', 'userID'));
         } else {
             return redirect('dashboard');
@@ -237,7 +238,8 @@ class CompanyController extends Controller
     public function scheduleUserAdministrator($user)
     {
         $id = null;
-        return view('admin.company.schedule-employee', compact('user', 'id'));
+        $userID=$user;
+        return view('admin.company.schedule-employee', compact('userID', 'id'));
     }
 
     public function courseScheduleGenerate()

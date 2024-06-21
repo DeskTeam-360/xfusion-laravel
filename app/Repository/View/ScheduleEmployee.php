@@ -83,11 +83,11 @@ class ScheduleEmployee extends ScheduleExecution implements View
             ['type' => 'string', 'text-align' => 'center', 'data' => $data->title],
             ['type' => 'raw_html', 'text-align' => 'center', 'data' => "
 <script >
-function myFunction() {
-    navigator.clipboard.writeText('$link');
+function myFunction(link) {
+    navigator.clipboard.writeText(link);
 }
 </script>
-<button onclick='myFunction()'   class='btn btn-primary text-nowrap'>Copy Link</button>"],
+<button onclick='myFunction(`$link`)'  wire:click='toastAlert(`success`,`Link has been copied`)'  class='btn btn-primary text-nowrap'>Copy Link</button>"],
             ['type' => 'raw_html', 'text-align' => 'center', 'data' => $data->schedule_access??'Not schedule'],
             ['type' => 'raw_html', 'text-align' => 'center', 'data' => $data->schedule_deadline??'Not schedule'],
         ];
