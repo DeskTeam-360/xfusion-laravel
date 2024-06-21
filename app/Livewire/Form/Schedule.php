@@ -54,7 +54,7 @@ class Schedule extends Component
         $this->optionCourse = [];
 //        'url','course_title','page_title'
         foreach (\App\Models\CourseList::get() as $cl) {
-            $this->optionCourse [] = ['value' => $cl->url, 'title' => $cl->course_title];
+            $this->optionCourse [] = ['value' => $cl->url, 'title' => $cl->course_title.' - '.$cl->course_title];
         }
     }
 
