@@ -44,7 +44,7 @@ class CourseScheduleGenerate extends \App\Models\CourseScheduleGenerate implemen
         $link = route('course-schedule-generate-edit',$data->id);
         $url = $data->courseList->url;
         return [
-            ['type' => 'string','data'=>$data->id],
+            ['type' => 'index'],
             ['type' => 'string', 'data' => $data->courseListParent->course_title." - ".$data->courseListParent->page_title],
             ['type' => 'string', 'data' => $data->courseList->course_title." - ".$data->courseList->page_title],
 //            ['type' => 'raw_html', 'data' => "<a href='$url' class='px-2 py-1 rounded-md bg-primary text-white' target='_blank'>LINK</a>"],

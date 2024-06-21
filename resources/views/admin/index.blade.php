@@ -151,7 +151,7 @@ $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('me
                                     <path d="M3.47729 10.083H21.4773" stroke-width="2" stroke-linecap="round"
                                           stroke-linejoin="round"/>
                                 </svg>
-                                Date Subscribe (Register at)
+                                Date Subscribe
                             </th>
                             <th scope="col" class="text-center p-2 font-semibold text-dark dark:text-white ">
                                 Options
@@ -232,7 +232,7 @@ $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('me
                                     <path d="M3.47729 10.083H21.4773" stroke-width="2" stroke-linecap="round"
                                           stroke-linejoin="round"/>
                                 </svg>
-                                Date Subscribe (Register at)
+                                Date Subscribe
                             </th>
 {{--                            <th scope="col" class="text-center p-2 font-semibold text-dark dark:text-white ">--}}
 {{--                                Options--}}
