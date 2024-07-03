@@ -43,10 +43,10 @@ class CourseList extends \App\Models\CourseList implements View
             ['type' => 'string','data'=>$data->id],
             ['type' => 'string', 'data' => $data->course_title],
             ['type' => 'string', 'data' => $data->page_title],
-            ['type' => 'string', 'data' => $data->url],
+            ['type' => 'raw_html', 'data' => "<a href='$data->url'>$data->url</a>"],
             ['type' => 'raw_html','text-align'=>'center', 'data' => "
 <div class='flex gap-1'>
-<button href='#' wire:click='deleteItem($data->id)' class='btn btn-error'>delete</button>
+<button href='#' wire:click='deleteItem($data->id)' class='btn btn-error'>Delete</button>
 <a href='$link' class='btn btn-primary'>Edit</a>
 </div>"],
 
