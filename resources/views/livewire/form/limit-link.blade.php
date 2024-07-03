@@ -6,5 +6,5 @@
     <x-input title="Url" model="url" required="true"/>
 
     {{--    <x-input title="Redirect Link" model="redirect_url" required="true"/>--}}
-    <input type="submit" class="btn" value="Save Company">
+    <input type="submit" class="btn" value="Submit">
 </form>

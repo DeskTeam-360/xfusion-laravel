@@ -12,5 +12,5 @@
         <x-input type="time" model="schedule_deadline_time" title="&nbsp"/>
     </div>
 
-    <input type="submit" class="btn" value="Save Company">
+    <input type="submit" class="btn" value="Submit">
 </form>

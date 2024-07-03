@@ -32,9 +32,6 @@
         </div>
     @endif
 
-    <button type="submit"
-            class="text-center rounded-lg py-[10px] px-[20px] text-base bg-blue-600 hover:bg-blue-700 text-white font-medium ">
-        Submit
-    </button>
+    <input type="submit" class="btn" value="Submit">
 
 </form>

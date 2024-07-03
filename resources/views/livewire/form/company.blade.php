@@ -45,5 +45,5 @@
     <x-input title="Company logo" model="logo_url" type="file" accept="image/png" ignore="{{true}}"/>
     <x-input title="Company qrcode" model="qrcode_url" type="file" accept="image/png" ignore="{{true}}"/>
     <x-select title="Company leader" model="user_id" :options="$usersOption" required="true"/>
-    <input type="submit" class="btn" value="Save Company">
+    <input type="submit" class="btn" value="Submit">
 </form>
