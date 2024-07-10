@@ -64,32 +64,33 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
         }
 
 
-        $roles = $data->user->meta->where('meta_key', '=', config('app.wp_prefix', 'wp_') . 'capabilities');
-        $role = '';
 
-        foreach ($roles as $r) {
-            $role = array_key_first(unserialize($r['meta_value']));
-        }
+//        $roles = $data->user->meta->where('meta_key', '=', config('app.wp_prefix', 'wp_') . 'capabilities');
+//        $role = '';
+
+//        foreach ($roles as $r) {
+//            $role = array_key_first(unserialize($r['meta_value']));
+//        }
 
 
-        $companies = $data->user->meta->where('meta_key', '=', 'company');
-        $company = '-';
+//        $companies = $data->user->meta->where('meta_key', '=', 'company');
+//        $company = '-';
 
 
 //        $link = route('user.edit', $data->ID);
 //        $link2 = route('user.show', $data->ID);
 
 
-        $companyId = null;
-        foreach ($companies as $r) {
-            $c = \App\Models\Company::find($r['meta_value']);
-            if ($c != null) {
-                $companyId = $c->id;
-                $company = $c->title;
-            } else {
-                $company = 'Company has been delete';
-            }
-        }
+//        $companyId = null;
+//        foreach ($companies as $r) {
+//            $c = \App\Models\Company::find($r['meta_value']);
+//            if ($c != null) {
+//                $companyId = $c->id;
+//                $company = $c->title;
+//            } else {
+//                $company = 'Company has been delete';
+//            }
+//        }
 
 //
 //        if ($roleUser == "administrator") {
@@ -105,8 +106,8 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
             ['type' => 'raw_html', 'data' =>
                 "<div>$data->user->user_login <br><div style='font-size: 10px'>$data->user->email</div></div>"
             ],
-            ['type' => 'string', 'data' => $company],
-            ['type' => 'string', 'data' => $role],
+//            ['type' => 'string', 'data' => $company],
+//            ['type' => 'string', 'data' => $role],
             ['type' => 'raw_html', 'text-align' => 'center', 'data' => ""],
         ];
     }
