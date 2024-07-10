@@ -77,7 +77,7 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
 
 
 //        $link = route('user.edit', $data->ID);
-        $link2 = route('user.show', $data->ID);
+//        $link2 = route('user.show', $data->ID);
 
 
         $companyId = null;
@@ -91,14 +91,14 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
             }
         }
 
-
-        if ($roleUser == "administrator") {
-            $link = route('user.edit', $data->ID);
-            $link3 = route('schedule-user-administrator', [$data->ID]);
-        } else {
-            $link = route('company.edit-employee', [$companyId, $data->ID]);
-            $link3 = route('company.schedule-user', [$companyId, $data->ID]);
-        }
+//
+//        if ($roleUser == "administrator") {
+//            $link = route('user.edit', $data->ID);
+//            $link3 = route('schedule-user-administrator', [$data->ID]);
+//        } else {
+//            $link = route('company.edit-employee', [$companyId, $data->ID]);
+//            $link3 = route('company.schedule-user', [$companyId, $data->ID]);
+//        }
 
         return [
             ['type' => 'string', 'data' => $data->date_created],
