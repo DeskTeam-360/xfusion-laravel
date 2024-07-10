@@ -45,6 +45,11 @@ class WpGfEntry extends Model
         'status'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class,'created_by');
+    }
+
     public function wpGfForm()
     {
         return $this->belongsTo(WpGfForm::class,'form_id');

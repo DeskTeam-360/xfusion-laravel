@@ -42,8 +42,6 @@ class CompanyEmployee extends \App\Models\CompanyEmployee implements View
 
     public static function tableData($data = null): array
     {
-        $link = route('user.edit', $data->user_id);
-//        $link2 = route('company.show',$data->id);
         return [
             ['type' => 'index', 'data' => $data->id],
             ['type' => 'string', 'data' => \App\Models\User::find($data->user_id)->user_nicename],
@@ -51,10 +49,6 @@ class CompanyEmployee extends \App\Models\CompanyEmployee implements View
             ['type' => 'string', 'text-align' => 'center', 'data' => 'no activity'],
             ['type' => 'string', 'text-align' => 'center', 'data' => 'no activity'],
             ['type' => 'string', 'text-align' => 'center', 'data' => 'no activity'],
-//            ['type' => 'raw_html', 'text-align' => 'center', 'data' => "
-//<div class='flex gap-1 p-2'>
-//<span><a href='$link' class='btn btn-primary'>Edit</a></span>
-//</div>"],
         ];
     }
 }

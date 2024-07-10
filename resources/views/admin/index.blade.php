@@ -1,5 +1,5 @@
 @php use App\Models\Company;use App\Models\CompanyEmployee;use App\Models\CourseList;use App\Models\User;use Carbon\Carbon; @endphp
-<x-admin-layout>
+<x-admin-layout xmlns:livewire="http://www.w3.org/1999/html">
     <div class="px-5 text-3xl">
         Dashboard
     </div>
@@ -287,6 +287,7 @@ $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('me
                 </div>
             @endforeach
         </div>
+        <livewire:table.master name="WpGfEntry"/>
 
         <script>
             @php($series = ['Employee', 'Contributor', 'Company'])

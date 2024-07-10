@@ -73,4 +73,8 @@ class User extends Corcel
     {
         return $this->hasMany(CompanyEmployee::class,'user_id');
     }
+    public function WpGfEntry()
+    {
+        return $this->hasMany(WpGfEntry::class,'created_by');
+    }
 }
