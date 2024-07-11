@@ -114,7 +114,7 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
 //                            urlObj.search = '';
 //                            urlObj.hash = '';
 //                            content+=`<td><a href="${urlObj.toString()}/?dataId=${data[dataKey][contentKey]['id']}" target="_blank">Link</a></td>`
-        $url = parse_url($data->source_url)['host'].parse_url($data->source_url)['path'].'/?dataId'.$data->id;
+        $url = 'https://'.parse_url($data->source_url)['host'].parse_url($data->source_url)['path'].'/?dataId='.$data->id;
 
 
         return [
