@@ -18,19 +18,18 @@ class ScheduleEmployee extends ScheduleExecution implements View
         $param2 = $params['param2'];
 
 
-
-        if ($param!=null){
-            if ($param2!=null){
+        if ($param != null) {
+            if ($param2 != null) {
                 return empty($query) ?
-                    static::query()->where('company_id', '=', $param)->where('user_id','=',$param2) :
-                    static::query()->where('company_id', '=', $param)->where('user_id','=',$param2)->where(function ($q) use ($query) {
+                    static::query()->where('company_id', '=', $param)->where('user_id', '=', $param2) :
+                    static::query()->where('company_id', '=', $param)->where('user_id', '=', $param2)->where(function ($q) use ($query) {
                         $q->whereHas('user', function ($q) use ($query) {
                             $q->where('user_nicename', 'like', "%$query%");
                         })
                             ->orWhere('schedule_access', 'like', "%$query%")
                             ->orWhere('schedule_deadline', 'like', "%$query%");
                     });
-            }else{
+            } else {
                 return empty($query) ?
                     static::query()->where('company_id', '=', $param) :
                     static::query()->where('company_id', '=', $param)->where(function ($q) use ($query) {
@@ -42,10 +41,10 @@ class ScheduleEmployee extends ScheduleExecution implements View
                     });
             }
 
-        }else{
+        } else {
             return empty($query) ?
-                static::query()->where('user_id','=',$param2):
-                static::query()->where('user_id','=',$param2)->where(function ($q) use ($query) {
+                static::query()->where('user_id', '=', $param2) :
+                static::query()->where('user_id', '=', $param2)->where(function ($q) use ($query) {
                     $q->whereHas('user', function ($q) use ($query) {
                         $q->where('user_nicename', 'like', "%$query%");
                     })
@@ -71,12 +70,24 @@ class ScheduleEmployee extends ScheduleExecution implements View
             ['label' => 'Link', 'text-align' => 'center'],
             ['label' => 'Start accessible', 'text-align' => 'center'],
             ['label' => 'Accessible until', 'text-align' => 'center'],
+            ['label' => 'Result', 'text-align' => 'center'],
         ];
     }
 
     public static function tableData($data = null): array
     {
+
         $link = $data->link;
+
+        $result = "No result";
+        $gfEntry = \App\Models\WpGfEntry::where('source_url', $link)->where('created_by', $data->user_id)->first();
+
+        if ($gfEntry != null) {
+            $url = $link . '?dataId=' . $gfEntry->id;
+            $result = "<a href='$url' target='_blank' class='btn bg-blue-300'>Look result</a>";
+        }
+
+
         return [
             ['type' => 'index', 'data' => $data->id],
             ['type' => 'string', 'data' => \App\Models\User::find($data->user_id)->user_nicename],
@@ -88,8 +99,11 @@ function myFunction(link) {
 }
 </script>
 <button onclick='myFunction(`$link`)'  wire:click='toastAlert(`success`,`Link has been copied`)'  class='btn btn-primary text-nowrap'>Copy Link</button>"],
-            ['type' => 'raw_html', 'text-align' => 'center', 'data' => $data->schedule_access??'Not schedule'],
-            ['type' => 'raw_html', 'text-align' => 'center', 'data' => $data->schedule_deadline??'Not schedule'],
+            ['type' => 'raw_html', 'text-align' => 'center', 'data' => $data->schedule_access ?? 'Not schedule'],
+            ['type' => 'raw_html', 'text-align' => 'center', 'data' => $data->schedule_deadline ?? 'Not schedule'],
+            ['type' => 'raw_html', 'text-align' => 'center', 'data' => "<div class='flex gap-1'>
+$result
+</div>"],
         ];
     }
 }

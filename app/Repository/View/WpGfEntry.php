@@ -12,27 +12,23 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
     {
         $query = $params['query'];
         $params = $params['param1'];
-//        if ($params == null) {
+
         return empty($query) ? static::query()
+            ->whereHas('wpGfForm', function ($q2) use ($query) {
+                $q2->where('title', 'like', "%$query%")->whereIn('id', [2, 3, 4, 7, 8, 9, 10, 13, 11, 14, 15, 16, 17, 18, 19]);
+            })->whereHas('user', function ($q2) use ($params) {
+                $q2->where('ID', '=', $params);
+            })
             : static::query()
-                ->whereHas('user', function ($q2) use ($query) {
-                    $q2->where('user_nicename', 'like', "%$query%");
-                })
-                ->orWhereHas('wpGfForm', function ($q2) use ($query) {
+                ->whereHas('wpGfForm', function ($q2) use ($query) {
                     $q2->where('title', 'like', "%$query%")->whereIn('id', [2, 3, 4, 7, 8, 9, 10, 13, 11, 14, 15, 16, 17, 18, 19]);
-                });
-//        } else {
-//            return empty($query) ? static::query()
-//                ->orWhereHas('companyEmployee', function ($q) use ($params) {
-//                    $q->where('company_id', '=', $params);
-//                })
-//                ->where('user_nicename', 'like', "%$query%") :
-//                static::query()
-//                    ->whereHas('companyEmployee', function ($q) use ($params) {
-//                        $q->where('company_id', '=', $params);
-//                    })
-//                    ->orWhere('user_nicename', 'like', "%$query%");
-//        }
+                })->whereHas('user', function ($q2) use ($params) {
+                    $q2->where('ID', '=', $params);
+                })->where(function ($q) use ($query) {
+                    $q->whereHas('user', function ($q2) use ($query) {
+                        $q2->where('user_nicename', 'like', "%$query%");
+                    });
+                })->orderByDesc('id');
 
     }
 
@@ -46,7 +42,7 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
     public static function tableField(): array
     {
         return [
-            ['label' => 'Attempt', 'sort'=>'date_created'],
+            ['label' => 'Attempt', 'sort' => 'date_created'],
             ['label' => 'Page title'],
             ['label' => 'Name',],
 //            ['label' => 'Company'],
@@ -62,7 +58,6 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
         foreach ($roles as $r) {
             $roleUser = array_key_first(unserialize($r['meta_value']));
         }
-
 
 
 //        $roles = $data->user->meta->where('meta_key', '=', config('app.wp_prefix', 'wp_') . 'capabilities');
@@ -100,10 +95,10 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
 //            $link = route('company.edit-employee', [$companyId, $data->ID]);
 //            $link3 = route('company.schedule-user', [$companyId, $data->ID]);
 //        }
-        $user= $data->user;
-        $userLogin='';
-        $userEmail='';
-        if ($user!=null){
+        $user = $data->user;
+        $userLogin = '';
+        $userEmail = '';
+        if ($user != null) {
             $userLogin = $user->user_login;
             $userEmail = $user->email;
         }
@@ -117,11 +112,11 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
 
 //        $url="broken link";
 //        if (parse_url($data->source_url)['host']=="teamsetup-2.deskteam360.com"){
-            $url = 'https://'.parse_url($data->source_url)['host'].parse_url($data->source_url)['path'].'/?dataId='.$data->id;
-            $url = "<a href='$url' target='_blank' class='btn bg-blue-300'>Look result</a>";
+        $url = 'https://' . parse_url($data->source_url)['host'] . parse_url($data->source_url)['path'] . '/?dataId=' . $data->id;
+        $url = "<a href='$url' target='_blank' class='btn bg-blue-300'>Look result</a>";
 //        }
 
-        $form=$data->wpGfForm->title;
+        $form = $data->wpGfForm->title;
 
 
         return [

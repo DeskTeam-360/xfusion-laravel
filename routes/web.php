@@ -77,6 +77,8 @@ Route::middleware([
 
     Route::get('/company/{id}/schedule/user/{user}', [CompanyController::class, 'scheduleUser'])->name('company.schedule-user');
 
+    Route::get('/company/{id}/result/user/{user}', [CompanyController::class, 'resultUser'])->name('company.result-user');
+
 });
 
 
