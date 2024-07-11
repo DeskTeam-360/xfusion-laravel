@@ -132,7 +132,7 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
             ],
             ['type' => 'raw_html', 'text-align' => 'center', 'data' => "
             <div class='flex gap-1'>
-
+$url
 </div>
             "],
         ];
