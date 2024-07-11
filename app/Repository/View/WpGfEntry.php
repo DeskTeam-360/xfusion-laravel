@@ -120,7 +120,7 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
 
         return [
             ['type' => 'string', 'data' => $data->date_created],
-            ['type' => 'string', 'data' => $data->form],
+            ['type' => 'string', 'data' => $form],
             ['type' => 'raw_html', 'data' =>
                 "<div>$userLogin <br><div style='font-size: 10px'>$userEmail</div></div>"
             ],
