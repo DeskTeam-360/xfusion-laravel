@@ -101,7 +101,13 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
 //            $link3 = route('company.schedule-user', [$companyId, $data->ID]);
 //        }
         $user= $data->user;
-        dd($user);
+        $userLogin='';
+        $userEmail='';
+        if ($user!=null){
+            $userLogin = $user->user_login;
+            $userEmail = $user->email;
+        }
+
 
 //        const url = data[dataKey][contentKey]['source_url']
 //                            const urlObj = new URL(url);
@@ -114,7 +120,7 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
         return [
             ['type' => 'string', 'data' => $data->date_created],
             ['type' => 'raw_html', 'data' =>
-                "<div>$user->user_login <br><div style='font-size: 10px'>$user->email</div></div>"
+                "<div>$userLogin <br><div style='font-size: 10px'>$userEmail</div></div>"
             ],
             ['type' => 'raw_html', 'text-align' => 'center', 'data' => "
             <div class='flex gap-1'>
