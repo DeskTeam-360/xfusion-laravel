@@ -101,6 +101,7 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
 //            $link3 = route('company.schedule-user', [$companyId, $data->ID]);
 //        }
         $user= $data->user;
+        dd($user);
 
 //        const url = data[dataKey][contentKey]['source_url']
 //                            const urlObj = new URL(url);
