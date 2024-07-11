@@ -114,7 +114,13 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
 //                            urlObj.search = '';
 //                            urlObj.hash = '';
 //                            content+=`<td><a href="${urlObj.toString()}/?dataId=${data[dataKey][contentKey]['id']}" target="_blank">Link</a></td>`
-        $url = 'https://'.parse_url($data->source_url)['host'].parse_url($data->source_url)['path'].'/?dataId='.$data->id;
+
+        $url="broken link";
+        if (parse_url($data->source_url)['host']=="teamsetup-2.deskteam360.com"){
+            $url = 'https://'.parse_url($data->source_url)['host'].parse_url($data->source_url)['path'].'/?dataId='.$data->id;
+            $url = "<a href='$url' class='btn bg-blue-300'>Look result</a>";
+        }
+
         $form=$data->wpGfForm->title;
 
 
@@ -126,7 +132,7 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
             ],
             ['type' => 'raw_html', 'text-align' => 'center', 'data' => "
             <div class='flex gap-1'>
-            <a href='$url'>Look result</a>
+
 </div>
             "],
         ];
