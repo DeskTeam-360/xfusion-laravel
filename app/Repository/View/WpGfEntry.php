@@ -100,15 +100,26 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
 //            $link = route('company.edit-employee', [$companyId, $data->ID]);
 //            $link3 = route('company.schedule-user', [$companyId, $data->ID]);
 //        }
+        $user= $data->user;
+
+//        const url = data[dataKey][contentKey]['source_url']
+//                            const urlObj = new URL(url);
+//                            urlObj.search = '';
+//                            urlObj.hash = '';
+//                            content+=`<td><a href="${urlObj.toString()}/?dataId=${data[dataKey][contentKey]['id']}" target="_blank">Link</a></td>`
+        $url = parse_url($data->source_url)['host'].parse_url($data->source_url)['path'].'/?dataId'.$data->id;
+
 
         return [
             ['type' => 'string', 'data' => $data->date_created],
             ['type' => 'raw_html', 'data' =>
-                "<div>$data->user->user_login <br><div style='font-size: 10px'>$data->user->email</div></div>"
+                "<div>$user->user_login <br><div style='font-size: 10px'>$user->email</div></div>"
             ],
-//            ['type' => 'string', 'data' => $company],
-//            ['type' => 'string', 'data' => $role],
-            ['type' => 'raw_html', 'text-align' => 'center', 'data' => ""],
+            ['type' => 'raw_html', 'text-align' => 'center', 'data' => "
+            <div class='flex gap-1'>
+            <a href='$url'>Look result</a>
+</div>
+            "],
         ];
     }
 }
