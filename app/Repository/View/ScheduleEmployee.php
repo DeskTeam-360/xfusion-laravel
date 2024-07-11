@@ -80,11 +80,11 @@ class ScheduleEmployee extends ScheduleExecution implements View
         $link = $data->link;
 
         $result = "No result";
-        $gfEntry = \App\Models\WpGfEntry::where('source_url', $link)->where('created_by', $data->user_id)->first();
+        $gfEntry = \App\Models\WpGfEntry::where('source_url', $link)->where('created_by', $data->user_id)->orderByDesc('id')->first();
 
         if ($gfEntry != null) {
             $url = $link . '?dataId=' . $gfEntry->id;
-            $result = "<a href='$url' target='_blank' class='btn bg-blue-300'>Look result</a>";
+            $result = "<a href='$url' target='_blank' class='btn bg-blue-300 text-nowrap' >Look result</a>";
         }
 
 
