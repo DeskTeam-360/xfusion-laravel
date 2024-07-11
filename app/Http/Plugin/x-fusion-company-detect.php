@@ -64,7 +64,6 @@ function get_company_info()
     $url = $_POST['url'];
     $query = "select * from course_lists where url='$url'";
     $limitLinks = $wpdb->get_results($query);
-    $wpdb->insert('log', array('log'=>'test 1'));
     foreach ($limitLinks as $limit) {
         $userID = get_current_user_id();
 
@@ -78,9 +77,19 @@ function get_company_info()
 
             $result = [];
 
+            $user = get_userdata( $userID );
+
+            $user_roles = $user->roles;
+
+
+
             foreach ($click_logs as $log) {
                 $result['logo_url'] = $log->logo_url;
                 $result['qrcode_url'] = $log->qrcode_url;
+            }
+            if ( in_array( 'subscriber', $user_roles, true ) or in_array( 'administrator', $user_roles, true ) ) {
+                wp_send_json_success(['logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
+                wp_die();
             }
 
             $query = "select * from schedule_executions where link='$url' and company_id =$companyID and user_id ='$userID'";
@@ -93,27 +102,23 @@ function get_company_info()
                 if ($schedule->schedule_access == null) {
 
                     $query = "SELECT cls.id as id,
-       cls.url as course_url,
-       cls.course_title as course_title,
-       cls.page_title as page_title,
-       cl.url as course_url_parent,
-       week FROM course_schedule_generates csg
-           join course_lists cls on cls.id=csg.course_list_id
-           join course_lists cl on cl.id=csg.course_list_parent_id
-            where cl.url = '$url'";
+                               cls.url as course_url,
+                               cls.course_title as course_title,
+                               cls.page_title as page_title,
+                               cl.url as course_url_parent,
+                               week FROM course_schedule_generates csg
+                                   join course_lists cls on cls.id=csg.course_list_id
+                                   join course_lists cl on cl.id=csg.course_list_parent_id
+                                    where cl.url = '$url'";
 
-                    $wpdb->insert('log', array('log'=>$query));
                     $generateTemplates = $wpdb->get_results($query);
 
                     foreach ($generateTemplates as $template) {
-                        $wpdb->insert('log', array('log'=>json_encode($template)));
 
                         $start_date = date('Y-m-d H:i:s');
                         $date = strtotime($start_date);
                         $dateStart = $template->week - 1;
                         $dateEnd = $template->week;
-
-                        $wpdb->insert('log', array('log'=>$url . '  '. $template->course_url ));
                         if ($url == $template->course_url){
                             $wpdb->update('schedule_executions',
                                 array(
@@ -124,7 +129,6 @@ function get_company_info()
 //                            $query2 = "SELECT * FROM course_lists where id = '$template->id'";
 //                            $courseList = $wpdb->get_results($query2);
 
-                            $wpdb->insert('log', array('log'=>"$dateStart $dateEnd ".strtotime("+$dateStart week", $date)." ".strtotime("+$dateEnd week", $date) ));
                             $wpdb->insert(
                                 'schedule_executions',
                                 array(

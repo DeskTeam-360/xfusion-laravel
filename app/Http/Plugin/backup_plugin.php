@@ -1,116 +1,179 @@
 <?php
-/*
-Plugin Name: Force Login
-Plugin URI: https://wordpress.org/plugins/wp-force-login/
-Description: Easily hide your WordPress site from public viewing by requiring visitors to log in first. Activate to turn on.
-Version: 5.6.3
-Author: Kevin Vess
-Author URI: https://brightlightmedia.co/
-
-Text Domain: wp-force-login
-Domain Path: /languages
-
-License: GPL2
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
-*/
-
-function v_forcelogin() {
-
-    global $wpdb;
-    // Exceptions for AJAX, Cron, or WP-CLI requests
-    if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || ( defined( 'DOING_CRON' ) && DOING_CRON ) || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
-        return;
-    }
-
-    // Bail if the current visitor is a logged in user, unless Multisite is enabled
-    if ( is_user_logged_in() && ! is_multisite() ) {
-        return;
-    }
-
-    // Get visited URL
-    $schema = isset( $_SERVER['HTTPS'] ) && 'on' === $_SERVER['HTTPS'] ? 'https://' : 'http://';
-    $url = $schema . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-
-    // Bail if visiting the login URL. Fix for custom login URLs
-    if ( preg_replace( '/\?.*/', '', wp_login_url() ) === preg_replace( '/\?.*/', '', $url ) ) {
-        return;
-    }
-
-    $query = "select * from limit_link_with_times";
-    $limitLinks = $wpdb->get_results($query);
-    $blacklist = [];
-    foreach ($limitLinks as $limit) {
-        $blacklist[]=$limit->url;
-    }
-
-    /**
-     * Whitelist filter.
-     *
-     * @since 3.0.0
-     * @deprecated 5.5.0 Use {@see 'v_forcelogin_bypass'} instead.
-     *
-     * @param array An array of absolute URLs.
-     */
-    $allowed = apply_filters_deprecated( 'v_forcelogin_whitelist', array( $blacklist ), '5.5.0', 'v_forcelogin_bypass' );
-
-    /**
-     * Bypass filter.
-     *
-     * @since 5.0.0
-     * @since 5.2.0 Added the `$url` parameter.
-     *
-     * @param bool Whether to disable Force Login. Default false.
-     * @param string $url The visited URL.
-     */
-    $bypass = apply_filters( 'v_forcelogin_bypass', !in_array( $url, $allowed ), $url );
-
-    // Bail if bypass is enabled
-    if ( $bypass ) {
-        return;
-    }
-
-    // Only allow Multisite users access to their assigned sites
-    if ( is_multisite() && is_user_logged_in() ) {
-        if ( ! is_user_member_of_blog() && ! current_user_can( 'setup_network' ) ) {
-            $message = apply_filters( 'v_forcelogin_multisite_message', __( "You're not authorized to access this site.", 'wp-force-login' ), $url );
-            wp_die( $message, get_option( 'blogname' ) . ' &rsaquo; ' . __( 'Error', 'wp-force-login' ) );
-        }
-        return;
-    }
-
-    // Determine redirect URL
-    $redirect_url = apply_filters( 'v_forcelogin_redirect', $url );
-
-    // Set the headers to prevent caching
-    nocache_headers();
-
-    // Redirect unauthorized visitors
-    wp_safe_redirect( wp_login_url( $redirect_url ), 302 );
-    exit;
-}
-add_action( 'template_redirect', 'v_forcelogin' );
 
 /**
- * Restrict REST API for authorized users only
- *
- * @since 5.1.0
- * @param WP_Error|null|bool $result WP_Error if authentication error, null if authentication
- *                              method wasn't used, true if authentication succeeded.
- *
- * @return WP_Error|null|bool
+ * Plugin Name: xfusion logo changer
+ * Description: Plugin untuk menginjek fungsi updateIssue pada Wordfence.
+ * Version: 1.0
+ * Author: deskteam360
  */
-function v_forcelogin_rest_access( $result ) {
-    if ( null === $result && ! is_user_logged_in() ) {
-        return new WP_Error( 'rest_unauthorized', __( 'Only authenticated users can access the REST API.', 'wp-force-login' ), array( 'status' => rest_authorization_required_code() ) );
-    }
-    return $result;
-}
-add_filter( 'rest_authentication_errors', 'v_forcelogin_rest_access', 99 );
 
-/*
- * Localization
- */
-function v_forcelogin_load_textdomain() {
-    load_plugin_textdomain( 'wp-force-login', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
+function company_detect()
+{
+    ?>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        var data = {
+            url: window.location.href.split('?')[0]
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            jQuery.ajax({
+                url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                type: 'post',
+                dataType: "json",
+                data: {
+                    action: 'get_company_info',
+                    url: window.location.href.split('?')[0],
+                },
+                success: function (response) {
+                    if (response.data.status === "redirect") {
+                        window.setTimeout(
+                            function () {
+                                alert(response.data.message)
+                            },
+                            1000);
+                        window.location.replace(response.data.url)
+                    }
+                    if (response.data.logo_url !== null) {
+                        const company_logo = document.getElementsByClassName("wp-image-5940");
+                        company_logo[0].src = response.data.logo_url.replace("public/", "https://admin.teamsetup-2.deskteam360.com/storage/");
+                        const qrcode = document.getElementsByClassName("wp-image-1124");
+                        qrcode[0].src = response.data.qrcode_url.replace("public/", "https://admin.teamsetup-2.deskteam360.com/storage/");
+                        qrcode[0].srcset = "";
+                    }
+
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr);
+                    console.error(status);
+                    console.error(error);
+                }
+            });
+        });
+    </script>
+    <?php
 }
-add_action( 'plugins_loaded', 'v_forcelogin_load_textdomain' );
+
+add_action('wp_head', 'company_detect');
+
+function get_company_info()
+{
+    global $wpdb;
+
+    $url = $_POST['url'];
+    $query = "select * from course_lists where url='$url'";
+    $limitLinks = $wpdb->get_results($query);
+    $wpdb->insert('log', array('log'=>'test 1'));
+    foreach ($limitLinks as $limit) {
+        $userID = get_current_user_id();
+
+        if ($userID != null) {
+
+            $companyID = get_usermeta($userID, 'company');
+
+            $query = "select * from companies where id=$companyID";
+
+            $click_logs = $wpdb->get_results($query);
+
+            $result = [];
+
+            foreach ($click_logs as $log) {
+                $result['logo_url'] = $log->logo_url;
+                $result['qrcode_url'] = $log->qrcode_url;
+            }
+
+            $query = "select * from schedule_executions where link='$url' and company_id =$companyID and user_id ='$userID'";
+            $schedules = $wpdb->get_results($query);
+
+            foreach ($schedules as $schedule) {
+
+                $now = date("Y-m-d h:i:s");
+
+                if ($schedule->schedule_access == null) {
+
+                    $query = "SELECT cls.id as id,
+       cls.url as course_url,
+       cls.course_title as course_title,
+       cls.page_title as page_title,
+       cl.url as course_url_parent,
+       week FROM course_schedule_generates csg
+           join course_lists cls on cls.id=csg.course_list_id
+           join course_lists cl on cl.id=csg.course_list_parent_id
+            where cl.url = '$url'";
+
+                    $wpdb->insert('log', array('log'=>$query));
+                    $generateTemplates = $wpdb->get_results($query);
+
+                    foreach ($generateTemplates as $template) {
+                        $wpdb->insert('log', array('log'=>json_encode($template)));
+
+                        $start_date = date('Y-m-d H:i:s');
+                        $date = strtotime($start_date);
+                        $dateStart = $template->week - 1;
+                        $dateEnd = $template->week;
+
+                        $wpdb->insert('log', array('log'=>$url . '  '. $template->course_url ));
+                        if ($url == $template->course_url){
+                            $wpdb->update('schedule_executions',
+                                array(
+                                    'schedule_access'=>date('Y-m-d H:i:s', strtotime("+$dateStart week", $date)),
+                                    'schedule_deadline'=>date('Y-m-d H:i:s', strtotime("+$dateEnd week", $date)),
+                                ), array('id'=>$schedule->id));
+                        }else{
+//                            $query2 = "SELECT * FROM course_lists where id = '$template->id'";
+//                            $courseList = $wpdb->get_results($query2);
+
+                            $wpdb->insert('log', array('log'=>"$dateStart $dateEnd ".strtotime("+$dateStart week", $date)." ".strtotime("+$dateEnd week", $date) ));
+                            $wpdb->insert(
+                                'schedule_executions',
+                                array(
+                                    'link' => $template->course_url,
+                                    'company_id' => $companyID,
+                                    'user_id' => $userID,
+                                    'status' => 0,
+                                    'title' => $template->page_title . ' - ' . $template->course_title,
+                                    'schedule_access' => date('Y-m-d H:i:s', strtotime("+$dateStart week", $date)),
+                                    'schedule_deadline' => date('Y-m-d H:i:s', strtotime("+$dateEnd week", $date)),
+                                )
+                            );
+                        }
+                    }
+                    wp_send_json_success(['logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
+                    wp_die();
+                }
+
+                // schedule cukup buat 1 tanpa waktu generate dari create user
+
+                if ($now >= $schedule->schedule_access) {
+                    if ($now <= $schedule->schedule_deadline) {
+                        wp_send_json_success(['logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
+                        wp_die();
+                    } else {
+                        $url = $limit->redirect_url;
+                        $status = 'redirect';
+                        $message = "Has passed the limit " . $schedule->schedule_deadline;
+                        wp_send_json_success(['url' => $url, 'status' => $status, 'message' => $message, 'logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
+                        wp_die();
+                    }
+                } else {
+                    $url = $limit->redirect_url;
+                    $status = 'redirect';
+                    $message = "Can access on " . $schedule->schedule_access;
+                    wp_send_json_success(['url' => $url, 'status' => $status, 'message' => $message, 'logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
+                    wp_die();
+                }
+            }
+            $url = $limit->redirect_url;
+            $status = 'redirect';
+            $message = "You don't have access";
+            wp_send_json_success(['url' => "../../../", 'status' => $status, 'message' => $message]);
+            wp_die();
+        }
+    }
+
+    wp_send_json_success(['logo_url' => null, 'qrcode_url' => null]);
+    wp_die();
+}
+
+add_action('wp_ajax_get_company_info', 'get_company_info', 1, 3);

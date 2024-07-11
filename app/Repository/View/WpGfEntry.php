@@ -49,7 +49,7 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
             ['label' => 'Attempt', 'sort'=>'date_created'],
             ['label' => 'Page title'],
             ['label' => 'Name',],
-            ['label' => 'Company'],
+//            ['label' => 'Company'],
             ['label' => 'Action'],
         ];
     }
@@ -115,10 +115,12 @@ class WpGfEntry extends \App\Models\WpGfEntry implements View
 //                            urlObj.hash = '';
 //                            content+=`<td><a href="${urlObj.toString()}/?dataId=${data[dataKey][contentKey]['id']}" target="_blank">Link</a></td>`
         $url = 'https://'.parse_url($data->source_url)['host'].parse_url($data->source_url)['path'].'/?dataId='.$data->id;
+        $form=$data->wpGfForm->title;
 
 
         return [
             ['type' => 'string', 'data' => $data->date_created],
+            ['type' => 'string', 'data' => $data->form],
             ['type' => 'raw_html', 'data' =>
                 "<div>$userLogin <br><div style='font-size: 10px'>$userEmail</div></div>"
             ],
