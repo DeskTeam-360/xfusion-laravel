@@ -18,7 +18,7 @@
                         {{ \App\Models\User::whereHas('meta',function ($q){
 $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')
 ->where('meta_value','like','%subscriber%');
-})->whereHas('meta',function ($q){
+})->whereHas('meta',function ($q) use ($companyId){
 $q->where('meta_key','company')
 ->where('meta_value',$companyId);
 })->count() }}
@@ -241,10 +241,10 @@ $q->where('meta_key','company')
                     name: "{{ $series[0] }}",
                     data: [
                         @for($i=0; $i<3;$i++)
-                            {{ \App\Models\User::whereHas('meta',function ($q){
+                            {{ \App\Models\User::whereHas('meta',function ($q) use ($companyId){
 $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')
 ->where('meta_value','like','%subscriber%');
-})->whereHas('meta',function ($q){
+})->whereHas('meta',function ($q) use ($companyId){
 $q->where('meta_key','company')
 ->where('meta_value',$companyId);
 })
