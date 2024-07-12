@@ -38,7 +38,7 @@
                 </div>
                 <div class="">
                     <h5 class="xl:text-xl text-base leading-normal">
-                        {{ $userEmployee->count() }}
+                        {{ $complete->count() }}
                     </h5>
                     <span class="text-md flex items-center gap-1 ">
                         Employee has complete the course
@@ -58,10 +58,10 @@
                 </div>
                 <div class="">
                     <h5 class="xl:text-xl text-base leading-normal">
-                        {{ $userEmployee->count() }}
+                        {{ $inComplete->count() }}
                     </h5>
                     <span class="text-md flex items-center gap-1 ">
-                        Employee has complete the course
+                        Employee has not yet completed the Course
                     </span>
                 </div>
                 <div>
@@ -86,6 +86,7 @@
 
     <div class="lg:col-span-8 md:col-span-8 sm:col-span-12 col-span-12">
         <h2 class="text-2xl">Employee</h2>
+        <br>
         <div class="overflow-y-auto" style="max-height: 90vh">
             <table class="min-w-full divide-y divide-border dark:divide-darkborder ">
                 <thead>

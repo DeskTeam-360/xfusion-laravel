@@ -14,6 +14,8 @@ class DashboardCompany extends Component
     public $companyId;
 
     public $userEmployee;
+    public $complete;
+    public $inComplete;
 
 
     public function mount()
@@ -33,6 +35,17 @@ class DashboardCompany extends Component
             $q->where('meta_key', 'company')
                 ->where('meta_value', $this->companyId);
         })->get();
+
+        foreach ($this->userEmployee as $c){
+            $link = \App\Models\ScheduleExecution::where('user_id',$c->ID)->get()->pluck('link')->toArray();
+            $courseComplete = \App\Models\WpGfEntry::where('created_by',$c->ID)->whereIn('source_url',$link)->count();
+            $course = \App\Models\ScheduleExecution::where('user_id',$c->ID)->count();
+            if ($courseComplete==$course){
+                $this->complete+=1;
+            }else{
+                $this->inComplete+=1;
+            }
+        }
     }
 
     public function getDataUserGrowh($i)
