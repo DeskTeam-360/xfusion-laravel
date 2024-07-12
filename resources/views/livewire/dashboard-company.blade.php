@@ -3,7 +3,7 @@
 @endphp
 <div class="col-span-12 grid grid-cols-12 gap-3">
 
-    <div class="lg:col-span-3 md:col-span-6 sm:col-span-6 col-span-12">
+    <div class="lg:col-span-3 md:col-span-6 sm:col-span-6 col-span-12 flex gap-1">
         <div class="card shadow-none w-full" style="height: 280px">
             <div class="card-body p-6">
                 <div class="flex items-center">
@@ -133,7 +133,8 @@
                             <path d="M3.47729 10.083H21.4773" stroke-width="2" stroke-linecap="round"
                                   stroke-linejoin="round"/>
                         </svg>
-                        Date start course
+                        Date start course <br>
+                        <span class="text-sm">(lms page 1)</span>
                     </th>
                     <th scope="col" class="text-center p-2 font-semibold text-dark dark:text-white ">
                         Options
@@ -141,16 +142,16 @@
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-border dark:divide-darkborder">
-                @foreach(\App\Models\Company::orderBy('title')->get() as $c)
+                @foreach(\App\Models\CompanyEmployee::get() as $c)
                     <tr>
                         <td class="p-2 ps-0 whitespace-nowrap" style="padding-left: 25px">
-                            {{ $c->title }}
+                            {{ $c->user->user_nicename }}
                         </td>
                         <td class=" whitespace-nowrap  dark:text-darklink p-2 text-center">
-                            {{ \App\Models\CompanyEmployee::where('company_id',$c->id)->count() }}
+                            15/20
                         </td>
                         <td class="p-2 whitespace-nowrap text-center">
-                            {{ $c->created_at->format('F d, Y') }}
+                            {{ \App\Models\WpGfEntry::where('created_by',$c->user_id)->where('form_id',2)->first()->date_created??'-' }}
                         </td>
                         <td class=" whitespace-nowrap  dark:text-darklink p-2 text-center">
                             <a href="{{ route('company.show',$c->id) }}"><i class="ti ti-eye text-xl"></i></a>
@@ -168,31 +169,6 @@
             </table>
         </div>
     </div>
-
-
-    {{--    @php($pageTitle = ['Revitalize', 'Transform','Sustain'])--}}
-    {{--    @foreach($pageTitle as $pt)--}}
-    {{--        <div class="lg:col-span-4 md:col-span-6 sm:col-span-12 col-span-12">--}}
-    {{--            <div class="card">--}}
-    {{--                <div class="card-body flex-row py-4 flex items-center gap-2">--}}
-    {{--                    <div class="bg-primary h-10 w-10 p-1 text-center text-white" style="border-radius: 100px">--}}
-    {{--                        <i class="ti ti-users text-2xl"></i>--}}
-    {{--                    </div>--}}
-    {{--                    <div class="">--}}
-    {{--                        <h5 class="text-3xl leading-normal">--}}
-    {{--                            {{ \App\Models\CourseList::where('course_title',$pt)->count() }}--}}
-    {{--                        </h5>--}}
-    {{--                        <span class="text-lg flex items-center gap-1">--}}
-    {{--                                {{ $pt }}--}}
-    {{--                            </span>--}}
-    {{--                    </div>--}}
-    {{--                    <a class="ms-auto text-2xl" style="border-radius: 40px">--}}
-    {{--                        <i class="ti ti-arrow-up-right"></i>--}}
-    {{--                    </a>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    @endforeach--}}
 </div>
 
 
