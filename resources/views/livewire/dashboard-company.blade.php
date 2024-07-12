@@ -38,7 +38,7 @@
                 </div>
                 <div class="">
                     <h5 class="xl:text-xl text-base leading-normal">
-                        {{ $complete->count() }}
+                        {{ $complete }}
                     </h5>
                     <span class="text-md flex items-center gap-1 ">
                         Employee has complete the course
@@ -58,7 +58,7 @@
                 </div>
                 <div class="">
                     <h5 class="xl:text-xl text-base leading-normal">
-                        {{ $inComplete->count() }}
+                        {{ $inComplete }}
                     </h5>
                     <span class="text-md flex items-center gap-1 ">
                         Employee has not yet completed the Course
