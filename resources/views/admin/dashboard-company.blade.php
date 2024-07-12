@@ -1,6 +1,10 @@
-@php use App\Models\Company;use App\Models\CompanyEmployee;use App\Models\CourseList;use App\Models\User;use Carbon\Carbon; @endphp
+@php use App\Models\Company;use App\Models\CompanyEmployee;use App\Models\CourseList;use App\Models\User;use Carbon\Carbon;use Illuminate\Support\Facades\Auth; @endphp
 <x-admin-layout xmlns:livewire="http://www.w3.org/1999/html">
-
+    @php
+        $user = Auth::user();
+        $company = $user->meta->where('meta_key', '=', 'company')->first();
+        $companyId = $company['meta_value'];
+    @endphp
     <div class="px-5 text-3xl">
         Dashboard
     </div>
@@ -14,18 +18,26 @@
                                 <i class="ti ti-file-description text-4xl"></i>
                             </div>
 
-                            <div class="ms-auto text-primary flex gap-1 items-center">
+                            <a href="{{ route('company.show',$companyId) }}" class="ms-auto text-primary flex gap-1 items-center">
                                 <span class="text-xs font-semibold text-primary">See details</span>
                                 <i class="ti ti-trending-up text-primary text-xl"></i>
-                            </div>
+                            </a>
                         </div>
                         <div class="items-center justify-between mt-5">
                             <h3 class="text-2xl">
-                                {{ User::count() - User::whereHas('meta',function ($q){$q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('meta_value','like','%administrator%');})->count() }}
+                                {{ User::whereHas('meta',function ($q){
+    $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')
+    ->where('meta_value','like','%subscriber%');
+})->whereHas('meta',function ($q){
+    $q->where('meta_key','company')
+    ->where('meta_value',$companyId);
+})->count() }}
+                                {{ CompanyEmployee::where('company_id',$companyId)->count() }}
+{{--                                {{ User::count() - User::whereHas('meta',function ($q){$q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('meta_value','like','%administrator%');})->count() }}--}}
                             </h3>
                             <br>
                             <span class="font-semibold card-subtitle text-xl">
-                                Total contributor & Company
+                                Total employee
                             </span>
                         </div>
                     </div>
@@ -35,7 +47,6 @@
             <div class="lg:col-span-3 col-span-12 grid grid-cols-12 gap-3 h-fit">
 
 
-
                 <div class="lg:col-span-12 col-span-12 h-fit">
                     <div class="card">
                         <div class="card-body flex-row py-4 flex items-center gap-2">
@@ -44,10 +55,10 @@
                             </div>
                             <div class="">
                                 <h5 class="xl:text-xl text-base leading-normal">
-                                    {{ User::whereHas('meta',function ($q){$q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('meta_value','like','%contributor%');})->count() }}
+{{--                                    {{ User::whereHas('meta',function ($q){$q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('meta_value','like','%contributor%');})->count() }}--}}
                                 </h5>
                                 <span class="text-md flex items-center gap-1 ">
-                                    Contributor
+                                    Employee has complete the course
                                 </span>
                             </div>
                             <a class="ms-auto text-2xl" style="border-radius: 40px">
@@ -65,10 +76,10 @@
                             </div>
                             <div class="">
                                 <h5 class="xl:text-xl text-base leading-normal">
-                                    {{ Company::count() }}
+{{--                                    {{ Company::count() }}--}}
                                 </h5>
                                 <span class="text-lg flex items-center gap-1">
-                                    Company
+                                    Employee has not yet completed the Course
                                 </span>
                             </div>
                             <a class="ms-auto text-2xl" style="border-radius: 40px">
@@ -78,32 +89,43 @@
                     </div>
                 </div>
 
-                <div class="lg:col-span-12 col-span-12 h-fit">
+{{--                <div class="lg:col-span-12 col-span-12 h-fit">--}}
+{{--                    <div class="card">--}}
+{{--                        <div class="card-body flex-row py-4 flex items-center gap-2">--}}
+{{--                            <div class="bg-success h-10 w-10 p-1 text-center text-white" style="border-radius: 100px">--}}
+{{--                                <i class="ti ti-users text-2xl"></i>--}}
+{{--                            </div>--}}
+{{--                            <div class="">--}}
+{{--                                <h5 class="xl:text-xl text-base leading-normal">--}}
+{{--                                    {{ User::whereHas('meta',function ($q){--}}
+{{--$q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('meta_value','like','%subscriber%');--}}
+{{--})->count() }}--}}
+{{--                                </h5>--}}
+{{--                                <span class="text-lg flex items-center gap-1">--}}
+{{--                                    Employee--}}
+{{--                                </span>--}}
+{{--                            </div>--}}
+{{--                            <a class="ms-auto text-2xl" style="border-radius: 40px">--}}
+{{--                                <i class="ti ti-arrow-up-right"></i>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+                <div class="lg:col-span-12 md:col-span-12 sm:col-span-12 col-span-12">
                     <div class="card">
-                        <div class="card-body flex-row py-4 flex items-center gap-2">
-                            <div class="bg-success h-10 w-10 p-1 text-center text-white" style="border-radius: 100px">
-                                <i class="ti ti-users text-2xl"></i>
+                        <div class="card-body pb-8">
+                            <h5 class="card-title">User Growth</h5>
+                            <p class="card-subtitle">Every month</p>
+                            <div class="-me-12">
+                                <div id="salary" class=""></div>
                             </div>
-                            <div class="">
-                                <h5 class="xl:text-xl text-base leading-normal">
-                                    {{ User::whereHas('meta',function ($q){
-$q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('meta_value','like','%subscriber%');
-})->count() }}
-                                </h5>
-                                <span class="text-lg flex items-center gap-1">
-                                    Employee
-                                </span>
-                            </div>
-                            <a class="ms-auto text-2xl" style="border-radius: 40px">
-                                <i class="ti ti-arrow-up-right"></i>
-                            </a>
                         </div>
                     </div>
                 </div>
 
             </div>
             <div class="lg:col-span-6 md:col-span-6 sm:col-span-12 col-span-12">
-                <h2 class="text-2xl">Company</h2>
+                <h2 class="text-2xl">Employee</h2>
                 <div class="overflow-y-auto" style="height: 240px">
                     <table class="min-w-full divide-y divide-border dark:divide-darkborder ">
                         <thead>
@@ -119,7 +141,7 @@ $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('me
                                     <path d="M9.02399 21.083V9.08298" stroke-width="2" stroke-linecap="round"
                                           stroke-linejoin="round"/>
                                 </svg>
-                                Name Company
+                                Name Employee
                             </th>
                             <th scope="col" class="text-center p-2 font-semibold text-dark dark:text-white text-nowrap">
                                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
@@ -136,7 +158,7 @@ $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('me
                                     <path d="M10.6392 9.08298H9.63922H8.63922" stroke-width="2" stroke-linecap="round"
                                           stroke-linejoin="round"/>
                                 </svg>
-                                Employee
+                                Completed course status
                             </th>
                             <th scope="col"
                                 class="text-center  p-2 font-semibold text-dark dark:text-white ">
@@ -152,7 +174,7 @@ $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('me
                                     <path d="M3.47729 10.083H21.4773" stroke-width="2" stroke-linecap="round"
                                           stroke-linejoin="round"/>
                                 </svg>
-                                Date Subscribe
+                                Date start course
                             </th>
                             <th scope="col" class="text-center p-2 font-semibold text-dark dark:text-white ">
                                 Options
@@ -187,83 +209,10 @@ $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('me
                     </table>
                 </div>
             </div>
-            <div class="lg:col-span-6 md:col-span-6 sm:col-span-12 col-span-12">
-                <div class="card">
-                    <div class="card-body pb-8">
-                        <h5 class="card-title">User Growth</h5>
-                        <p class="card-subtitle">Every month</p>
-                        <div class="-me-12">
-                            <div id="salary" class="" ></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 
-            <div class="lg:col-span-6 md:col-span-6 sm:col-span-12 col-span-12">
-                <h2 class="text-2xl">Contributor</h2> <br>
-                <div class="overflow-y-auto" style="height: 290px">
-                    <table class="min-w-full divide-y divide-border dark:divide-darkborder ">
-                        <thead>
-                        <tr>
-                            <th scope="col" class="text-center p-2 ps-0 font-semibold text-dark dark:text-white ">
-                                <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg" class="inline-block stroke-current">
-                                    <path
-                                        d="M19.024 3.08298H5.02399C3.91942 3.08298 3.02399 3.97841 3.02399 5.08298V19.083C3.02399 20.1875 3.91942 21.083 5.02399 21.083H19.024C20.1286 21.083 21.024 20.1875 21.024 19.083V5.08298C21.024 3.97841 20.1286 3.08298 19.024 3.08298Z"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M3.02399 9.08298H21.024" stroke-width="2" stroke-linecap="round"
-                                          stroke-linejoin="round"/>
-                                    <path d="M9.02399 21.083V9.08298" stroke-width="2" stroke-linecap="round"
-                                          stroke-linejoin="round"/>
-                                </svg>
-                                Name Contributor
-                            </th>
-                            <th scope="col"
-                                class="text-center  p-2 font-semibold text-dark dark:text-white ">
-                                <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg" class="inline-block stroke-current">
-                                    <path
-                                        d="M19.4773 4.08298H5.47729C4.37273 4.08298 3.47729 4.97841 3.47729 6.08298V20.083C3.47729 21.1875 4.37273 22.083 5.47729 22.083H19.4773C20.5819 22.083 21.4773 21.1875 21.4773 20.083V6.08298C21.4773 4.97841 20.5819 4.08298 19.4773 4.08298Z"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M16.4773 2.08298V6.08298" stroke-width="2" stroke-linecap="round"
-                                          stroke-linejoin="round"/>
-                                    <path d="M8.47729 2.08298V6.08298" stroke-width="2" stroke-linecap="round"
-                                          stroke-linejoin="round"/>
-                                    <path d="M3.47729 10.083H21.4773" stroke-width="2" stroke-linecap="round"
-                                          stroke-linejoin="round"/>
-                                </svg>
-                                Date Subscribe
-                            </th>
-                            <th scope="col" class="text-center p-2 font-semibold text-dark dark:text-white ">
-                                Options
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody class="divide-y divide-border dark:divide-darkborder">
-                        @foreach(User::whereHas('meta',function ($q){ $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('meta_value','like','%contributor%');})->get()->take(10) as $c)
-                            <tr>
-                                <td class="p-2 ps-0 whitespace-nowrap" style="padding-left: 25px">
-                                    {{ $c->user_nicename }}
-                                </td>
-                                <td class="p-2 whitespace-nowrap text-center">
-                                    {{ $c->created_at->format('F d, Y') }}
-                                </td>
-                                <td class=" whitespace-nowrap  dark:text-darklink p-2 text-center">
-                                    <svg width="19" height="7" viewBox="0 0 19 7" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg" class="m-auto">
-                                        <ellipse cx="9.38496" cy="3.37143" rx="2.62074" ry="3.09552" fill="#AB9AE0"/>
-                                        <ellipse cx="3.09517" cy="3.37143" rx="2.62074" ry="3.09552" fill="#AB9AE0"/>
-                                        <ellipse cx="15.6747" cy="3.37143" rx="2.62074" ry="3.09552" fill="#4E51BF"/>
-                                    </svg>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
 
-            </div>
+
             @php($pageTitle = ['Revitalize', 'Transform','Sustain'])
             @foreach($pageTitle as $pt)
                 <div class="lg:col-span-4 md:col-span-6 sm:col-span-12 col-span-12">
@@ -291,7 +240,7 @@ $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('me
 
 
         <script>
-            @php($series = ['Employee', 'Contributor', 'Company'])
+            @php($series = ['Employee'])
             document.addEventListener("DOMContentLoaded", function () {
                 // =====================================
                 // Salary
@@ -302,31 +251,20 @@ $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('me
                             name: "{{ $series[0] }}",
                             data: [
                                 @for($i=0; $i<3;$i++)
-                                    {{ User::whereHas('meta',function ($q){$q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('meta_value','like','%subscriber%');})->whereMonth('user_registered',Carbon::now()->subMonths(2-$i)->month )->whereYear('user_registered',Carbon::now()->subMonths(2-$i)->year )->get()->count()}},
+                                    {{ User::whereHas('meta',function ($q){
+    $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')
+    ->where('meta_value','like','%subscriber%');
+})->whereHas('meta',function ($q){
+    $q->where('meta_key','company')
+    ->where('meta_value',$companyId);
+})
+    ->whereMonth('user_registered',Carbon::now()->subMonths(2-$i)->month )
+    ->whereYear('user_registered',Carbon::now()->subMonths(2-$i)->year )
+    ->get()->count()
+    }},
                                 @endfor
                             ],
                         },
-                        {
-                            name: "{{ $series[1] }}",
-                            data: [
-                                @for($i=0; $i<3;$i++)
-                                    {{ User::whereHas('meta',function ($q){$q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('meta_value','like','%editor%');})->whereMonth('user_registered',Carbon::now()->subMonths(2-$i)->month )->whereYear('user_registered',Carbon::now()->subMonths(2-$i)->year )->get()->count()}},
-                                @endfor
-                            ],
-                        },
-
-
-                        {
-                            name: "{{ $series[1] }}",
-                            data: [
-                                @for($i=0; $i<3;$i++)
-                                    {{ User::whereHas('meta',function ($q){ $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('meta_value','like','%contributor%');})->whereMonth('user_registered',Carbon::now()->subMonths(2-$i)->month )->whereYear('user_registered',Carbon::now()->subMonths(2-$i)->year )->get()->count() }},
-                                @endfor
-
-                            ],
-                        },
-
-
                     ],
 
 
