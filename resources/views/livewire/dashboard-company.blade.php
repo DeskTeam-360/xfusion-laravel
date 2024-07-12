@@ -13,8 +13,8 @@
                         </div>
                     </div>
 
-                    <div class="items-center justify-between mt-3">
-                        <h3 class="text-2xl">
+                    <div class="items-center justify-between">
+                        <h3 class="text-xl">
                             {{ $userEmployee }} <br>
                             Total employee
                         </h3>
@@ -143,7 +143,7 @@
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-border dark:divide-darkborder">
-                @foreach(\App\Models\CompanyEmployee::get() as $c)
+                @foreach(\App\Models\CompanyEmployee::where('company_id',$companyId)->get() as $c)
                     <tr>
                         <td class="p-2 ps-0 whitespace-nowrap" style="padding-left: 25px">
                             {{ $c->user->user_nicename }}
@@ -153,7 +153,7 @@
                             {{ \App\Models\WpGfEntry::where('created_by',$c->user_id)->whereIn('source_url',$link)->count() }} /{{ \App\Models\ScheduleExecution::where('user_id',$c->user_id)->count() }}
                         </td>
                         <td class="p-2 whitespace-nowrap text-center">
-                            @php($lms = \App\Models\WpGfEntry::where('created_by',$c->user_id)->where('form_id',2)->first() )
+                            @php($lms = \App\Models\WpGfEntry::where('created_by',$c->user_id)->whereIn('source_url',$link)->first() )
                             {{ $lms!=null ? Carbon::parse($lms->date_created)->format('F d,Y') : '-' }}
                         </td>
                         <td class=" whitespace-nowrap  dark:text-darklink p-2 text-center">
