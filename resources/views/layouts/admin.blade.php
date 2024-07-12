@@ -16,9 +16,9 @@
 {{--    <link rel="stylesheet" href="{{asset('assets/fonts/icons/tabler-icons/tabler-icons.css')}}">--}}
     <link rel="stylesheet" href="{{asset('assets/icons-webfont/tabler-icons.min.css')}}">
     <!-- Core Css -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-{{--    <link rel="stylesheet" href="{{ asset('build/assets/app-DdqVIPGz.css') }}">--}}
-{{--    <script src="{{ asset('build/assets/app-CI1Bgkaz.js') }}"></script>--}}
+{{--    @vite(['resources/css/app.css', 'resources/js/app.js'])--}}
+    <link rel="stylesheet" href="{{ asset('build/assets/app-DdqVIPGz.css') }}">
+    <script src="{{ asset('build/assets/app-CI1Bgkaz.js') }}"></script>
 
     <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}">
 
