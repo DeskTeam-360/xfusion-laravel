@@ -4,7 +4,7 @@
 <div class="col-span-12 grid grid-cols-12 gap-3">
 
     <div class="lg:col-span-4 md:col-span-4 sm:col-span-6 col-span-12 flex gap-1 flex-wrap">
-        <div class="card shadow-none w-full" style="height: 280px">
+        <div class="card shadow-none w-full">
             <div class="card-body p-6">
                 <div class="flex items-center">
                     <div>
@@ -19,7 +19,7 @@
                         <i class="ti ti-trending-up text-primary text-xl"></i>
                     </a>
                 </div>
-                <div class="items-center justify-between mt-5">
+                <div class="items-center justify-between mt-3">
                     <h3 class="text-2xl">
                         {{ $userEmployee }} <br>
                         Total employee

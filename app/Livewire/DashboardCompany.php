@@ -21,6 +21,7 @@ class DashboardCompany extends Component
         $this->user = Auth::user();
         $company = $this->user->meta->where('meta_key', '=', 'company')->first();
         $this->companyId = $company['meta_value'];
+        $this->getData();
     }
 
     public function getData()
