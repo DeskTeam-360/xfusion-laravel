@@ -3,7 +3,7 @@
 @endphp
 <div class="col-span-12 grid grid-cols-12 gap-3">
 
-    <div class="lg:col-span-3 md:col-span-6 sm:col-span-6 col-span-12 flex gap-1">
+    <div class="lg:col-span-3 md:col-span-6 sm:col-span-6 col-span-12 flex gap-1 flex-wrap">
         <div class="card shadow-none w-full" style="height: 280px">
             <div class="card-body p-6">
                 <div class="flex items-center">
@@ -85,7 +85,7 @@
     </div>
     <div class="lg:col-span-6 md:col-span-6 sm:col-span-12 col-span-12">
         <h2 class="text-2xl">Employee</h2>
-        <div class="overflow-y-auto" style="height: 240px">
+        <div class="overflow-y-auto" style="max-height: 90vh">
             <table class="min-w-full divide-y divide-border dark:divide-darkborder ">
                 <thead>
                 <tr>
@@ -151,16 +151,11 @@
                             15/20
                         </td>
                         <td class="p-2 whitespace-nowrap text-center">
-                            {{ \App\Models\WpGfEntry::where('created_by',$c->user_id)->where('form_id',2)->first()->date_created??'-' }}
+                            @php($lms = \App\Models\WpGfEntry::where('created_by',$c->user_id)->where('form_id',2)->first() )
+                            {{ $lms!=null ? Carbon::parse($lms->date_created)->format('F d,Y') : '-' }}
                         </td>
                         <td class=" whitespace-nowrap  dark:text-darklink p-2 text-center">
                             <a href="{{ route('company.show',$c->id) }}"><i class="ti ti-eye text-xl"></i></a>
-                            <svg width="19" height="7" viewBox="0 0 19 7" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg" class="m-auto">
-                                <ellipse cx="9.38496" cy="3.37143" rx="2.62074" ry="3.09552" fill="#AB9AE0"/>
-                                <ellipse cx="3.09517" cy="3.37143" rx="2.62074" ry="3.09552" fill="#AB9AE0"/>
-                                <ellipse cx="15.6747" cy="3.37143" rx="2.62074" ry="3.09552" fill="#4E51BF"/>
-                            </svg>
                         </td>
                     </tr>
 
