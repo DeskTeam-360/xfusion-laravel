@@ -28,7 +28,7 @@
     @livewireStyles
 
     <style>
-        .brand-logo > img{
+        .logo-img  img{
             max-width: 174px;
         }
     </style>
