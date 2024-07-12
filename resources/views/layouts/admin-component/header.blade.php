@@ -13,23 +13,23 @@
                                        class="text-nowrap logo-img">
 
                                         <img
-                                            src="{{ asset('assets/images/logos/dark-logo.webp') }}"
+                                            src="{{ $logoDark }}"
                                             class="dark:hidden block rtl:hidden"
                                             alt="Logo-Dark"
                                         />
                                         <img
-                                            src="{{ asset('assets/images/logos/light-logo.webp') }}"
+                                            src="{{ $logoLight }}"
                                             class="dark:block hidden rtl:hidden rtl:dark:hidden"
                                             alt="Logo-light"
                                         />
 
                                         <img
-                                            src="{{ asset('assets/images/logos/dark-logo.webp') }}"
+                                            src="{{ $logoDark }}"
                                             class="dark:hidden hidden rtl:block rtl:dark:hidden"
                                             alt="Logo-Dark"
                                         />
                                         <img
-                                            src="{{ asset('assets/images/logos/light-logo.webp') }}"
+                                            src="{{ $logoLight }}"
                                             class="dark:hidden hidden rtl:hidden rtl:dark:block"
                                             alt="Logo-light"
                                         />
@@ -83,23 +83,23 @@
                                             <a href="#"
                                                class="text-nowrap logo-img">
                                                 <img
-                                                    src="{{ asset('assets/images/logos/dark-logo.webp') }}"
+                                                    src="{{ $logoDark }}"
                                                     class="dark:hidden block rtl:hidden"
                                                     alt="Logo-Dark"
                                                 />
                                                 <img
-                                                    src="{{ asset('assets/images/logos/light-logo.webp') }}"
+                                                    src="{{ $logoLight }}"
                                                     class="dark:block hidden rtl:hidden rtl:dark:hidden"
                                                     alt="Logo-light"
                                                 />
 
                                                 <img
-                                                    src="{{ asset('assets/images/logos/dark-logo.webp') }}"
+                                                    src="{{ $logoDark }}"
                                                     class="dark:hidden hidden rtl:block rtl:dark:hidden"
                                                     alt="Logo-Dark"
                                                 />
                                                 <img
-                                                    src="{{ asset('assets/images/logos/light-logo.webp') }}"
+                                                    src="{{ $logoLight }}"
                                                     class="dark:hidden hidden rtl:hidden rtl:dark:block"
                                                     alt="Logo-light"
                                                 />
@@ -307,23 +307,23 @@
                                             <a href="#"
                                                class="text-nowrap logo-img">
                                                 <img
-                                                    src="{{ asset('assets/images/logos/dark-logo.webp') }}"
+                                                    src="{{ $logoDark }}"
                                                     class="dark:hidden block rtl:hidden"
                                                     alt="Logo-Dark"
                                                 />
                                                 <img
-                                                    src="{{ asset('assets/images/logos/light-logo.webp') }}"
+                                                    src="{{ $logoLight }}"
                                                     class="dark:block hidden rtl:hidden rtl:dark:hidden"
                                                     alt="Logo-light"
                                                 />
 
                                                 <img
-                                                    src="{{ asset('assets/images/logos/dark-logo.webp') }}"
+                                                    src="{{ $logoDark }}"
                                                     class="dark:hidden hidden rtl:block rtl:dark:hidden"
                                                     alt="Logo-Dark"
                                                 />
                                                 <img
-                                                    src="{{ asset('assets/images/logos/light-logo.webp') }}"
+                                                    src="{{ $logoLight }}"
                                                     class="dark:hidden hidden rtl:hidden rtl:dark:block"
                                                     alt="Logo-light"
                                                 />
@@ -374,23 +374,23 @@
                                                     <a href="#"
                                                        class="text-nowrap logo-img">
                                                         <img
-                                                            src="{{ asset('assets/images/logos/dark-logo.webp') }}"
+                                                            src="{{ $logoDark }}"
                                                             class="dark:hidden block rtl:hidden"
                                                             alt="Logo-Dark"
                                                         />
                                                         <img
-                                                            src="{{ asset('assets/images/logos/light-logo.webp') }}"
+                                                            src="{{ $logoLight }}"
                                                             class="dark:block hidden rtl:hidden rtl:dark:hidden"
                                                             alt="Logo-light"
                                                         />
 
                                                         <img
-                                                            src="{{ asset('assets/images/logos/dark-logo.webp') }}"
+                                                            src="{{ $logoDark }}"
                                                             class="dark:hidden hidden rtl:block rtl:dark:hidden"
                                                             alt="Logo-Dark"
                                                         />
                                                         <img
-                                                            src="{{ asset('assets/images/logos/light-logo.webp') }}"
+                                                            src="{{ $logoLight }}"
                                                             class="dark:hidden hidden rtl:hidden rtl:dark:block"
                                                             alt="Logo-light"
                                                         />

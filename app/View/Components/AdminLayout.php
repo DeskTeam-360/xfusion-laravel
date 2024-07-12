@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
@@ -12,9 +13,24 @@ class AdminLayout extends Component
     public $sidebar;
     public $navbars;
     public $notifications;
+    public $logoLight;
+    public $logoDark;
 
     public function __construct()
     {
+
+        $this->logoLight = asset('assets/images/logos/light-logo.webp');
+        $this->logoDark = asset('assets/images/logos/dark-logo.webp');
+
+        $user = Auth::user();
+        $company = $user->meta->where('meta_key', '=', 'company')->first();
+        if ($company!=null){
+            $companyId = $company['meta_value'];
+            $this->logoLight = Storage::url(Company::find($companyId)->logo_url);
+            $this->logoDark = Storage::url(Company::find($companyId)->logo_url);
+        }
+
+
 
         $this->navbars = [
 //            [

@@ -106,7 +106,7 @@
         <div class="justify-center items-center w-8/12 card lg:flex max-w-md  ">
             <div class=" w-full card-body shadow-xl rounded-2xl border-2">
                 <a href="../" class="py-4 block">
-                    <img src="{{ asset('assets/images/logos/dark-logo.webp') }}" alt=""
+                    <img src="{{ $logoDark }}" alt=""
                          class="mx-auto"/></a>
                 <p class="mb-4 text-gray-500 text-sm text-center"><b><i>Level-Up</i> Employee</b>
                     Performance to Drive
