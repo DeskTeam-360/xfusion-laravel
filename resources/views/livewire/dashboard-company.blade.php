@@ -70,14 +70,13 @@
             </div>
         </div>
 
-
         <div class="lg:col-span-12 md:col-span-12 sm:col-span-12 col-span-12">
             <div class="card">
                 <div class="card-body pb-8">
                     <h5 class="card-title">User Growth</h5>
                     <p class="card-subtitle">Every month</p>
                     <div class="-me-12">
-                        <div id="salary" class=""></div>
+                        <div id="chart" class=""></div>
                     </div>
                 </div>
             </div>
@@ -200,26 +199,13 @@
 <script>
     @php($series = ['Employee'])
     document.addEventListener("DOMContentLoaded", function () {
-        // =====================================
-        // Salary
-        // =====================================
         var options = {
             series: [
                 {
                     name: "{{ $series[0] }}",
                     data: [
                         @for($i=0; $i<3;$i++)
-                            {{ \App\Models\User::whereHas('meta',function ($q) use ($companyId){
-$q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')
-->where('meta_value','like','%subscriber%');
-})->whereHas('meta',function ($q) use ($companyId){
-$q->where('meta_key','company')
-->where('meta_value',$companyId);
-})
-->whereMonth('user_registered',Carbon::now()->subMonths(2-$i)->month )
-->whereYear('user_registered',Carbon::now()->subMonths(2-$i)->year )
-->get()->count()
-}},
+                            {{ $this->getDataUserGrowh($i) }},
                         @endfor
                     ],
                 },
@@ -294,7 +280,7 @@ $q->where('meta_key','company')
             },
         };
 
-        var chart = new ApexCharts(document.querySelector("#salary"), options);
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
     });
 </script>
