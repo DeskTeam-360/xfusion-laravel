@@ -6,7 +6,7 @@
     <div class="lg:col-span-4 md:col-span-4 sm:col-span-6 col-span-12 flex gap-1 flex-wrap">
         <div class="card shadow-none w-full">
             <div class="card-body p-6">
-                <div class="flex items-center">
+                <div class="flex items-center gap-6">
                     <div>
                         <div class="rounded-md bg-primary w-16 h-16 flex items-center justify-center text-white">
                             <i class="ti ti-file-description text-4xl"></i>
@@ -233,7 +233,9 @@
             xaxis: {
                 categories: [
                         @for($i=0; $i<3;$i++)
+
                     ["{{ Carbon::now()->subMonths(2-$i)->monthName.' '.Carbon::now()->year }}"],
+
                     @endfor
                 ],
                 axisBorder: {
