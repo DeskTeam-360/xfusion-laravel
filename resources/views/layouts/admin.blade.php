@@ -27,6 +27,12 @@
     <link rel="stylesheet" href="{{ asset('vendor/carousel/carousel.min.css') }}">
     @livewireStyles
 
+    <style>
+        .brand-logo > img{
+            max-width: 174px;
+        }
+    </style>
+
 </head>
 
 <body class="DEFAULT_THEME bg-white dark:bg-dark">
