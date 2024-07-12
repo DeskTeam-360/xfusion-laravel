@@ -32,7 +32,7 @@ class DashboardCompany extends Component
         })->whereHas('meta', function ($q) {
             $q->where('meta_key', 'company')
                 ->where('meta_value', $this->companyId);
-        })->count();
+        })->get();
     }
 
     public function getDataUserGrowh($i)
