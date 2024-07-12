@@ -5,7 +5,7 @@
     <!-- ---------------------------------- -->
     <div class="py-5 px-5 flex justify-between">
         <div class="brand-logo flex  items-center ">
-            <a href="https://bootstrapdemos.adminmart.com/modernize-tailwind-pro/dist/main/index.html"
+            <a href="{{ route('dashboard') }}"
                class="text-nowrap logo-img">
                 <img
                     src="{{ asset('assets/images/logos/dark-logo.webp') }}"

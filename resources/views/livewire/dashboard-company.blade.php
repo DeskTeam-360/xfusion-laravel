@@ -134,8 +134,7 @@
                             <path d="M3.47729 10.083H21.4773" stroke-width="2" stroke-linecap="round"
                                   stroke-linejoin="round"/>
                         </svg>
-                        Date start course <br>
-                        <span class="text-sm">(lms page 1)</span>
+                        Date start course
                     </th>
                     <th scope="col" class="text-center p-2 font-semibold text-dark dark:text-white ">
                         Options
@@ -149,8 +148,18 @@
                             {{ $c->user_nicename }}
                         </td>
                         <td class=" whitespace-nowrap  dark:text-darklink p-2 text-center">
-                            @php($link = \App\Models\ScheduleExecution::where('user_id',$c->ID)->get()->pluck('link')->toArray())
-                            {{ \App\Models\WpGfEntry::where('created_by',$c->ID)->whereIn('source_url',$link)->count() }} /{{ \App\Models\ScheduleExecution::where('user_id',$c->ID)->count() }}
+                            @php
+                                $link = \App\Models\ScheduleExecution::where('user_id',$c->ID)->get()->pluck('link')->toArray();
+                                $courseComplete = \App\Models\WpGfEntry::where('created_by',$c->ID)->whereIn('source_url',$link)->count();
+                                $course = \App\Models\ScheduleExecution::where('user_id',$c->ID)->count();
+                            @endphp
+                            @if($course==0)
+                                No course scheduled to employee
+                            @elseif($course==$courseComplete)
+                                Done
+                            @else
+                                {{ $courseComplete }}/{{ $course }}
+                            @endif
                         </td>
                         <td class="p-2 whitespace-nowrap text-center">
                             @php($lms = \App\Models\WpGfEntry::where('created_by',$c->ID)->whereIn('source_url',$link)->first() )
@@ -178,7 +187,9 @@
                     name: "{{ $series[0] }}",
                     data: [
                         @for($i=0; $i<3;$i++)
+
                             {{ $this->getDataUserGrowh($i) }},
+
                         @endfor
                     ],
                 },
