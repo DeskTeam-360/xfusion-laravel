@@ -157,7 +157,7 @@
                             {{ $lms!=null ? Carbon::parse($lms->date_created)->format('F d,Y') : '-' }}
                         </td>
                         <td class=" whitespace-nowrap  dark:text-darklink p-2 text-center">
-                            <a href="{{ route('company.schedule-user',$c->user_id) }}"><i class="ti ti-eye text-xl"></i></a>
+                            <a href="{{ route('company.schedule-user',[$companyId,$c->user_id]) }}"><i class="ti ti-eye text-xl"></i></a>
                         </td>
                     </tr>
 
