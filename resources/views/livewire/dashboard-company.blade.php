@@ -13,18 +13,20 @@
                         </div>
                     </div>
 
+                    <div class="items-center justify-between mt-3">
+                        <h3 class="text-2xl">
+                            {{ $userEmployee }} <br>
+                            Total employee
+                        </h3>
+                    </div>
+
                     <a href="{{ route('company.show',$companyId) }}"
                        class="ms-auto text-primary flex gap-1 items-center">
                         <span class="text-xs font-semibold text-primary">See details</span>
                         <i class="ti ti-trending-up text-primary text-xl"></i>
                     </a>
                 </div>
-                <div class="items-center justify-between mt-3">
-                    <h3 class="text-2xl">
-                        {{ $userEmployee }} <br>
-                        Total employee
-                    </h3>
-                </div>
+
             </div>
         </div>
         <div class="card">
@@ -147,14 +149,15 @@
                             {{ $c->user->user_nicename }}
                         </td>
                         <td class=" whitespace-nowrap  dark:text-darklink p-2 text-center">
-                            15/20
+                            @php($link = \App\Models\ScheduleExecution::where('user_id',$c->user_id)->get()->pluck('link')->toArray())
+                            {{ \App\Models\WpGfEntry::where('created_by',$c->user_id)->whereIn('source_url',$link)->count() }} /{{ \App\Models\ScheduleExecution::where('user_id',$c->user_id)->count() }}
                         </td>
                         <td class="p-2 whitespace-nowrap text-center">
                             @php($lms = \App\Models\WpGfEntry::where('created_by',$c->user_id)->where('form_id',2)->first() )
                             {{ $lms!=null ? Carbon::parse($lms->date_created)->format('F d,Y') : '-' }}
                         </td>
                         <td class=" whitespace-nowrap  dark:text-darklink p-2 text-center">
-                            <a href="{{ route('company.show',$c->id) }}"><i class="ti ti-eye text-xl"></i></a>
+                            <a href="{{ route('company.schedule-user',$c->user_id) }}"><i class="ti ti-eye text-xl"></i></a>
                         </td>
                     </tr>
 
