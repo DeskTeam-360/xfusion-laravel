@@ -1,108 +1,76 @@
 @php
-use Carbon\Carbon;
+    use Carbon\Carbon;
 @endphp
 <div class="col-span-12 grid grid-cols-12 gap-3">
+
     <div class="lg:col-span-3 md:col-span-6 sm:col-span-6 col-span-12">
         <div class="card shadow-none w-full" style="height: 280px">
             <div class="card-body p-6">
                 <div class="flex items-center">
-                    <div class="rounded-md bg-primary w-16 h-16 flex items-center justify-center text-white">
-                        <i class="ti ti-file-description text-4xl"></i>
+                    <div>
+                        <div class="rounded-md bg-primary w-16 h-16 flex items-center justify-center text-white">
+                            <i class="ti ti-file-description text-4xl"></i>
+                        </div>
                     </div>
 
-                    <a href="{{ route('company.show',$companyId) }}" class="ms-auto text-primary flex gap-1 items-center">
+                    <a href="{{ route('company.show',$companyId) }}"
+                       class="ms-auto text-primary flex gap-1 items-center">
                         <span class="text-xs font-semibold text-primary">See details</span>
                         <i class="ti ti-trending-up text-primary text-xl"></i>
                     </a>
                 </div>
                 <div class="items-center justify-between mt-5">
                     <h3 class="text-2xl">
-                        {{ \App\Models\User::whereHas('meta',function ($q){
-$q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')
-->where('meta_value','like','%subscriber%');
-})->whereHas('meta',function ($q) use ($companyId){
-$q->where('meta_key','company')
-->where('meta_value',$companyId);
-})->count() }}
-                        {{ \App\Models\CompanyEmployee::where('company_id',$companyId)->count() }}
-                        {{--                                {{ User::count() - User::whereHas('meta',function ($q){$q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('meta_value','like','%administrator%');})->count() }}--}}
+                        {{ $userEmployee }} <br>
+                        Total employee
                     </h3>
-                    <br>
-                    <span class="font-semibold card-subtitle text-xl">
-                                Total employee
-                            </span>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="lg:col-span-3 col-span-12 grid grid-cols-12 gap-3 h-fit">
-
-
-        <div class="lg:col-span-12 col-span-12 h-fit">
-            <div class="card">
-                <div class="card-body flex-row py-4 flex items-center gap-2">
+        <div class="card">
+            <div class="card-body flex-row py-4 flex items-center gap-2">
+                <div>
                     <div class="bg-primary h-10 w-10 p-1 text-center text-white" style="border-radius: 100px">
                         <i class="ti ti-users text-2xl"></i>
                     </div>
-                    <div class="">
-                        <h5 class="xl:text-xl text-base leading-normal">
-                            {{--                                    {{ User::whereHas('meta',function ($q){$q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('meta_value','like','%contributor%');})->count() }}--}}
-                        </h5>
-                        <span class="text-md flex items-center gap-1 ">
-                                    Employee has complete the course
-                                </span>
-                    </div>
-                    <a class="ms-auto text-2xl" style="border-radius: 40px">
+                </div>
+                <div class="">
+                    <h5 class="xl:text-xl text-base leading-normal">
+                        {{ $userEmployee }}
+                    </h5>
+                    <span class="text-md flex items-center gap-1 ">
+                        Employee has complete the course
+                    </span>
+                </div>
+                <div>
+                    <div class="text-2xl" style="border-radius: 40px">
                         <i class="ti ti-arrow-up-right"></i>
-                    </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body flex-row py-4 flex items-center gap-2">
+                <div class="bg-primary h-10 w-10 p-1 text-center text-white" style="border-radius: 100px">
+                    <i class="ti ti-users text-2xl"></i>
+                </div>
+                <div class="">
+                    <h5 class="xl:text-xl text-base leading-normal">
+                        {{ $userEmployee }}
+                    </h5>
+                    <span class="text-md flex items-center gap-1 ">
+                        Employee has complete the course
+                    </span>
+                </div>
+                <div>
+                    <div class="text-2xl" style="border-radius: 40px">
+                        <i class="ti ti-arrow-up-right"></i>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="lg:col-span-12 col-span-12 h-fit">
-            <div class="card">
-                <div class="card-body flex-row py-4 flex items-center gap-2">
-                    <div class="bg-primary h-10 w-10 p-1 text-center text-white" style="border-radius: 100px">
-                        <i class="ti ti-users text-2xl"></i>
-                    </div>
-                    <div class="">
-                        <h5 class="xl:text-xl text-base leading-normal">
-                            {{--                                    {{ Company::count() }}--}}
-                        </h5>
-                        <span class="text-lg flex items-center gap-1">
-                                    Employee has not yet completed the Course
-                                </span>
-                    </div>
-                    <a class="ms-auto text-2xl" style="border-radius: 40px">
-                        <i class="ti ti-arrow-up-right"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
 
-        {{--                <div class="lg:col-span-12 col-span-12 h-fit">--}}
-        {{--                    <div class="card">--}}
-        {{--                        <div class="card-body flex-row py-4 flex items-center gap-2">--}}
-        {{--                            <div class="bg-success h-10 w-10 p-1 text-center text-white" style="border-radius: 100px">--}}
-        {{--                                <i class="ti ti-users text-2xl"></i>--}}
-        {{--                            </div>--}}
-        {{--                            <div class="">--}}
-        {{--                                <h5 class="xl:text-xl text-base leading-normal">--}}
-        {{--                                    {{ User::whereHas('meta',function ($q){--}}
-        {{--$q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('meta_value','like','%subscriber%');--}}
-        {{--})->count() }}--}}
-        {{--                                </h5>--}}
-        {{--                                <span class="text-lg flex items-center gap-1">--}}
-        {{--                                    Employee--}}
-        {{--                                </span>--}}
-        {{--                            </div>--}}
-        {{--                            <a class="ms-auto text-2xl" style="border-radius: 40px">--}}
-        {{--                                <i class="ti ti-arrow-up-right"></i>--}}
-        {{--                            </a>--}}
-        {{--                        </div>--}}
-        {{--                    </div>--}}
-        {{--                </div>--}}
         <div class="lg:col-span-12 md:col-span-12 sm:col-span-12 col-span-12">
             <div class="card">
                 <div class="card-body pb-8">
@@ -203,31 +171,29 @@ $q->where('meta_key','company')
     </div>
 
 
-
-
-{{--    @php($pageTitle = ['Revitalize', 'Transform','Sustain'])--}}
-{{--    @foreach($pageTitle as $pt)--}}
-{{--        <div class="lg:col-span-4 md:col-span-6 sm:col-span-12 col-span-12">--}}
-{{--            <div class="card">--}}
-{{--                <div class="card-body flex-row py-4 flex items-center gap-2">--}}
-{{--                    <div class="bg-primary h-10 w-10 p-1 text-center text-white" style="border-radius: 100px">--}}
-{{--                        <i class="ti ti-users text-2xl"></i>--}}
-{{--                    </div>--}}
-{{--                    <div class="">--}}
-{{--                        <h5 class="text-3xl leading-normal">--}}
-{{--                            {{ \App\Models\CourseList::where('course_title',$pt)->count() }}--}}
-{{--                        </h5>--}}
-{{--                        <span class="text-lg flex items-center gap-1">--}}
-{{--                                {{ $pt }}--}}
-{{--                            </span>--}}
-{{--                    </div>--}}
-{{--                    <a class="ms-auto text-2xl" style="border-radius: 40px">--}}
-{{--                        <i class="ti ti-arrow-up-right"></i>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    @endforeach--}}
+    {{--    @php($pageTitle = ['Revitalize', 'Transform','Sustain'])--}}
+    {{--    @foreach($pageTitle as $pt)--}}
+    {{--        <div class="lg:col-span-4 md:col-span-6 sm:col-span-12 col-span-12">--}}
+    {{--            <div class="card">--}}
+    {{--                <div class="card-body flex-row py-4 flex items-center gap-2">--}}
+    {{--                    <div class="bg-primary h-10 w-10 p-1 text-center text-white" style="border-radius: 100px">--}}
+    {{--                        <i class="ti ti-users text-2xl"></i>--}}
+    {{--                    </div>--}}
+    {{--                    <div class="">--}}
+    {{--                        <h5 class="text-3xl leading-normal">--}}
+    {{--                            {{ \App\Models\CourseList::where('course_title',$pt)->count() }}--}}
+    {{--                        </h5>--}}
+    {{--                        <span class="text-lg flex items-center gap-1">--}}
+    {{--                                {{ $pt }}--}}
+    {{--                            </span>--}}
+    {{--                    </div>--}}
+    {{--                    <a class="ms-auto text-2xl" style="border-radius: 40px">--}}
+    {{--                        <i class="ti ti-arrow-up-right"></i>--}}
+    {{--                    </a>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    @endforeach--}}
 </div>
 
 
