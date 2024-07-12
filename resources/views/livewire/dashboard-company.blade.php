@@ -3,7 +3,7 @@
 @endphp
 <div class="col-span-12 grid grid-cols-12 gap-3">
 
-    <div class="lg:col-span-3 md:col-span-6 sm:col-span-6 col-span-12 flex gap-1 flex-wrap">
+    <div class="lg:col-span-4 md:col-span-4 sm:col-span-6 col-span-12 flex gap-1 flex-wrap">
         <div class="card shadow-none w-full" style="height: 280px">
             <div class="card-body p-6">
                 <div class="flex items-center">
@@ -70,20 +70,19 @@
             </div>
         </div>
 
-        <div class="lg:col-span-12 md:col-span-12 sm:col-span-12 col-span-12">
-            <div class="card">
-                <div class="card-body pb-8">
-                    <h5 class="card-title">User Growth</h5>
-                    <p class="card-subtitle">Every month</p>
-                    <div class="-me-12">
-                        <div id="chart" class=""></div>
-                    </div>
+        <div class="card">
+            <div class="card-body pb-8">
+                <h5 class="card-title">User Growth</h5>
+                <p class="card-subtitle">Every month</p>
+                <div class="-me-12">
+                    <div id="chart" class=""></div>
                 </div>
             </div>
         </div>
 
     </div>
-    <div class="lg:col-span-6 md:col-span-6 sm:col-span-12 col-span-12">
+
+    <div class="lg:col-span-8 md:col-span-8 sm:col-span-12 col-span-12">
         <h2 class="text-2xl">Employee</h2>
         <div class="overflow-y-auto" style="max-height: 90vh">
             <table class="min-w-full divide-y divide-border dark:divide-darkborder ">
