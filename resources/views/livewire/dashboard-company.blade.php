@@ -15,14 +15,14 @@
                 </div>
                 <div class="items-center justify-between mt-5">
                     <h3 class="text-2xl">
-                        {{ User::whereHas('meta',function ($q){
+                        {{ \App\Models\User::whereHas('meta',function ($q){
 $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')
 ->where('meta_value','like','%subscriber%');
 })->whereHas('meta',function ($q){
 $q->where('meta_key','company')
 ->where('meta_value',$companyId);
 })->count() }}
-                        {{ CompanyEmployee::where('company_id',$companyId)->count() }}
+                        {{ \App\Models\CompanyEmployee::where('company_id',$companyId)->count() }}
                         {{--                                {{ User::count() - User::whereHas('meta',function ($q){$q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')->where('meta_value','like','%administrator%');})->count() }}--}}
                     </h3>
                     <br>
@@ -172,7 +172,7 @@ $q->where('meta_key','company')
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-border dark:divide-darkborder">
-                @foreach(Company::orderBy('title')->get() as $c)
+                @foreach(\App\Models\Company::orderBy('title')->get() as $c)
                     <tr>
                         <td class="p-2 ps-0 whitespace-nowrap" style="padding-left: 25px">
                             {{ $c->title }}
@@ -241,7 +241,7 @@ $q->where('meta_key','company')
                     name: "{{ $series[0] }}",
                     data: [
                         @for($i=0; $i<3;$i++)
-                            {{ User::whereHas('meta',function ($q){
+                            {{ \App\Models\User::whereHas('meta',function ($q){
 $q->where('meta_key',config('app.wp_prefix', 'wp_') . 'capabilities')
 ->where('meta_value','like','%subscriber%');
 })->whereHas('meta',function ($q){
