@@ -4,6 +4,7 @@
         $user = Auth::user();
         $company = $user->meta->where('meta_key', '=', 'company')->first();
         $companyId = $company['meta_value'];
+        dd($companyId);
     @endphp
     <div class="px-5 text-3xl">
         Dashboard
