@@ -1,15 +1,16 @@
 @php use App\Models\Company;use App\Models\CompanyEmployee;use App\Models\CourseList;use App\Models\User;use Carbon\Carbon;use Illuminate\Support\Facades\Auth; @endphp
 <x-admin-layout xmlns:livewire="http://www.w3.org/1999/html">
-    @php
-        $user = Auth::user();
-        $company = $user->meta->where('meta_key', '=', 'company')->first();
-        $companyId = $company['meta_value'];
-        dd($companyId);
-    @endphp
+
     <div class="px-5 text-3xl">
         Dashboard
     </div>
     <div class="px-5 py-5">
+        @php
+            $user = Auth::user();
+            $company = $user->meta->where('meta_key', '=', 'company')->first();
+            $companyId = $company['meta_value'];
+    //        dd($companyId);
+        @endphp
         <div class="col-span-12 grid grid-cols-12 gap-3">
             <div class="lg:col-span-3 md:col-span-6 sm:col-span-6 col-span-12">
                 <div class="card shadow-none w-full" style="height: 280px">
