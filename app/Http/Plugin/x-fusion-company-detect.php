@@ -17,6 +17,12 @@ function company_detect()
         var data = {
             url: window.location.href.split('?')[0]
         }
+
+        const addQueryParam = (key, value) => {
+            const url = new URL(window.location.href);
+            url.searchParams.set(key, value);
+            window.history.pushState({}, '', url.toString());
+        };
         document.addEventListener('DOMContentLoaded', function () {
             jQuery.ajax({
                 url: '<?php echo admin_url('admin-ajax.php'); ?>',
@@ -25,8 +31,12 @@ function company_detect()
                 data: {
                     action: 'get_company_info',
                     url: window.location.href.split('?')[0],
+                    param:window.location.href.split('?')[1],
                 },
                 success: function (response) {
+                    if(response.data.status ==="setId"){
+                        addQueryParam('dataId',response.data.dataId)
+                    }
                     if (response.data.status === "redirect") {
                         window.setTimeout(
                             function () {
@@ -61,13 +71,16 @@ function get_company_info()
 {
     global $wpdb;
 
+
     $url = $_POST['url'];
     $query = "select * from course_lists where url='$url'";
     $limitLinks = $wpdb->get_results($query);
     foreach ($limitLinks as $limit) {
+
         $userID = get_current_user_id();
 
         if ($userID != null) {
+
 
             $companyID = get_usermeta($userID, 'company');
 
@@ -87,10 +100,26 @@ function get_company_info()
                 $result['logo_url'] = $log->logo_url;
                 $result['qrcode_url'] = $log->qrcode_url;
             }
-            if ( in_array( 'subscriber', $user_roles, true ) or in_array( 'administrator', $user_roles, true ) ) {
+
+            if ( in_array( 'editor', $user_roles, true ) or in_array( 'administrator', $user_roles, true ) ) {
                 wp_send_json_success(['logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
                 wp_die();
             }
+
+            $query = "SELECT id FROM wp_gf_entry where source_url = '$url' and created_by = '$userID' and status='active'";
+            $checkEntry = $wpdb->get_results($query);
+
+            foreach ($checkEntry as $check) {
+                $message = "You've done this course";
+                $status = 'redirect';
+                if($_POST['param']=='dataId='.$check->id){
+                    wp_send_json_success(['logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
+                    wp_die();
+                }
+                wp_send_json_success(['url' => $url.'/?dataId='.$check->id,'dataId'=>$check->id, 'status' => $status, 'message' => $message, 'logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
+                wp_die();
+            }
+
 
             $query = "select * from schedule_executions where link='$url' and company_id =$companyID and user_id ='$userID'";
             $schedules = $wpdb->get_results($query);
@@ -146,6 +175,9 @@ function get_company_info()
                     wp_send_json_success(['logo_url' => $result['logo_url'], 'qrcode_url' => $result['qrcode_url']]);
                     wp_die();
                 }
+
+
+
 
                 // schedule cukup buat 1 tanpa waktu generate dari create user
 

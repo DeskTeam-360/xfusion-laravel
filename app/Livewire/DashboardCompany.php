@@ -38,7 +38,7 @@ class DashboardCompany extends Component
 
         foreach ($this->userEmployee as $c){
             $link = \App\Models\ScheduleExecution::where('user_id',$c->ID)->get()->pluck('link')->toArray();
-            $courseComplete = \App\Models\WpGfEntry::where('created_by',$c->ID)->whereIn('source_url',$link)->count();
+            $courseComplete = \App\Models\WpGfEntry::where('created_by',$c->ID)->where('status','active')->whereIn('source_url',$link)->count();
             $course = \App\Models\ScheduleExecution::where('user_id',$c->ID)->count();
             if ($courseComplete==$course){
                 $this->complete+=1;

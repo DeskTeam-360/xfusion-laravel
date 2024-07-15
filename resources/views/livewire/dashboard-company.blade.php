@@ -151,7 +151,7 @@
                         <td class=" whitespace-nowrap  dark:text-darklink p-2 text-center">
                             @php
                                 $link = \App\Models\ScheduleExecution::where('user_id',$c->ID)->get()->pluck('link')->toArray();
-                                $courseComplete = \App\Models\WpGfEntry::where('created_by',$c->ID)->whereIn('source_url',$link)->count();
+                                $courseComplete = \App\Models\WpGfEntry::where('created_by',$c->ID)->whereIn('source_url',$link)->where('status','active')->count();
                                 $course = \App\Models\ScheduleExecution::where('user_id',$c->ID)->count();
                             @endphp
                             @if($course==0)
@@ -163,7 +163,7 @@
                             @endif
                         </td>
                         <td class="p-2 whitespace-nowrap text-center">
-                            @php($lms = \App\Models\WpGfEntry::where('created_by',$c->ID)->whereIn('source_url',$link)->first() )
+                            @php($lms = \App\Models\WpGfEntry::where('created_by',$c->ID)->whereIn('source_url',$link)->where('status','active')->first() )
                             {{ $lms!=null ? Carbon::parse($lms->date_created)->format('F d,Y') : '-' }}
                         </td>
                         <td class=" whitespace-nowrap  dark:text-darklink p-2 text-center">
