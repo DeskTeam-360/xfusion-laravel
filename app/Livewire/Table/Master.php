@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Table;
 
+use App\Models\WpGfEntry;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -25,7 +26,7 @@ class Master extends Component
     public $sortAsc = false;
     public $search = '';
     protected $paginationTheme = 'tailwind';
-    protected $listeners = ["deleteItem" => "delete_item", 'delete' => 'delete'];
+    protected $listeners = ["deleteItem" => "delete_item", 'delete' => 'delete','trash'=>'trash','trashItem'=>'trash_item'];
 
     public function sortBy($field)
     {
@@ -44,11 +45,13 @@ class Master extends Component
 //        ]);
     }
 
+
+
     public function deleteItem($id)
     {
         $this->data = $this->model::find($id);
         if (!$this->data) {
-            $this->dispatch("deleteResult", ["status" => false, "message" => "Gagal menghapus data " . $this->name]);
+            $this->dispatch("deleteResult", ["status" => false, "message" => "Failed remove " . $this->name]);
             return;
         }
         $this->dispatch('swal:confirm', data:[
@@ -57,7 +60,29 @@ class Master extends Component
             'confirmText' => 'Delete',
             'method' => 'delete',
         ]);
+    }
 
+    public function trashItem($id)
+    {
+        $this->data = WpGfEntry::find($id);
+        if (!$this->data) {
+            $this->dispatch("deleteResult", ["status" => false, "message" => "Failed remove data"]);
+            return;
+        }
+        $this->dispatch('swal:confirm', data:[
+            'icon' => 'warning',
+            'title' => 'Are you sure delete this data',
+            'confirmText' => 'Delete',
+            'method' => 'trash',
+        ]);
+    }
+
+    public function trash()
+    {
+//        $wf = WpGfEntry::find($id);
+        $this->data->status = 'trash';
+        $this->data->save();
+        $this->toastAlert('success','Successfully deleted data');
     }
 
     public function toastAlert($icon,$text)

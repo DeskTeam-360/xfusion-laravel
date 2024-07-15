@@ -7,19 +7,11 @@ use App\Models\WpGfEntry;
 
 class Employee extends Master
 {
-    public function trash($id):void
+    public function trash($id)
     {
         $wf = WpGfEntry::find($id);
         $wf->status = 'trash';
         $wf->save();
-//        $wf->update([
-//            'status' => 'trash'
-//        ]);
-
         $this->toastAlert('success','Successfully deleted data');
-//        $this->dispatch('toastAlert',[
-//            'icon'=>'success',
-//            'title' => 'Successfully deleted data',
-//        ]);
     }
 }
