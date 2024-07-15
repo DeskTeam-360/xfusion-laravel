@@ -15,9 +15,11 @@ class Employee extends Master
 //        $wf->update([
 //            'status' => 'trash'
 //        ]);
-        $this->dispatch('toastAlert',[
-            'icon'=>'success',
-            'title' => 'Successfully deleted data',
-        ]);
+
+        $this->toastAlert('success','Successfully deleted data');
+//        $this->dispatch('toastAlert',[
+//            'icon'=>'success',
+//            'title' => 'Successfully deleted data',
+//        ]);
     }
 }
