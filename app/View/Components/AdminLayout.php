@@ -24,7 +24,15 @@ class AdminLayout extends Component
 
         $user = Auth::user();
         $company = $user->meta->where('meta_key', '=', 'company')->first();
-        if ($company!=null){
+
+        $user = Auth::user();
+        $ru = $user->meta->where('meta_key', '=', config('app.wp_prefix', 'wp_') . 'capabilities');
+        $role = '';
+        foreach ($ru as $r) {
+            $role = array_key_first(unserialize($r['meta_value']));
+        }
+
+        if ($role != "administrator" && $company!=null) {
             $companyId = $company['meta_value'];
             $this->logoLight = Storage::url(Company::find($companyId)->logo_url);
             $this->logoDark = Storage::url(Company::find($companyId)->logo_url);
