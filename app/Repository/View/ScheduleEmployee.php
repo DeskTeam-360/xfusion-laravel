@@ -89,7 +89,7 @@ class ScheduleEmployee extends ScheduleExecution implements View
         if ($gfEntry != null) {
             $url = $link . '?dataId=' . $gfEntry->id;
             $result = "<a href='$url' target='_blank' class='btn bg-blue-300 text-nowrap' >Look result</a>
-<a href='#' wire:click='trash($gfEntry->id)' class='btn bg-error text-nowrap' >Delete Record</a>
+<button  wire:click='trash($gfEntry->id)' class='btn bg-error text-nowrap' >Delete Record</button>
 ";
         }
 
