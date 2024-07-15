@@ -59,8 +59,12 @@
                 </thead>
                 <tbody>
                 @foreach ($datas as $index=>$data)
-                    <tr class=" border-b border-gray-200 ">
+
+                    <tr class="border-b border-gray-200 ">
                         @foreach ($model::tableData($data) as $data)
+                            @if($data == null)
+                                @continue
+                            @endif
                             @switch($data['type'])
                                 @case('index')
                                     <td class="py-4 px-6"

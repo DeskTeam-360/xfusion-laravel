@@ -83,6 +83,7 @@ class Master extends Component
         $this->data->status = 'trash';
         $this->data->save();
         $this->toastAlert('success','Successfully deleted data');
+        $this->render();
     }
 
     public function toastAlert($icon,$text)
