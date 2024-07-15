@@ -10,9 +10,11 @@ class Employee extends Master
     public function trash($id):void
     {
         $wf = WpGfEntry::find($id);
-        $wf->update([
-            'status' => 'trash'
-        ]);
+        $wf->status = 'trash';
+        $wf->save();
+//        $wf->update([
+//            'status' => 'trash'
+//        ]);
         $this->dispatch('toastAlert',[
             'icon'=>'success',
             'title' => 'Successfully deleted data',
