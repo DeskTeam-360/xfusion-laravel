@@ -5,7 +5,7 @@
                 <a href="{{ route('company.schedule-create',$id) }}" class="btn btn-primary">Create Schedule</a>
             @endif
 
-            <livewire:table.master name="ScheduleEmployee" :param1="$id" :param2="$userID"/>
+            <livewire:table.employee name="ScheduleEmployee" :param1="$id" :param2="$userID"/>
         </div>
     </div>
 </x-admin-layout>
