@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('limit_link_with_times');
+        Schema::dropIfExists('course_lists');
     }
 };

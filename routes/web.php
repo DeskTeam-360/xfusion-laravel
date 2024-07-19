@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CompanyController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\LimitLinkController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +51,7 @@ Route::middleware([
     ])->group(function () {
         Route::resource('company', CompanyController::class)->only('index', 'create', 'edit');
         Route::resource('user', UserController::class)->only('index', 'create', 'edit', 'show');
+        Route::resource('report', ReportController::class)->only('index', 'create', 'edit');
 
         Route::resource('course-title', LimitLinkController::class)->only('index','create','edit');
 
@@ -65,6 +67,11 @@ Route::middleware([
         Route::get('/course/schedule/generate/', [CompanyController::class, 'courseScheduleGenerate'])->name('course-schedule-generate');
         Route::get('/course/schedule/generate/create', [CompanyController::class, 'courseScheduleGenerateCreate'])->name('course-schedule-generate-create');
         Route::get('/course/schedule/generate/edit/{id}', [CompanyController::class, 'courseScheduleGenerateEdit'])->name('course-schedule-generate-edit');
+        Route::get('/report/seasonId/{Id}', [ReportController::class, 'seasonCourseEmployee'])->name('season-course-employee');
+        Route::get('/report/seasonId', [ReportController::class, 'seasonCourseIndex'])->name('season-course-index');
+        Route::get('/report/seasonId/courseId/{formId}/{entryId}/{dateCreated}', [ReportController::class, 'seasonEmployeeDetail'])->name('season-employee-detail');
+
+
 
     });
     Route::get('company/{id}', [CompanyController::class, 'show'])->name('company.show');

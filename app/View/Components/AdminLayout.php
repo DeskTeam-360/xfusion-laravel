@@ -84,6 +84,8 @@ class AdminLayout extends Component
             $this->sidebar[0]['lists'][] = ['title' => 'Course list', 'type' => 'link', 'route' => route('course-title.index'), 'icon' => '<i class="ti ti-webhook  text-xl flex-shrink-0"></i> '];
 //            $this->sidebar[0]['lists'][] = ['title' => 'All Schedule', 'type' => 'link', 'route' => route('schedule-all'), 'icon' => '<i class="ti ti-clock  text-xl flex-shrink-0"></i> '];
             $this->sidebar[0]['lists'][] = ['title' => 'Schedule generate', 'type' => 'link', 'route' => route('course-schedule-generate'), 'icon' => '<i class="ti ti-template  text-xl flex-shrink-0"></i> '];
+            $this->sidebar[0]['lists'][] = ['title' => 'Report', 'type' => 'link', 'route' => route('report.index'), 'icon' => '<i class="ti ti-user  text-xl flex-shrink-0"></i> '];
+
         }
         if ($role == 'editor') {
             $companies = $user->meta->where('meta_key', '=', 'company');
