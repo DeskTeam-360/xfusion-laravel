@@ -67,9 +67,9 @@ Route::middleware([
         Route::get('/course/schedule/generate/', [CompanyController::class, 'courseScheduleGenerate'])->name('course-schedule-generate');
         Route::get('/course/schedule/generate/create', [CompanyController::class, 'courseScheduleGenerateCreate'])->name('course-schedule-generate-create');
         Route::get('/course/schedule/generate/edit/{id}', [CompanyController::class, 'courseScheduleGenerateEdit'])->name('course-schedule-generate-edit');
-        Route::get('/report/seasonId/{Id}', [ReportController::class, 'seasonCourseEmployee'])->name('season-course-employee');
-        Route::get('/report/seasonId', [ReportController::class, 'seasonCourseIndex'])->name('season-course-index');
-        Route::get('/report/seasonId/courseId/{formId}/{entryId}/{dateCreated}', [ReportController::class, 'seasonEmployeeDetail'])->name('season-employee-detail');
+        Route::get('/report/season-{seasonId}', [ReportController::class, 'seasonCourseEmployee'])->name('season-course-employee');
+        Route::get('/report/season-{seasonId}/user-{userId}/course', [ReportController::class, 'seasonCourseIndex'])->name('season-course-index');
+        Route::get('/report/season-{seasonId}/user-{userId}/form-{formId}/entry-{entryId}/detail', [ReportController::class, 'courseDetail'])->name('course-detail');
 
 
 

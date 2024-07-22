@@ -6,51 +6,39 @@
 
             <div class="customizer-box label btn" style="margin-bottom: 30px; margin-top: 40px;">REVITALIZE</div>
 
-            <div class="flex gap-8">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-title">
-                            <a href="{{ route('season-course-index') }}">Season 1</a>
-                        </div>
-                        <div class="card-subtitle">
-                            15 Course
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-title">
-                            Season 2
-                        </div>
-                        <div class="card-subtitle">
-                            10 Course
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-title">
-                            Season 3
-                        </div>
-                        <div class="card-subtitle">
-                            10 Course
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-title">
-                            Season 4
-                        </div>
-                        <div class="card-subtitle">
-                            7 Course
-                        </div>
-                    </div>
-                </div>
+            @php
+                $temp_loop = 0;
+            @endphp
+            @foreach($data as $d)
+                @if($temp_loop == 0)
+                    <div class="flex gap-8">
+                @endif
 
-            </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <a href="{{ route('season-course-employee', $d->id) }}">{{ $d->season_title }}</a>
+                            </div>
+                            <div class="card-subtitle">
+                                {{ \App\Models\CourseGroup::where('season_id', $d->id)->count() }} Courses
+                            </div>
+                        </div>
+                    </div>
+                        @php
+                            $temp_loop += 1;
+                        @endphp
+                @if($temp_loop == 4)
+                    </div>
+                    @php
+                        $temp_loop = 0;
+                    @endphp
+                @endif
+            @endforeach
 
-            <div class="customizer-box label btn" style="margin-bottom: 30px; margin-top: 40px;">SUSTAIN</div>
+
+        </div>
+
+        <div class="customizer-box label btn" style="margin-bottom: 30px; margin-top: 40px;">SUSTAIN</div>
 
             <div class="flex gap-8">
                 <div class="card">

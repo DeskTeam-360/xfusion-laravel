@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\CourseGroup;
+use App\Models\CourseList;
+use App\Models\ScheduleExecution;
+use App\Models\Season;
 use App\Models\User;
 use App\Models\WpGfEntry;
 use App\Models\WpGfForm;
@@ -15,44 +19,60 @@ class ReportController extends Controller
 {
     public function index()
     {
+        $data = Season::all();
+
         return view(
-            'admin.report.index'
+            'admin.report.index', compact('data')
         );
     }
 
     public function seasonCourseEmployee($id)
     {
-        $data = WpGfEntry::select('id', 'created_by', 'date_created')
-                    ->where('form_id', $id)
+
+        $data = ScheduleExecution::where('season_id', $id)
+                            ->distinct()
+                            ->pluck('user_id');
+
+//        dd($data);
+
+        return view(
+            'admin.report.season-course-employee', compact('data', 'id')
+        );
+    }
+
+    public function seasonCourseIndex($id, $d)
+    {
+        $data_form = ScheduleExecution::where('user_id', $d)->get();
+//        dd($data_form);
+        $season_id = $id;
+        $user_id = $d;
+
+        $form_id = CourseList::where('url', 'https://teamsetup-2.deskteam360.com/revitalize/lms-page-'. $id .'/')
+                ->pluck('wp_gf_form_id')[0];
+        $entry_id = WpGfEntry::select('id', 'created_by', 'date_created')
+                    ->where('form_id', $form_id)
+                    ->where('created_by', $user_id)
                     ->whereNotNull('created_by')
-                    ->whereIn(DB::raw('(created_by, date_created)'), function($query) use ($id) {
+                    ->whereIn(DB::raw('(created_by, date_created)'), function($query) use ($form_id) {
                         $query->select(DB::raw('created_by, MAX(date_created)'))
                               ->from('wp_gf_entry')
-                              ->where('form_id', $id)
+                              ->where('form_id', $form_id)
                               ->whereNotNull('created_by')
                               ->groupBy('created_by');
                     })
-                    ->get();
-//        dd($data);
+                    ->pluck('id')[0];
 
-        $formId = $id;
-
+//        dd($entry_id);
         return view(
-            'admin.report.season-course-employee', compact('data', 'formId')
+            'admin.report.season-course-index', compact('data_form', 'season_id', 'user_id')
         );
     }
 
-    public function seasonCourseIndex()
+    public function courseDetail($seasonId, $userId, $formId, $entryId)
     {
-        $data_form = WpGfForm::all();
+        $season_id = $seasonId;
+        $user_id = $userId;
 
-        return view(
-            'admin.report.season-course-index', compact('data_form')
-        );
-    }
-
-    public function seasonEmployeeDetail($formId, $entryId, $dateCreated)
-    {
         $data = WpGfFormMeta::where('form_id', $formId)->first();
 //        dd($data);
         $data_entry = WpGfEntryMeta::where('form_id', $formId)->where('entry_id', $entryId)->get();
@@ -90,6 +110,6 @@ class ReportController extends Controller
         $data_fields = $data->getFields()->fields;
 
         // dd($count_fields);
-        return view('admin.report.season-employee-detail', compact('data_fields', 'lms', 'count_fields', 'array_entry','entryId'));
+        return view('admin.report.season-employee-detail', compact('season_id', 'user_id','data_fields', 'lms', 'count_fields', 'array_entry','entryId'));
     }
 }

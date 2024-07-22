@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ScheduleExecution extends Model
 {
     use HasFactory;
-    protected $fillable=['link', 'company_id', 'user_id', 'status', 'title','schedule_access','schedule_deadline'];
+    protected $fillable=['link', 'company_id', 'user_id', 'season_id', 'status', 'title','schedule_access','schedule_deadline'];
 
     public function company(): BelongsTo
     {
